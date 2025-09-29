@@ -102,7 +102,7 @@ async function fetchAllRepositories() {
         name: repo.name,
         owner: repo.owner.login,
         fullName: repo.full_name,
-        description: (repo.description || '').replace(/[\\\"\\n\\r]/g, ' ').trim(),
+        description: (repo.description || '').replace(/["\n\r]/g, ' ').trim(),
         url: repo.html_url,
         language: repo.language || 'Unknown',
         stars: repo.stargazers_count,
