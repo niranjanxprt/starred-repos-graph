@@ -8,6 +8,7 @@ class GitHubStarsGraph {
         this.tooltip = null;
         this.width = window.innerWidth;
         this.height = window.innerHeight;
+        this.dataLastUpdated = null; // ISO timestamp when data was last updated
         
         // Enhanced category definitions with comprehensive keywords
         this.categories = {
@@ -103,6 +104,15 @@ class GitHubStarsGraph {
                 this.resetFilters();
             }
         });
+
+        // Refresh button -> open GitHub Actions Run Workflow page in a new tab
+        const refreshBtn = document.getElementById('refresh-now');
+        if (refreshBtn) {
+            refreshBtn.addEventListener('click', () => {
+                const workflowUrl = 'https://github.com/niranjanxprt/starred-repos-graph/actions/workflows/update-data.yml';
+                window.open(workflowUrl, '_blank');
+            });
+        }
     }
     
     async loadRepositories() {
@@ -117,6 +127,7 @@ class GitHubStarsGraph {
                 if (response.ok) {
                     const data = await response.json();
                     this.repositories = data.repositories || [];
+                    this.dataLastUpdated = data.lastUpdated || null;
                     console.log(`Loaded ${this.repositories.length} repositories from data file`);
                     this.updateStats();
                     return;
@@ -183,6 +194,10 @@ class GitHubStarsGraph {
             }
             
             console.log(`Successfully loaded ${this.repositories.length} repositories`);
+            // Mark last updated from live API fetch time if file wasn't used
+            if (!this.dataLastUpdated) {
+                this.dataLastUpdated = new Date().toISOString();
+            }
             this.updateStats();
             
         } catch (error) {
@@ -650,7 +665,9 @@ class GitHubStarsGraph {
     updateStats() {
         document.getElementById('total-repos').textContent = this.repositories.length;
         document.getElementById('visible-repos').textContent = this.filteredRepositories.length;
-        document.getElementById('last-updated').textContent = new Date().toLocaleString('en-US', {
+        const updatedEl = document.getElementById('last-updated');
+        const ts = this.dataLastUpdated ? new Date(this.dataLastUpdated) : new Date();
+        updatedEl.textContent = ts.toLocaleString('en-US', {
             month: 'short',
             day: 'numeric',
             hour: '2-digit',

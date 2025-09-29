@@ -380,6 +380,29 @@
             margin: 10px 0;
             text-align: center;
         }
+
+        /* Header actions */
+        .header-actions {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .refresh-btn {
+            padding: 8px 12px;
+            border: 1px solid rgba(255,255,255,0.2);
+            background: rgba(255,255,255,0.12);
+            color: white;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            font-size: 12px;
+            font-weight: 600;
+            backdrop-filter: blur(8px);
+        }
+        .refresh-btn:hover {
+            background: rgba(255,255,255,0.22);
+            transform: translateY(-1px);
+        }
     </style>
 </head>
 <body>
@@ -398,6 +421,9 @@
                 <div style="font-size: 12px;" id="last-updated">Loading...</div>
                 <div>Updated</div>
             </div>
+        </div>
+        <div class="header-actions">
+            <button id="refresh-now" class="refresh-btn" title="Open GitHub Actions to refresh data">🔄 Refresh Data</button>
         </div>
     </div>
 
