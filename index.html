@@ -3,104 +3,190 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Starred Repositories Graph Visualization</title>
+    <title>🌟 GitHub Stars Graph - 699+ Repositories</title>
     <script src="https://d3js.org/d3.v7.min.js"></script>
     <style>
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        * {
             margin: 0;
             padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
             color: white;
             overflow: hidden;
         }
 
-        .header {
+        .app-header {
             position: fixed;
             top: 0;
             left: 0;
             right: 0;
             background: rgba(0, 0, 0, 0.8);
-            backdrop-filter: blur(10px);
-            padding: 15px;
+            backdrop-filter: blur(15px);
+            padding: 15px 25px;
             z-index: 1000;
             display: flex;
             justify-content: space-between;
             align-items: center;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
         }
 
         .title {
             font-size: 24px;
-            font-weight: bold;
-            margin: 0;
+            font-weight: 700;
+            background: linear-gradient(45deg, #ffd700, #ff6b6b);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
         }
 
         .stats {
             display: flex;
-            gap: 20px;
+            gap: 25px;
             font-size: 14px;
+            font-weight: 500;
         }
 
-        .controls {
+        .stat-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+        }
+
+        .stat-number {
+            font-size: 18px;
+            font-weight: bold;
+            color: #4ECDC4;
+        }
+
+        .controls-panel {
             position: fixed;
             top: 80px;
-            left: 15px;
-            background: rgba(0, 0, 0, 0.8);
-            backdrop-filter: blur(10px);
-            padding: 15px;
-            border-radius: 10px;
+            left: 20px;
+            background: rgba(0, 0, 0, 0.85);
+            backdrop-filter: blur(15px);
+            padding: 20px;
+            border-radius: 15px;
             z-index: 999;
-            max-width: 250px;
+            max-width: 320px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
         }
 
-        .control-group {
-            margin-bottom: 15px;
+        .control-section {
+            margin-bottom: 20px;
         }
 
-        .control-group label {
+        .control-label {
             display: block;
-            margin-bottom: 5px;
+            margin-bottom: 8px;
             font-size: 14px;
-            font-weight: bold;
+            font-weight: 600;
+            color: #E2E8F0;
         }
 
         .search-input {
             width: 100%;
-            padding: 8px;
+            padding: 12px 15px;
             border: none;
-            border-radius: 5px;
+            border-radius: 8px;
             background: rgba(255, 255, 255, 0.1);
             color: white;
             font-size: 14px;
+            transition: all 0.3s ease;
+        }
+
+        .search-input:focus {
+            outline: none;
+            background: rgba(255, 255, 255, 0.15);
+            box-shadow: 0 0 0 2px rgba(78, 205, 196, 0.5);
         }
 
         .search-input::placeholder {
             color: rgba(255, 255, 255, 0.6);
         }
 
-        .filter-buttons {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 5px;
+        .filter-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(80px, 1fr));
+            gap: 8px;
+            max-height: 200px;
+            overflow-y: auto;
         }
 
         .filter-btn {
-            padding: 5px 10px;
+            padding: 8px 12px;
             border: none;
-            border-radius: 15px;
-            background: rgba(255, 255, 255, 0.2);
+            border-radius: 20px;
+            background: rgba(255, 255, 255, 0.15);
             color: white;
-            font-size: 12px;
+            font-size: 11px;
+            font-weight: 500;
             cursor: pointer;
             transition: all 0.3s ease;
+            text-transform: capitalize;
+            white-space: nowrap;
         }
 
         .filter-btn:hover {
-            background: rgba(255, 255, 255, 0.3);
+            background: rgba(255, 255, 255, 0.25);
+            transform: translateY(-1px);
         }
 
         .filter-btn.active {
-            background: #4CAF50;
+            background: linear-gradient(45deg, #4ECDC4, #44A08D);
+            box-shadow: 0 4px 15px rgba(78, 205, 196, 0.3);
+        }
+
+        .legend-panel {
+            position: fixed;
+            top: 80px;
+            right: 20px;
+            background: rgba(0, 0, 0, 0.85);
+            backdrop-filter: blur(15px);
+            padding: 20px;
+            border-radius: 15px;
+            z-index: 999;
+            max-width: 250px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            max-height: 400px;
+            overflow-y: auto;
+        }
+
+        .legend-title {
+            font-size: 16px;
+            font-weight: 700;
+            margin-bottom: 15px;
+            color: #E2E8F0;
+        }
+
+        .legend-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 10px;
+            font-size: 12px;
+            font-weight: 500;
+            cursor: pointer;
+            padding: 4px 8px;
+            border-radius: 8px;
+            transition: all 0.2s ease;
+        }
+
+        .legend-item:hover {
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        .legend-color {
+            width: 14px;
+            height: 14px;
+            border-radius: 50%;
+            margin-right: 10px;
+            border: 2px solid rgba(255, 255, 255, 0.2);
+            flex-shrink: 0;
         }
 
         #graph {
@@ -109,59 +195,75 @@
             left: 0;
             width: 100vw;
             height: 100vh;
+            z-index: 1;
         }
 
         .tooltip {
             position: absolute;
-            background: rgba(0, 0, 0, 0.9);
-            color: white;
-            padding: 10px;
-            border-radius: 5px;
-            pointer-events: none;
-            font-size: 12px;
-            max-width: 300px;
-            z-index: 1001;
-        }
-
-        .tooltip h4 {
-            margin: 0 0 5px 0;
-            color: #4CAF50;
-        }
-
-        .tooltip p {
-            margin: 0;
-            line-height: 1.4;
-        }
-
-        .legend {
-            position: fixed;
-            top: 80px;
-            right: 15px;
-            background: rgba(0, 0, 0, 0.8);
+            background: rgba(0, 0, 0, 0.95);
             backdrop-filter: blur(10px);
+            color: white;
             padding: 15px;
             border-radius: 10px;
-            z-index: 999;
-            max-width: 200px;
+            pointer-events: none;
+            font-size: 13px;
+            max-width: 350px;
+            z-index: 1001;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
+            display: none;
         }
 
-        .legend h3 {
-            margin: 0 0 10px 0;
+        .tooltip-title {
             font-size: 16px;
-        }
-
-        .legend-item {
-            display: flex;
-            align-items: center;
+            font-weight: bold;
             margin-bottom: 8px;
-            font-size: 12px;
+            color: #4ECDC4;
+            word-break: break-word;
         }
 
-        .legend-color {
-            width: 12px;
-            height: 12px;
-            border-radius: 50%;
-            margin-right: 8px;
+        .tooltip-owner {
+            font-size: 13px;
+            color: #9CA3AF;
+            margin-bottom: 8px;
+        }
+
+        .tooltip-meta {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 8px;
+            margin-bottom: 10px;
+        }
+
+        .tooltip-stat {
+            font-size: 12px;
+            color: #A0AEC0;
+            background: rgba(255, 255, 255, 0.1);
+            padding: 4px 8px;
+            border-radius: 6px;
+        }
+
+        .tooltip-desc {
+            font-size: 13px;
+            line-height: 1.4;
+            margin-bottom: 8px;
+            color: #E2E8F0;
+        }
+
+        .tooltip-category {
+            display: inline-block;
+            background: rgba(78, 205, 196, 0.2);
+            color: #4ECDC4;
+            padding: 2px 8px;
+            border-radius: 12px;
+            font-size: 11px;
+            margin-bottom: 8px;
+        }
+
+        .tooltip-action {
+            font-size: 11px;
+            color: #4ECDC4;
+            font-style: italic;
         }
 
         .loading {
@@ -171,16 +273,26 @@
             transform: translate(-50%, -50%);
             text-align: center;
             z-index: 1002;
+            background: rgba(0, 0, 0, 0.8);
+            padding: 40px;
+            border-radius: 15px;
+            backdrop-filter: blur(10px);
         }
 
         .spinner {
-            border: 4px solid rgba(255, 255, 255, 0.3);
-            border-top: 4px solid white;
+            width: 50px;
+            height: 50px;
+            border: 4px solid rgba(255, 255, 255, 0.2);
+            border-top: 4px solid #4ECDC4;
             border-radius: 50%;
-            width: 40px;
-            height: 40px;
             animation: spin 1s linear infinite;
-            margin: 0 auto 10px;
+            margin: 0 auto 15px;
+        }
+
+        .progress-text {
+            margin-top: 10px;
+            font-size: 14px;
+            color: #A0AEC0;
         }
 
         @keyframes spin {
@@ -190,62 +302,153 @@
 
         .node {
             cursor: pointer;
+            stroke: rgba(255, 255, 255, 0.8);
             stroke-width: 2px;
+            transition: all 0.3s ease;
+        }
+
+        .node:hover {
+            stroke-width: 3px;
+            filter: brightness(1.3) drop-shadow(0 0 8px rgba(255, 255, 255, 0.6));
         }
 
         .link {
-            stroke: rgba(255, 255, 255, 0.3);
+            stroke: rgba(255, 255, 255, 0.1);
             stroke-width: 1px;
         }
 
         .node-label {
             font-size: 10px;
+            font-weight: 600;
             text-anchor: middle;
             pointer-events: none;
             fill: white;
+            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.8);
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            .app-header {
+                flex-direction: column;
+                gap: 10px;
+                padding: 15px;
+            }
+
+            .stats {
+                flex-wrap: wrap;
+                gap: 15px;
+                justify-content: center;
+            }
+
+            .controls-panel {
+                position: relative;
+                top: auto;
+                left: auto;
+                right: auto;
+                margin: 10px;
+                max-width: none;
+            }
+
+            .legend-panel {
+                position: relative;
+                top: auto;
+                right: auto;
+                margin: 10px;
+                max-width: none;
+            }
+
+            #graph {
+                height: 60vh;
+                position: relative;
+            }
+        }
+
+        .error-message {
+            background: #ef4444;
+            color: white;
+            padding: 20px;
+            border-radius: 10px;
+            margin: 20px;
+            text-align: center;
+        }
+
+        .success-message {
+            background: #10b981;
+            color: white;
+            padding: 15px;
+            border-radius: 8px;
+            margin: 10px 0;
+            text-align: center;
         }
     </style>
 </head>
 <body>
-    <div class="header">
-        <h1 class="title">🌟 Starred Repositories Graph</h1>
+    <div class="app-header">
+        <h1 class="title">🌟 GitHub Stars Graph</h1>
         <div class="stats">
-            <div>Total: <span id="total-repos">0</span></div>
-            <div>Visible: <span id="visible-repos">0</span></div>
-            <div>Last Updated: <span id="last-updated">-</span></div>
+            <div class="stat-item">
+                <div class="stat-number" id="total-repos">0</div>
+                <div>Total Repos</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-number" id="visible-repos">0</div>
+                <div>Visible</div>
+            </div>
+            <div class="stat-item">
+                <div style="font-size: 12px;" id="last-updated">Loading...</div>
+                <div>Updated</div>
+            </div>
         </div>
     </div>
 
-    <div class="controls">
-        <div class="control-group">
-            <label>Search Repositories:</label>
+    <div class="controls-panel">
+        <div class="control-section">
+            <label class="control-label">🔍 Search Repositories</label>
             <input type="text" id="search" class="search-input" placeholder="Search by name, language, or description...">
         </div>
         
-        <div class="control-group">
-            <label>Filter by Category:</label>
-            <div class="filter-buttons" id="category-filters"></div>
+        <div class="control-section">
+            <label class="control-label">📁 Filter by Category</label>
+            <div class="filter-grid" id="category-filters"></div>
         </div>
 
-        <div class="control-group">
-            <label>Filter by Language:</label>
-            <div class="filter-buttons" id="language-filters"></div>
+        <div class="control-section">
+            <label class="control-label">💻 Filter by Language</label>
+            <div class="filter-grid" id="language-filters"></div>
+        </div>
+
+        <div class="control-section">
+            <label class="control-label">⭐ Filter by Stars</label>
+            <div class="filter-grid" id="stars-filters">
+                <button class="filter-btn active" data-stars="all">All</button>
+                <button class="filter-btn" data-stars="1000">1K+</button>
+                <button class="filter-btn" data-stars="5000">5K+</button>
+                <button class="filter-btn" data-stars="10000">10K+</button>
+                <button class="filter-btn" data-stars="50000">50K+</button>
+            </div>
         </div>
     </div>
 
-    <div class="legend">
-        <h3>Categories</h3>
+    <div class="legend-panel">
+        <div class="legend-title">🎨 Repository Categories</div>
         <div id="legend-items"></div>
     </div>
 
     <div class="loading" id="loading">
         <div class="spinner"></div>
-        <p>Loading your starred repositories...</p>
+        <p>Loading your GitHub starred repositories...</p>
+        <div class="progress-text" id="progress-text">Initializing...</div>
     </div>
 
     <svg id="graph"></svg>
-    <div class="tooltip" id="tooltip" style="display: none;"></div>
+    <div class="tooltip" id="tooltip"></div>
 
-    <script src="script.js"></script>
+    <script>
+        // Initialize the application
+        document.addEventListener('DOMContentLoaded', () => {
+            new GitHubStarsGraph();
+        });
+    </script>
+    <script src="app.js"></script>
 </body>
 </html>
