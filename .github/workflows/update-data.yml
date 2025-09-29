@@ -78,6 +78,12 @@ jobs:
       uses: actions/upload-pages-artifact@v3
       with:
         path: '.'
+        exclude: |
+          .git/
+          .github/
+          scripts/
+          README.md
+          *.md
         
   deploy:
     needs: update-data
