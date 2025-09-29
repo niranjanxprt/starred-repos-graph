@@ -1,4 +1,4 @@
-// GitHub Stars Graph Visualization - Complete Implementation
+// GitHub Stars Graph Visualization - Enhanced Implementation
 class GitHubStarsGraph {
     constructor() {
         this.repositories = [];
@@ -9,12 +9,12 @@ class GitHubStarsGraph {
         this.width = window.innerWidth;
         this.height = window.innerHeight;
         
-        // Category definitions with comprehensive keywords
+        // Enhanced category definitions with comprehensive keywords
         this.categories = {
             'ai-ml': ['ai', 'artificial intelligence', 'machine learning', 'ml', 'deep learning', 'neural', 'llm', 'gpt', 'openai', 'anthropic', 'langchain', 'tensorflow', 'pytorch', 'huggingface', 'transformer', 'agent', 'rag', 'vector', 'claude', 'gemini', 'chatgpt', 'llama', 'bert', 'embedding', 'semantic'],
             'web-dev': ['react', 'next', 'nextjs', 'vue', 'vuejs', 'angular', 'svelte', 'web', 'frontend', 'backend', 'fullstack', 'css', 'html', 'tailwind', 'bootstrap', 'javascript', 'typescript', 'node', 'nodejs', 'express', 'fastapi', 'django', 'flask'],
             'mobile': ['react-native', 'flutter', 'ios', 'android', 'mobile', 'expo', 'swift', 'kotlin', 'xamarin', 'ionic', 'cordova', 'phonegap', 'native', 'app'],
-            'devops': ['docker', 'kubernetes', 'k8s', 'ci/cd', 'deployment', 'infrastructure', 'terraform', 'ansible', 'jenkins', 'helm', 'argo', 'flux', 'monitoring', 'prometheus', 'grafana', 'deployment', 'ops'],
+            'devops': ['docker', 'kubernetes', 'k8s', 'ci/cd', 'deployment', 'infrastructure', 'terraform', 'ansible', 'jenkins', 'helm', 'argo', 'flux', 'monitoring', 'prometheus', 'grafana', 'ops'],
             'data': ['data', 'analytics', 'database', 'sql', 'postgres', 'postgresql', 'mongodb', 'redis', 'elasticsearch', 'spark', 'pandas', 'etl', 'warehouse', 'pipeline', 'airflow', 'kafka', 'bigdata', 'nosql'],
             'tools': ['cli', 'command line', 'editor', 'ide', 'extension', 'utility', 'productivity', 'automation', 'terminal', 'shell', 'bash', 'zsh', 'vim', 'vscode', 'tool', 'generator'],
             'security': ['security', 'auth', 'authentication', 'authorization', 'encryption', 'privacy', 'vulnerability', 'oauth', 'jwt', 'ssl', 'tls', 'crypto', 'cipher', 'hash', 'secure'],
@@ -28,23 +28,23 @@ class GitHubStarsGraph {
             'other': []
         };
         
-        // Enhanced color scheme with better contrast
+        // Enhanced color scheme with better contrast and clustering
         this.categoryColors = {
-            'ai-ml': '#8B5CF6',
-            'web-dev': '#10B981',
-            'mobile': '#EF4444',
-            'devops': '#F59E0B',
-            'data': '#3B82F6',
-            'tools': '#6B7280',
-            'security': '#DC2626',
-            'api': '#9333EA',
-            'learning': '#84CC16',
-            'ui-ux': '#EC4899',
-            'blockchain': '#F97316',
-            'game-dev': '#A855F7',
-            'mcp': '#06B6D4',
-            'python': '#FBBF24',
-            'other': '#6366F1'
+            'ai-ml': '#8B5CF6',      // Purple - prominent for AI
+            'web-dev': '#10B981',    // Emerald - fresh for web
+            'python': '#F59E0B',     // Amber - Python's signature color
+            'data': '#3B82F6',       // Blue - data ocean
+            'tools': '#6B7280',      // Gray - utility
+            'mobile': '#EF4444',     // Red - mobile energy
+            'learning': '#84CC16',   // Lime - growth
+            'devops': '#06B6D4',     // Cyan - infrastructure
+            'ui-ux': '#EC4899',      // Pink - design
+            'api': '#9333EA',        // Violet - connections
+            'game-dev': '#F97316',   // Orange - gaming fun
+            'security': '#DC2626',   // Dark red - security
+            'mcp': '#A855F7',        // Purple variant - special
+            'blockchain': '#F59E0B', // Gold - crypto
+            'other': '#6366F1'       // Indigo - general
         };
         
         this.currentFilters = {
@@ -75,10 +75,12 @@ class GitHubStarsGraph {
     setupEventListeners() {
         // Search functionality
         const searchInput = document.getElementById('search');
-        searchInput.addEventListener('input', (e) => {
-            this.currentFilters.search = e.target.value.toLowerCase();
-            this.applyFilters();
-        });
+        if (searchInput) {
+            searchInput.addEventListener('input', (e) => {
+                this.currentFilters.search = e.target.value.toLowerCase();
+                this.applyFilters();
+            });
+        }
         
         // Stars filters
         document.querySelectorAll('#stars-filters .filter-btn').forEach(btn => {
@@ -105,11 +107,9 @@ class GitHubStarsGraph {
     
     async loadRepositories() {
         const username = 'niranjanxprt';
-        let totalLoaded = 0;
         
         try {
-            // Update progress
-            this.updateProgress('Connecting to GitHub API...');
+            this.updateProgress('Connecting to data source...');
             
             // Try to load from data file first (if GitHub Actions has run)
             try {
@@ -120,579 +120,4 @@ class GitHubStarsGraph {
                     console.log(`Loaded ${this.repositories.length} repositories from data file`);
                     this.updateStats();
                     return;
-                }
-            } catch (e) {
-                console.log('Data file not found, fetching from GitHub API...');
-            }
-            
-            // Fallback: Fetch directly from GitHub API
-            let page = 1;
-            const perPage = 100;
-            this.repositories = [];
-            
-            this.updateProgress('Fetching repository data from GitHub API...');
-            
-            while (page <= 8) { // Maximum 8 pages to get ~700+ repos
-                try {
-                    const url = `https://api.github.com/users/${username}/starred?per_page=${perPage}&page=${page}`;
-                    
-                    const response = await fetch(url);
-                    
-                    if (!response.ok) {
-                        if (response.status === 403) {
-                            throw new Error('GitHub API rate limit exceeded. The app will use cached data or try again later.');
-                        }
-                        throw new Error(`GitHub API error: ${response.status} ${response.statusText}`);
-                    }
-                    
-                    const repos = await response.json();
-                    
-                    if (repos.length === 0) break;
-                    
-                    const processedRepos = repos.map(repo => ({
-                        id: repo.id,
-                        name: repo.name,
-                        owner: repo.owner.login,
-                        fullName: repo.full_name,
-                        description: repo.description || '',
-                        url: repo.html_url,
-                        language: repo.language || 'Unknown',
-                        stars: repo.stargazers_count,
-                        forks: repo.forks_count,
-                        updatedAt: repo.updated_at,
-                        topics: repo.topics || [],
-                        category: this.categorizeRepo(repo)
-                    }));
-                    
-                    this.repositories = this.repositories.concat(processedRepos);
-                    totalLoaded = this.repositories.length;
-                    
-                    this.updateProgress(`Loading repositories... ${totalLoaded} found`);
-                    
-                    page++;
-                    
-                    // Small delay to be nice to GitHub API
-                    await new Promise(resolve => setTimeout(resolve, 200));
-                    
-                } catch (error) {
-                    console.error(`Error fetching page ${page}:`, error);
-                    if (this.repositories.length === 0) {
-                        throw error; // Re-throw if we have no data
-                    }
-                    break; // Continue with partial data
-                }
-            }
-            
-            console.log(`Successfully loaded ${this.repositories.length} repositories`);
-            this.updateStats();
-            
-        } catch (error) {
-            console.error('Error loading repositories:', error);
-            
-            // Show error but try to continue with sample data for demo
-            this.showError(`Error loading data: ${error.message}. Showing sample data.`);
-            
-            // Use sample data for demonstration
-            this.repositories = this.generateSampleData();
-            this.updateStats();
-        }
-    }
-    
-    generateSampleData() {
-        // Sample data representing your actual starred repositories
-        return [
-            {
-                id: 669879380,
-                name: "LLMs-from-scratch",
-                owner: "rasbt",
-                fullName: "rasbt/LLMs-from-scratch",
-                description: "Implement a ChatGPT-like LLM in PyTorch from scratch, step by step",
-                url: "https://github.com/rasbt/LLMs-from-scratch",
-                language: "Jupyter Notebook",
-                stars: 73565,
-                forks: 10699,
-                category: "ai-ml"
-            },
-            {
-                id: 28457823,
-                name: "freeCodeCamp",
-                owner: "freeCodeCamp",
-                fullName: "freeCodeCamp/freeCodeCamp",
-                description: "freeCodeCamp.org's open-source codebase and curriculum",
-                url: "https://github.com/freeCodeCamp/freeCodeCamp",
-                language: "TypeScript",
-                stars: 429300,
-                forks: 41811,
-                category: "learning"
-            },
-            {
-                id: 507775,
-                name: "elasticsearch",
-                owner: "elastic",
-                fullName: "elastic/elasticsearch",
-                description: "Free and Open Source, Distributed, RESTful Search Engine",
-                url: "https://github.com/elastic/elasticsearch",
-                language: "Java",
-                stars: 74858,
-                forks: 25515,
-                category: "data"
-            },
-            // Add more sample data representing different categories
-            ...this.generateAdditionalSampleData()
-        ];
-    }
-    
-    generateAdditionalSampleData() {
-        const sampleRepos = [];
-        const categories = Object.keys(this.categories).filter(c => c !== 'other');
-        const languages = ['JavaScript', 'Python', 'TypeScript', 'Java', 'Go', 'Rust', 'C++', 'Swift', 'Kotlin', 'Ruby', 'PHP', 'C#'];
-        
-        // Generate representative sample data
-        for (let i = 0; i < 50; i++) {
-            const category = categories[i % categories.length];
-            const language = languages[i % languages.length];
-            const baseStars = Math.floor(Math.random() * 50000) + 100;
-            
-            sampleRepos.push({
-                id: 2000000 + i,
-                name: `sample-repo-${i + 1}`,
-                owner: `user${i + 1}`,
-                fullName: `user${i + 1}/sample-repo-${i + 1}`,
-                description: `Sample ${category.replace('-', ' ')} repository for demonstration`,
-                url: `https://github.com/user${i + 1}/sample-repo-${i + 1}`,
-                language: language,
-                stars: baseStars,
-                forks: Math.floor(baseStars * 0.1),
-                category: category,
-                updatedAt: new Date().toISOString()
-            });
-        }
-        
-        return sampleRepos;
-    }
-    
-    updateProgress(message) {
-        const progressText = document.getElementById('progress-text');
-        if (progressText) {
-            progressText.textContent = message;
-        }
-    }
-    
-    categorizeRepo(repo) {
-        const text = `${repo.name || ''} ${repo.description || ''} ${(repo.topics || []).join(' ')}`.toLowerCase();
-        const repoLanguage = (repo.language || '').toLowerCase();
-        
-        // Special handling for Python repositories
-        if (repoLanguage === 'python' && 
-            (text.includes('python') || text.includes('django') || text.includes('flask'))) {
-            return 'python';
-        }
-        
-        // Check each category
-        for (const [category, keywords] of Object.entries(this.categories)) {
-            if (category === 'other') continue;
-            
-            if (keywords.some(keyword => text.includes(keyword))) {
-                return category;
-            }
-        }
-        
-        return 'other';
-    }
-    
-    setupGraph() {
-        this.svg = d3.select('#graph')
-            .attr('width', this.width)
-            .attr('height', this.height);
-        
-        this.tooltip = d3.select('#tooltip');
-        
-        // Clear existing content
-        this.svg.selectAll('*').remove();
-        
-        // Create zoom behavior
-        const zoom = d3.zoom()
-            .scaleExtent([0.1, 4])
-            .on('zoom', (event) => {
-                this.svg.selectAll('g').attr('transform', event.transform);
-            });
-        
-        this.svg.call(zoom);
-        
-        // Create main container group
-        const g = this.svg.append('g').attr('class', 'main-group');
-        
-        // Setup force simulation
-        this.simulation = d3.forceSimulation()
-            .force('link', d3.forceLink().id(d => d.id).distance(60))
-            .force('charge', d3.forceManyBody().strength(-150))
-            .force('center', d3.forceCenter(this.width / 2, this.height / 2))
-            .force('collision', d3.forceCollide().radius(d => this.getNodeRadius(d) + 2));
-        
-        this.filteredRepositories = [...this.repositories];
-        this.updateVisualization();
-    }
-    
-    getNodeRadius(d) {
-        // Size nodes based on star count, with reasonable min/max
-        const baseSize = Math.sqrt(d.stars || 1);
-        return Math.max(4, Math.min(25, baseSize * 0.15 + 3));
-    }
-    
-    setupFilters() {
-        // Category filters
-        const categoryContainer = document.getElementById('category-filters');
-        const categories = ['all', ...Object.keys(this.categories)];
-        
-        categories.forEach(category => {
-            const btn = document.createElement('button');
-            btn.className = 'filter-btn' + (category === 'all' ? ' active' : '');
-            btn.textContent = category === 'all' ? 'All' : category.replace('-', ' ').toUpperCase();
-            btn.dataset.category = category;
-            btn.addEventListener('click', (e) => this.filterByCategory(category, e.target));
-            categoryContainer.appendChild(btn);
-        });
-        
-        // Language filters
-        const languages = [...new Set(this.repositories.map(r => r.language))]
-            .filter(lang => lang && lang !== 'Unknown')
-            .sort()
-            .slice(0, 15); // Top 15 languages
-        
-        const languageContainer = document.getElementById('language-filters');
-        
-        // All languages button
-        const allBtn = document.createElement('button');
-        allBtn.className = 'filter-btn active';
-        allBtn.textContent = 'All';
-        allBtn.dataset.language = 'all';
-        allBtn.addEventListener('click', (e) => this.filterByLanguage('all', e.target));
-        languageContainer.appendChild(allBtn);
-        
-        // Individual language buttons
-        languages.forEach(language => {
-            const btn = document.createElement('button');
-            btn.className = 'filter-btn';
-            btn.textContent = language;
-            btn.dataset.language = language;
-            btn.addEventListener('click', (e) => this.filterByLanguage(language, e.target));
-            languageContainer.appendChild(btn);
-        });
-    }
-    
-    setupLegend() {
-        const legendContainer = document.getElementById('legend-items');
-        const categoryCounts = {};
-        
-        // Count repositories per category
-        this.repositories.forEach(repo => {
-            categoryCounts[repo.category] = (categoryCounts[repo.category] || 0) + 1;
-        });
-        
-        // Create legend items
-        Object.entries(categoryCounts)
-            .sort(([,a], [,b]) => b - a) // Sort by count, descending
-            .forEach(([category, count]) => {
-                const item = document.createElement('div');
-                item.className = 'legend-item';
-                
-                const color = document.createElement('div');
-                color.className = 'legend-color';
-                color.style.backgroundColor = this.categoryColors[category] || '#6366F1';
-                
-                const label = document.createElement('span');
-                label.textContent = `${category.replace('-', ' ').toUpperCase()} (${count})`;
-                
-                item.appendChild(color);
-                item.appendChild(label);
-                
-                // Make legend items clickable to filter
-                item.addEventListener('click', () => {
-                    this.filterByCategory(category);
-                    // Update category filter button
-                    document.querySelectorAll('#category-filters .filter-btn').forEach(btn => {
-                        btn.classList.remove('active');
-                        if (btn.dataset.category === category) {
-                            btn.classList.add('active');
-                        }
-                    });
-                });
-                
-                legendContainer.appendChild(item);
-            });
-    }
-    
-    filterByCategory(category, button) {
-        this.currentFilters.category = category;
-        
-        if (button) {
-            document.querySelectorAll('#category-filters .filter-btn').forEach(btn => {
-                btn.classList.remove('active');
-            });
-            button.classList.add('active');
-        }
-        
-        this.applyFilters();
-    }
-    
-    filterByLanguage(language, button) {
-        this.currentFilters.language = language;
-        
-        if (button) {
-            document.querySelectorAll('#language-filters .filter-btn').forEach(btn => {
-                btn.classList.remove('active');
-            });
-            button.classList.add('active');
-        }
-        
-        this.applyFilters();
-    }
-    
-    applyFilters() {
-        this.filteredRepositories = this.repositories.filter(repo => {
-            // Search filter
-            if (this.currentFilters.search) {
-                const searchText = `${repo.name} ${repo.description} ${repo.language} ${repo.fullName}`.toLowerCase();
-                if (!searchText.includes(this.currentFilters.search)) return false;
-            }
-            
-            // Category filter
-            if (this.currentFilters.category !== 'all' && repo.category !== this.currentFilters.category) {
-                return false;
-            }
-            
-            // Language filter
-            if (this.currentFilters.language !== 'all' && repo.language !== this.currentFilters.language) {
-                return false;
-            }
-            
-            // Stars filter
-            if (this.currentFilters.stars !== 'all') {
-                const minStars = parseInt(this.currentFilters.stars);
-                if (repo.stars < minStars) return false;
-            }
-            
-            return true;
-        });
-        
-        this.updateVisualization();
-        this.updateStats();
-    }
-    
-    updateVisualization() {
-        if (!this.simulation || !this.svg) return;
-        
-        // Create intelligent links between repositories
-        const links = this.createIntelligentLinks();
-        
-        const g = this.svg.select('.main-group');
-        
-        // Update links
-        const link = g.selectAll('.link')
-            .data(links, d => `${d.source.id || d.source}-${d.target.id || d.target}`);
-        
-        link.exit().remove();
-        
-        link.enter()
-            .append('line')
-            .attr('class', 'link');
-        
-        // Update nodes
-        const node = g.selectAll('.node')
-            .data(this.filteredRepositories, d => d.id);
-        
-        node.exit().remove();
-        
-        const nodeEnter = node.enter()
-            .append('circle')
-            .attr('class', 'node')
-            .attr('r', d => this.getNodeRadius(d))
-            .attr('fill', d => this.categoryColors[d.category] || '#6366F1')
-            .call(this.createDragHandler())
-            .on('click', (event, d) => {
-                window.open(d.url, '_blank');
-            })
-            .on('mouseover', (event, d) => {
-                this.showTooltip(event, d);
-            })
-            .on('mouseout', () => {
-                this.hideTooltip();
-            });
-        
-        // Update labels for popular repositories
-        const label = g.selectAll('.node-label')
-            .data(this.filteredRepositories.filter(d => d.stars > 30000), d => d.id);
-        
-        label.exit().remove();
-        
-        label.enter()
-            .append('text')
-            .attr('class', 'node-label')
-            .text(d => d.name.length > 12 ? d.name.substring(0, 12) + '...' : d.name)
-            .attr('dy', '.35em');
-        
-        // Update simulation
-        this.simulation.nodes(this.filteredRepositories);
-        this.simulation.force('link').links(links);
-        this.simulation.alpha(0.5).restart();
-        
-        // Animation tick function
-        this.simulation.on('tick', () => {
-            g.selectAll('.link')
-                .attr('x1', d => d.source.x)
-                .attr('y1', d => d.source.y)
-                .attr('x2', d => d.target.x)
-                .attr('y2', d => d.target.y);
-            
-            g.selectAll('.node')
-                .attr('cx', d => d.x)
-                .attr('cy', d => d.y);
-            
-            g.selectAll('.node-label')
-                .attr('x', d => d.x)
-                .attr('y', d => d.y);
-        });
-    }
-    
-    createIntelligentLinks() {
-        const links = [];
-        
-        // Group repositories by category
-        const categoryGroups = d3.group(this.filteredRepositories, d => d.category);
-        
-        // Create links within categories
-        categoryGroups.forEach(repos => {
-            // Sort by stars to connect popular repos
-            repos.sort((a, b) => b.stars - a.stars);
-            
-            for (let i = 0; i < repos.length && i < 20; i++) { // Limit connections to avoid clutter
-                for (let j = i + 1; j < Math.min(repos.length, i + 4); j++) {
-                    links.push({
-                        source: repos[i].id,
-                        target: repos[j].id
-                    });
-                }
-            }
-        });
-        
-        return links;
-    }
-    
-    createDragHandler() {
-        return d3.drag()
-            .on('start', (event, d) => {
-                if (!event.active) this.simulation.alphaTarget(0.3).restart();
-                d.fx = d.x;
-                d.fy = d.y;
-            })
-            .on('drag', (event, d) => {
-                d.fx = event.x;
-                d.fy = event.y;
-            })
-            .on('end', (event, d) => {
-                if (!event.active) this.simulation.alphaTarget(0);
-                d.fx = null;
-                d.fy = null;
-            });
-    }
-    
-    showTooltip(event, d) {
-        const [x, y] = [event.pageX, event.pageY];
-        
-        this.tooltip
-            .style('display', 'block')
-            .style('left', Math.min(x + 15, window.innerWidth - 370) + 'px')
-            .style('top', Math.max(y - 15, 10) + 'px')
-            .html(`
-                <div class="tooltip-title">${d.name}</div>
-                <div class="tooltip-owner">by ${d.owner}</div>
-                <div class="tooltip-category">${d.category.replace('-', ' ').toUpperCase()}</div>
-                <div class="tooltip-meta">
-                    <div class="tooltip-stat">⭐ ${d.stars.toLocaleString()}</div>
-                    <div class="tooltip-stat">🍴 ${d.forks.toLocaleString()}</div>
-                    <div class="tooltip-stat">💻 ${d.language}</div>
-                    <div class="tooltip-stat">🔗 ${d.fullName}</div>
-                </div>
-                <div class="tooltip-desc">${d.description || 'No description available'}</div>
-                <div class="tooltip-action">👆 Click to open repository</div>
-            `);
-    }
-    
-    hideTooltip() {
-        this.tooltip.style('display', 'none');
-    }
-    
-    updateStats() {
-        document.getElementById('total-repos').textContent = this.repositories.length;
-        document.getElementById('visible-repos').textContent = this.filteredRepositories.length;
-        document.getElementById('last-updated').textContent = new Date().toLocaleString('en-US', {
-            month: 'short',
-            day: 'numeric',
-            hour: '2-digit',
-            minute: '2-digit'
-        });
-    }
-    
-    resetFilters() {
-        // Reset all filters
-        this.currentFilters = {
-            search: '',
-            category: 'all',
-            language: 'all',
-            stars: 'all'
-        };
-        
-        // Reset UI elements
-        document.getElementById('search').value = '';
-        
-        document.querySelectorAll('.filter-btn').forEach(btn => {
-            btn.classList.remove('active');
-        });
-        
-        document.querySelector('[data-category="all"]').classList.add('active');
-        document.querySelector('[data-language="all"]').classList.add('active');
-        document.querySelector('[data-stars="all"]').classList.add('active');
-        
-        this.applyFilters();
-    }
-    
-    handleResize() {
-        if (!this.svg || !this.simulation) return;
-        
-        this.width = window.innerWidth;
-        this.height = window.innerHeight;
-        
-        this.svg.attr('width', this.width).attr('height', this.height);
-        this.simulation.force('center', d3.forceCenter(this.width / 2, this.height / 2));
-        this.simulation.alpha(0.3).restart();
-    }
-    
-    hideLoading() {
-        const loading = document.getElementById('loading');
-        if (loading) {
-            loading.style.display = 'none';
-        }
-    }
-    
-    showError(message) {
-        const loading = document.getElementById('loading');
-        loading.innerHTML = `
-            <div class="error-message">
-                <h3>⚠️ Error</h3>
-                <p>${message}</p>
-                <button onclick="location.reload()" class="filter-btn" style="margin-top: 15px; background: #EF4444;">
-                    🔄 Retry
-                </button>
-            </div>
-        `;
-    }
-}
-
-// Initialize the application when the page loads
-if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', () => {
-        new GitHubStarsGraph();
-    });
-} else {
-    new GitHubStarsGraph();
-}
+                }\n            } catch (e) {\n                console.log('Data file not found, fetching from GitHub API...');\n            }\n            \n            // Fallback: Fetch directly from GitHub API\n            let page = 1;\n            const perPage = 100;\n            this.repositories = [];\n            \n            this.updateProgress('Fetching repository data from GitHub API...');\n            \n            while (page <= 8) { // Maximum 8 pages to get ~700+ repos\n                try {\n                    const url = `https://api.github.com/users/${username}/starred?per_page=${perPage}&page=${page}`;\n                    \n                    const response = await fetch(url);\n                    \n                    if (!response.ok) {\n                        if (response.status === 403) {\n                            throw new Error('GitHub API rate limit exceeded. The app will use cached data or try again later.');\n                        }\n                        throw new Error(`GitHub API error: ${response.status} ${response.statusText}`);\n                    }\n                    \n                    const repos = await response.json();\n                    \n                    if (repos.length === 0) break;\n                    \n                    const processedRepos = repos.map(repo => ({\n                        id: repo.id,\n                        name: repo.name,\n                        owner: repo.owner.login,\n                        fullName: repo.full_name,\n                        description: repo.description || '',\n                        url: repo.html_url,\n                        language: repo.language || 'Unknown',\n                        stars: repo.stargazers_count,\n                        forks: repo.forks_count,\n                        updatedAt: repo.updated_at,\n                        topics: repo.topics || [],\n                        category: this.categorizeRepo(repo)\n                    }));\n                    \n                    this.repositories = this.repositories.concat(processedRepos);\n                    \n                    this.updateProgress(`Loading repositories... ${this.repositories.length} found`);\n                    \n                    page++;\n                    \n                    // Small delay to be nice to GitHub API\n                    await new Promise(resolve => setTimeout(resolve, 200));\n                    \n                } catch (error) {\n                    console.error(`Error fetching page ${page}:`, error);\n                    if (this.repositories.length === 0) {\n                        throw error;\n                    }\n                    break;\n                }\n            }\n            \n            console.log(`Successfully loaded ${this.repositories.length} repositories`);\n            this.updateStats();\n            \n        } catch (error) {\n            console.error('Error loading repositories:', error);\n            \n            // Show error but try to continue with sample data for demo\n            this.showError(`Error loading data: ${error.message}. Please refresh to try again.`);\n            \n            // Set empty repositories to show error state\n            this.repositories = [];\n            this.updateStats();\n        }\n    }\n    \n    updateProgress(message) {\n        const progressText = document.getElementById('progress-text');\n        if (progressText) {\n            progressText.textContent = message;\n        }\n    }\n    \n    categorizeRepo(repo) {\n        const text = `${repo.name || ''} ${repo.description || ''} ${(repo.topics || []).join(' ')}`.toLowerCase();\n        const repoLanguage = (repo.language || '').toLowerCase();\n        \n        // Special handling for Python repositories\n        if (repoLanguage === 'python' && \n            (text.includes('python') || text.includes('django') || text.includes('flask'))) {\n            return 'python';\n        }\n        \n        // Check each category\n        for (const [category, keywords] of Object.entries(this.categories)) {\n            if (category === 'other') continue;\n            \n            if (keywords.some(keyword => text.includes(keyword))) {\n                return category;\n            }\n        }\n        \n        return 'other';\n    }\n    \n    setupGraph() {\n        this.svg = d3.select('#graph')\n            .attr('width', this.width)\n            .attr('height', this.height);\n        \n        this.tooltip = d3.select('#tooltip');\n        \n        // Clear existing content\n        this.svg.selectAll('*').remove();\n        \n        // Create zoom behavior\n        const zoom = d3.zoom()\n            .scaleExtent([0.1, 4])\n            .on('zoom', (event) => {\n                this.svg.selectAll('g').attr('transform', event.transform);\n            });\n        \n        this.svg.call(zoom);\n        \n        // Create main container group\n        const g = this.svg.append('g').attr('class', 'main-group');\n        \n        // Enhanced force simulation for better clustering\n        this.simulation = d3.forceSimulation()\n            .force('link', d3.forceLink().id(d => d.id).distance(100).strength(0.1))\n            .force('charge', d3.forceManyBody().strength(-200).distanceMax(300))\n            .force('center', d3.forceCenter(this.width / 2, this.height / 2))\n            .force('collision', d3.forceCollide().radius(d => this.getNodeRadius(d) + 3))\n            // Add category-based positioning forces for better clustering\n            .force('x', d3.forceX().x(d => this.getCategoryPosition(d.category).x).strength(0.1))\n            .force('y', d3.forceY().y(d => this.getCategoryPosition(d.category).y).strength(0.1));\n        \n        this.filteredRepositories = [...this.repositories];\n        this.updateVisualization();\n    }\n    \n    getCategoryPosition(category) {\n        // Strategic positioning for better visual clustering\n        const positions = {\n            'ai-ml': { x: this.width * 0.2, y: this.height * 0.2 },     // Top-left\n            'web-dev': { x: this.width * 0.8, y: this.height * 0.2 },   // Top-right\n            'python': { x: this.width * 0.2, y: this.height * 0.8 },    // Bottom-left\n            'data': { x: this.width * 0.8, y: this.height * 0.8 },      // Bottom-right\n            'tools': { x: this.width * 0.5, y: this.height * 0.1 },     // Top-center\n            'mobile': { x: this.width * 0.1, y: this.height * 0.5 },    // Left-center\n            'learning': { x: this.width * 0.9, y: this.height * 0.5 },  // Right-center\n            'devops': { x: this.width * 0.5, y: this.height * 0.9 },    // Bottom-center\n            'ui-ux': { x: this.width * 0.3, y: this.height * 0.3 },     // Inner positions\n            'api': { x: this.width * 0.7, y: this.height * 0.3 },\n            'security': { x: this.width * 0.3, y: this.height * 0.7 },\n            'game-dev': { x: this.width * 0.7, y: this.height * 0.7 },\n            'mcp': { x: this.width * 0.5, y: this.height * 0.4 },\n            'blockchain': { x: this.width * 0.6, y: this.height * 0.6 },\n            'other': { x: this.width * 0.5, y: this.height * 0.5 }       // Center\n        };\n        \n        return positions[category] || positions['other'];\n    }\n    \n    getNodeRadius(d) {\n        // Enhanced radius calculation for better visibility\n        const baseSize = Math.sqrt(d.stars || 1);\n        return Math.max(5, Math.min(30, baseSize * 0.2 + 4));\n    }\n    \n    setupFilters() {\n        // Category filters\n        const categoryContainer = document.getElementById('category-filters');\n        if (categoryContainer) {\n            const categories = ['all', ...Object.keys(this.categories)];\n            \n            categories.forEach(category => {\n                const btn = document.createElement('button');\n                btn.className = 'filter-btn' + (category === 'all' ? ' active' : '');\n                btn.textContent = category === 'all' ? 'All' : category.replace('-', ' ').toUpperCase();\n                btn.dataset.category = category;\n                btn.addEventListener('click', (e) => this.filterByCategory(category, e.target));\n                categoryContainer.appendChild(btn);\n            });\n        }\n        \n        // Language filters - FIXED: Now includes Python and all languages\n        const languageContainer = document.getElementById('language-filters');\n        if (languageContainer) {\n            // Get all unique languages with counts\n            const languageCounts = new Map();\n            this.repositories.forEach(repo => {\n                if (repo.language && repo.language !== 'Unknown') {\n                    languageCounts.set(repo.language, (languageCounts.get(repo.language) || 0) + 1);\n                }\n            });\n            \n            // Sort by count and take top languages\n            const topLanguages = Array.from(languageCounts.entries())\n                .sort((a, b) => b[1] - a[1])\n                .slice(0, 15)\n                .map(([lang, count]) => lang);\n            \n            // All languages button\n            const allBtn = document.createElement('button');\n            allBtn.className = 'filter-btn active';\n            allBtn.textContent = 'All';\n            allBtn.dataset.language = 'all';\n            allBtn.addEventListener('click', (e) => this.filterByLanguage('all', e.target));\n            languageContainer.appendChild(allBtn);\n            \n            // Individual language buttons\n            topLanguages.forEach(language => {\n                const btn = document.createElement('button');\n                btn.className = 'filter-btn';\n                btn.textContent = language;\n                btn.dataset.language = language;\n                btn.addEventListener('click', (e) => this.filterByLanguage(language, e.target));\n                languageContainer.appendChild(btn);\n            });\n        }\n    }\n    \n    setupLegend() {\n        const legendContainer = document.getElementById('legend-items');\n        if (legendContainer) {\n            const categoryCounts = {};\n            \n            // Count repositories per category\n            this.repositories.forEach(repo => {\n                categoryCounts[repo.category] = (categoryCounts[repo.category] || 0) + 1;\n            });\n            \n            // Create legend items sorted by count\n            Object.entries(categoryCounts)\n                .sort(([,a], [,b]) => b - a)\n                .forEach(([category, count]) => {\n                    const item = document.createElement('div');\n                    item.className = 'legend-item';\n                    \n                    const color = document.createElement('div');\n                    color.className = 'legend-color';\n                    color.style.backgroundColor = this.categoryColors[category] || '#6366F1';\n                    \n                    const label = document.createElement('span');\n                    label.textContent = `${category.replace('-', ' ').toUpperCase()} (${count})`;\n                    \n                    item.appendChild(color);\n                    item.appendChild(label);\n                    \n                    // Make legend items clickable to filter\n                    item.addEventListener('click', () => {\n                        this.filterByCategory(category);\n                        // Update category filter button\n                        document.querySelectorAll('#category-filters .filter-btn').forEach(btn => {\n                            btn.classList.remove('active');\n                            if (btn.dataset.category === category) {\n                                btn.classList.add('active');\n                            }\n                        });\n                    });\n                    \n                    item.style.cursor = 'pointer';\n                    legendContainer.appendChild(item);\n                });\n        }\n    }\n    \n    filterByCategory(category, button) {\n        this.currentFilters.category = category;\n        \n        if (button) {\n            document.querySelectorAll('#category-filters .filter-btn').forEach(btn => {\n                btn.classList.remove('active');\n            });\n            button.classList.add('active');\n        }\n        \n        this.applyFilters();\n    }\n    \n    filterByLanguage(language, button) {\n        this.currentFilters.language = language;\n        \n        if (button) {\n            document.querySelectorAll('#language-filters .filter-btn').forEach(btn => {\n                btn.classList.remove('active');\n            });\n            button.classList.add('active');\n        }\n        \n        this.applyFilters();\n    }\n    \n    applyFilters() {\n        this.filteredRepositories = this.repositories.filter(repo => {\n            // Search filter\n            if (this.currentFilters.search) {\n                const searchText = `${repo.name} ${repo.description} ${repo.language} ${repo.fullName}`.toLowerCase();\n                if (!searchText.includes(this.currentFilters.search)) return false;\n            }\n            \n            // Category filter\n            if (this.currentFilters.category !== 'all' && repo.category !== this.currentFilters.category) {\n                return false;\n            }\n            \n            // Language filter\n            if (this.currentFilters.language !== 'all' && repo.language !== this.currentFilters.language) {\n                return false;\n            }\n            \n            // Stars filter\n            if (this.currentFilters.stars !== 'all') {\n                const minStars = parseInt(this.currentFilters.stars);\n                if (repo.stars < minStars) return false;\n            }\n            \n            return true;\n        });\n        \n        this.updateVisualization();\n        this.updateStats();\n    }\n    \n    updateVisualization() {\n        if (!this.simulation || !this.svg) return;\n        \n        if (this.filteredRepositories.length === 0) {\n            this.showEmptyState();\n            return;\n        }\n        \n        // Create intelligent links between repositories\n        const links = this.createIntelligentLinks();\n        \n        const g = this.svg.select('.main-group');\n        \n        // Clear existing\n        g.selectAll('*').remove();\n        \n        // Update links with enhanced styling\n        const link = g.append('g')\n            .selectAll('line')\n            .data(links)\n            .enter().append('line')\n            .attr('class', 'link')\n            .attr('stroke', '#ffffff')\n            .attr('stroke-opacity', 0.15)\n            .attr('stroke-width', 1.5);\n        \n        // Update nodes with enhanced sizing and colors\n        const node = g.append('g')\n            .selectAll('circle')\n            .data(this.filteredRepositories)\n            .enter().append('circle')\n            .attr('class', 'node')\n            .attr('r', d => this.getNodeRadius(d))\n            .attr('fill', d => this.categoryColors[d.category] || '#6366F1')\n            .attr('stroke', '#ffffff')\n            .attr('stroke-width', 2)\n            .attr('opacity', 0.9)\n            .call(this.createDragHandler())\n            .on('click', (event, d) => {\n                window.open(d.url, '_blank');\n            })\n            .on('mouseover', (event, d) => {\n                this.showTooltip(event, d);\n                // Highlight connected nodes\n                d3.select(event.target)\n                    .attr('stroke-width', 4)\n                    .attr('opacity', 1);\n            })\n            .on('mouseout', (event, d) => {\n                this.hideTooltip();\n                d3.select(event.target)\n                    .attr('stroke-width', 2)\n                    .attr('opacity', 0.9);\n            });\n        \n        // Add labels for popular repositories\n        const label = g.append('g')\n            .selectAll('text')\n            .data(this.filteredRepositories.filter(d => d.stars > 30000))\n            .enter().append('text')\n            .attr('class', 'node-label')\n            .text(d => d.name.length > 12 ? d.name.substring(0, 12) + '...' : d.name)\n            .attr('dy', '.35em')\n            .style('font-size', '11px')\n            .style('font-weight', 'bold')\n            .style('fill', '#ffffff')\n            .style('text-anchor', 'middle')\n            .style('pointer-events', 'none')\n            .style('text-shadow', '2px 2px 4px rgba(0,0,0,0.8)');\n        \n        // Update simulation\n        this.simulation.nodes(this.filteredRepositories);\n        this.simulation.force('link').links(links);\n        this.simulation.alpha(0.6).restart();\n        \n        // Enhanced animation tick function\n        this.simulation.on('tick', () => {\n            link\n                .attr('x1', d => d.source.x)\n                .attr('y1', d => d.source.y)\n                .attr('x2', d => d.target.x)\n                .attr('y2', d => d.target.y);\n            \n            node\n                .attr('cx', d => d.x)\n                .attr('cy', d => d.y);\n            \n            label\n                .attr('x', d => d.x)\n                .attr('y', d => d.y);\n        });\n    }\n    \n    createIntelligentLinks() {\n        const links = [];\n        \n        // Group repositories by category for better clustering\n        const categoryGroups = d3.group(this.filteredRepositories, d => d.category);\n        \n        // Create links within categories (for clustering)\n        categoryGroups.forEach(repos => {\n            // Sort by stars to connect popular repos\n            repos.sort((a, b) => b.stars - a.stars);\n            \n            for (let i = 0; i < repos.length && i < 20; i++) {\n                for (let j = i + 1; j < Math.min(repos.length, i + 4); j++) {\n                    if (Math.random() > 0.6) { // Add some randomness to avoid over-connection\n                        links.push({\n                            source: repos[i].id,\n                            target: repos[j].id\n                        });\n                    }\n                }\n            }\n        });\n        \n        // Add some cross-category links for popular repositories\n        const popularRepos = this.filteredRepositories\n            .filter(repo => repo.stars > 50000)\n            .sort((a, b) => b.stars - a.stars)\n            .slice(0, 10);\n        \n        for (let i = 0; i < popularRepos.length; i++) {\n            for (let j = i + 1; j < popularRepos.length; j++) {\n                if (Math.random() > 0.8) {\n                    links.push({\n                        source: popularRepos[i].id,\n                        target: popularRepos[j].id\n                    });\n                }\n            }\n        }\n        \n        return links;\n    }\n    \n    createDragHandler() {\n        return d3.drag()\n            .on('start', (event, d) => {\n                if (!event.active) this.simulation.alphaTarget(0.3).restart();\n                d.fx = d.x;\n                d.fy = d.y;\n            })\n            .on('drag', (event, d) => {\n                d.fx = event.x;\n                d.fy = event.y;\n            })\n            .on('end', (event, d) => {\n                if (!event.active) this.simulation.alphaTarget(0);\n                d.fx = null;\n                d.fy = null;\n            });\n    }\n    \n    showTooltip(event, d) {\n        const [x, y] = [event.pageX, event.pageY];\n        \n        this.tooltip\n            .style('display', 'block')\n            .style('left', Math.min(x + 15, window.innerWidth - 370) + 'px')\n            .style('top', Math.max(y - 15, 10) + 'px')\n            .html(`\n                <div class=\"tooltip-title\">${d.name}</div>\n                <div class=\"tooltip-owner\">by ${d.owner}</div>\n                <div class=\"tooltip-category\">${d.category.replace('-', ' ').toUpperCase()}</div>\n                <div class=\"tooltip-meta\">\n                    <div class=\"tooltip-stat\">⭐ ${d.stars.toLocaleString()}</div>\n                    <div class=\"tooltip-stat\">🍴 ${d.forks.toLocaleString()}</div>\n                    <div class=\"tooltip-stat\">💻 ${d.language}</div>\n                    <div class=\"tooltip-stat\">🔗 ${d.fullName}</div>\n                </div>\n                <div class=\"tooltip-desc\">${d.description || 'No description available'}</div>\n                <div class=\"tooltip-action\">👆 Click to open repository</div>\n            `);\n    }\n    \n    hideTooltip() {\n        this.tooltip.style('display', 'none');\n    }\n    \n    showEmptyState() {\n        const g = this.svg.select('.main-group');\n        g.selectAll('*').remove();\n        g.append('text')\n            .attr('x', this.width / 2)\n            .attr('y', this.height / 2)\n            .attr('text-anchor', 'middle')\n            .attr('fill', '#ffffff')\n            .attr('font-size', '20px')\n            .attr('font-weight', 'bold')\n            .text('No repositories match your current filters');\n        \n        g.append('text')\n            .attr('x', this.width / 2)\n            .attr('y', this.height / 2 + 30)\n            .attr('text-anchor', 'middle')\n            .attr('fill', '#ffffff')\n            .attr('font-size', '14px')\n            .text('Try adjusting your search criteria or reset filters');\n    }\n    \n    updateStats() {\n        document.getElementById('total-repos').textContent = this.repositories.length;\n        document.getElementById('visible-repos').textContent = this.filteredRepositories.length;\n        document.getElementById('last-updated').textContent = new Date().toLocaleString('en-US', {\n            month: 'short',\n            day: 'numeric',\n            hour: '2-digit',\n            minute: '2-digit'\n        });\n    }\n    \n    resetFilters() {\n        // Reset all filters\n        this.currentFilters = {\n            search: '',\n            category: 'all',\n            language: 'all',\n            stars: 'all'\n        };\n        \n        // Reset UI elements\n        const searchInput = document.getElementById('search');\n        if (searchInput) searchInput.value = '';\n        \n        document.querySelectorAll('.filter-btn').forEach(btn => {\n            btn.classList.remove('active');\n        });\n        \n        // Activate 'all' buttons\n        document.querySelectorAll('[data-category=\"all\"], [data-language=\"all\"], [data-stars=\"all\"]').forEach(btn => {\n            btn.classList.add('active');\n        });\n        \n        this.applyFilters();\n    }\n    \n    handleResize() {\n        if (!this.svg || !this.simulation) return;\n        \n        this.width = window.innerWidth;\n        this.height = window.innerHeight;\n        \n        this.svg.attr('width', this.width).attr('height', this.height);\n        this.simulation.force('center', d3.forceCenter(this.width / 2, this.height / 2));\n        this.simulation.alpha(0.3).restart();\n    }\n    \n    hideLoading() {\n        const loading = document.getElementById('loading');\n        if (loading) {\n            loading.style.display = 'none';\n        }\n    }\n    \n    showError(message) {\n        const loading = document.getElementById('loading');\n        if (loading) {\n            loading.innerHTML = `\n                <div class=\"error-message\">\n                    <h3>⚠️ Error</h3>\n                    <p>${message}</p>\n                    <button onclick=\"location.reload()\" class=\"filter-btn\" style=\"margin-top: 15px; background: #EF4444;\">\n                        🔄 Retry\n                    </button>\n                </div>\n            `;\n        }\n    }\n}\n\n// Initialize the application when the page loads\nif (document.readyState === 'loading') {\n    document.addEventListener('DOMContentLoaded', () => {\n        new GitHubStarsGraph();\n    });\n} else {\n    new GitHubStarsGraph();\n}"
