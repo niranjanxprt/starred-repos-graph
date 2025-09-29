@@ -198,6 +198,33 @@ The GitHub Actions workflow automatically:
 6. **🚀 Auto-deploys** updated visualization to GitHub Pages
 
 ### 🎯 **Manual Updates**
+
+You can refresh data in two ways:
+
+1) From the app UI
+- Click the "🔄 Refresh Data" button in the header
+- It opens the Actions page: Update Stars and Deploy to Pages
+- Click "Run workflow" (no parameters needed)
+- Within ~1–2 minutes, Pages redeploys automatically and the app will show the new data timestamp under Updated
+
+2) Using GitHub CLI
+```bash
+# Trigger the workflow manually
+gh workflow run update-data.yml --ref main -R niranjanxprt/starred-repos-graph
+```
+
+### 🌐 Live URL
+- https://niranjanxprt.github.io/starred-repos-graph/
+
+### 🧪 Run Locally (static, Pages-like)
+```bash
+# Generate data locally (avoids API rate limits in browser)
+GITHUB_USERNAME=niranjanxprt node scripts/fetch-data.js > data/repositories.json
+
+# Serve statically like GitHub Pages
+npx -y serve -l 4000 -s .
+# Open http://localhost:4000
+```
 Trigger updates anytime:
 1. Go to the **Actions** tab in your repository
 2. Select **"Update Starred Repositories Data"**

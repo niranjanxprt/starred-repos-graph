@@ -403,6 +403,14 @@
             background: rgba(255,255,255,0.22);
             transform: translateY(-1px);
         }
+
+        /* small note text under stats */
+        .stat-note {
+            font-size: 11px;
+            color: #A0AEC0;
+            margin-top: 2px;
+            font-style: italic;
+        }
     </style>
 </head>
 <body>
@@ -420,10 +428,11 @@
             <div class="stat-item">
                 <div style="font-size: 12px;" id="last-updated">Loading...</div>
                 <div>Updated</div>
+                <div class="stat-note" id="data-source-note">...</div>
             </div>
         </div>
         <div class="header-actions">
-            <button id="refresh-now" class="refresh-btn" title="Open GitHub Actions to refresh data">🔄 Refresh Data</button>
+            <button id="refresh-now" class="refresh-btn" title="Opens GitHub Actions → Update Stars and Deploy to Pages → Run workflow. This fetches latest stars and redeploys Pages automatically.">🔄 Refresh Data</button>
         </div>
     </div>
 

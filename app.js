@@ -9,6 +9,7 @@ class GitHubStarsGraph {
         this.width = window.innerWidth;
         this.height = window.innerHeight;
         this.dataLastUpdated = null; // ISO timestamp when data was last updated
+        this.dataSource = null; // 'cached' (Actions JSON) | 'live' (API)
         
         // Enhanced category definitions with comprehensive keywords
         this.categories = {
@@ -128,6 +129,7 @@ class GitHubStarsGraph {
                     const data = await response.json();
                     this.repositories = data.repositories || [];
                     this.dataLastUpdated = data.lastUpdated || null;
+                    this.dataSource = 'cached';
                     console.log(`Loaded ${this.repositories.length} repositories from data file`);
                     this.updateStats();
                     return;
@@ -140,6 +142,7 @@ class GitHubStarsGraph {
             let page = 1;
             const perPage = 100;
             this.repositories = [];
+            this.dataSource = 'live';
             
             this.updateProgress('Fetching repository data from GitHub API...');
             
@@ -673,6 +676,11 @@ class GitHubStarsGraph {
             hour: '2-digit',
             minute: '2-digit'
         });
+        // data source note
+        const noteEl = document.getElementById('data-source-note');
+        if (noteEl) {
+            noteEl.textContent = this.dataSource === 'live' ? 'Live (API)' : 'Cached (Actions)';
+        }
     }
     
     resetFilters() {
