@@ -33,8 +33,10 @@ jobs:
       with:
         node-version: '20'
     
-    - name: Create data directory
-      run: mkdir -p data
+    - name: Create data directory and set permissions
+      run: |
+        mkdir -p data
+        chmod +x scripts/fetch-data.js scripts/clean-data.js
     
     - name: Fetch and process starred repositories
       env:
@@ -50,6 +52,16 @@ jobs:
           echo "✅ Data file exists"
           REPO_COUNT=$(node -e "const data = require('./data/repositories.json'); console.log(data.totalCount || data.repositories?.length || 0);")
           echo "📊 Found $REPO_COUNT repositories"
+          
+          # Validate data quality and run cleanup if needed
+          echo "🔍 Checking data quality..."
+          if node -e "const data = require('./data/repositories.json'); const corrupted = data.repositories.filter(r => r.description && (r.description.includes(' gi ee ') || r.description.includes(' a d ') || r.description.includes(' fo '))); console.log(corrupted.length); process.exit(corrupted.length > 10 ? 1 : 0);"; then
+            echo "✅ Data quality check passed"
+          else
+            echo "🧹 Running data cleanup..."
+            node scripts/clean-data.js
+            echo "✅ Data cleanup completed"
+          fi
         else
           echo "❌ Data file not created!"
           exit 1
