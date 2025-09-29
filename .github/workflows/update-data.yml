@@ -1,4 +1,4 @@
-name: Update Starred Repositories Data
+name: Update Stars and Deploy to Pages
 
 on:
   schedule:
@@ -9,16 +9,19 @@ on:
     branches: [ main ]
     paths-ignore:
       - 'README.md'
-      - '.github/**'
+
+permissions:
+  contents: write
+  pages: write
+  id-token: write
+
+concurrency:
+  group: 'pages'
+  cancel-in-progress: true
 
 jobs:
   update-data:
     runs-on: ubuntu-latest
-    permissions:
-      contents: write
-      pages: write
-      id-token: write
-    
     steps:
     - name: Checkout repository
       uses: actions/checkout@v4
@@ -28,7 +31,7 @@ jobs:
     - name: Setup Node.js
       uses: actions/setup-node@v4
       with:
-        node-version: '18'
+        node-version: '20'
     
     - name: Create data directory
       run: mkdir -p data
@@ -36,182 +39,23 @@ jobs:
     - name: Fetch and process starred repositories
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        USERNAME: 'niranjanxprt'
+        GITHUB_USERNAME: 'niranjanxprt'
       run: |
-        node -e "
-        const https = require('https');
-        const fs = require('fs');
+        echo "🚀 Starting repository fetch..."
+        node scripts/fetch-data.js > data/repositories.json
+        echo "✅ Repository data saved to data/repositories.json"
         
-        const USERNAME = process.env.USERNAME || 'niranjanxprt';
-        const TOKEN = process.env.GITHUB_TOKEN;
-        
-        // Enhanced categorization with more keywords
-        const categories = {
-          'ai-ml': ['ai', 'artificial intelligence', 'machine learning', 'ml', 'deep learning', 'neural', 'llm', 'gpt', 'openai', 'anthropic', 'langchain', 'tensorflow', 'pytorch', 'huggingface', 'transformer', 'agent', 'rag', 'vector', 'claude', 'gemini', 'chatgpt', 'llama', 'bert', 'embedding', 'semantic'],
-          'web-dev': ['react', 'next', 'nextjs', 'vue', 'vuejs', 'angular', 'svelte', 'web', 'frontend', 'backend', 'fullstack', 'css', 'html', 'tailwind', 'bootstrap', 'javascript', 'typescript', 'node', 'nodejs', 'express', 'fastapi', 'django', 'flask'],
-          'mobile': ['react-native', 'flutter', 'ios', 'android', 'mobile', 'expo', 'swift', 'kotlin', 'xamarin', 'ionic', 'cordova', 'phonegap', 'native', 'app'],
-          'devops': ['docker', 'kubernetes', 'k8s', 'ci/cd', 'deployment', 'infrastructure', 'terraform', 'ansible', 'jenkins', 'helm', 'argo', 'flux', 'monitoring', 'prometheus', 'grafana', 'ops'],
-          'data': ['data', 'analytics', 'database', 'sql', 'postgres', 'postgresql', 'mongodb', 'redis', 'elasticsearch', 'spark', 'pandas', 'etl', 'warehouse', 'pipeline', 'airflow', 'kafka', 'bigdata', 'nosql'],
-          'tools': ['cli', 'command line', 'editor', 'ide', 'extension', 'utility', 'productivity', 'automation', 'terminal', 'shell', 'bash', 'zsh', 'vim', 'vscode', 'tool', 'generator'],
-          'security': ['security', 'auth', 'authentication', 'authorization', 'encryption', 'privacy', 'vulnerability', 'oauth', 'jwt', 'ssl', 'tls', 'crypto', 'cipher', 'hash', 'secure'],
-          'api': ['api', 'rest', 'restful', 'graphql', 'sdk', 'client', 'server', 'microservice', 'webhook', 'endpoint', 'service', 'grpc'],
-          'learning': ['tutorial', 'course', 'learning', 'education', 'examples', 'book', 'guide', 'documentation', 'handbook', 'interview', 'study', 'practice', 'exercise', 'challenge'],
-          'ui-ux': ['ui', 'ux', 'design', 'component', 'library', 'theme', 'icon', 'animation', 'motion', 'transition', 'interface', 'user experience'],
-          'blockchain': ['blockchain', 'crypto', 'cryptocurrency', 'ethereum', 'bitcoin', 'web3', 'solidity', 'nft', 'defi', 'smart contract', 'dapp'],
-          'game-dev': ['game', 'gaming', 'unity', 'unreal', 'godot', 'engine', 'graphics', '3d', 'physics', 'simulation', 'gamedev'],
-          'mcp': ['mcp', 'model context protocol', 'claude desktop', 'anthropic'],
-          'python': ['python', 'py', 'django', 'flask', 'fastapi', 'pandas', 'numpy', 'scipy'],
-          'other': []
-        };
-        
-        function categorizeRepo(repo) {
-          const text = (repo.name + ' ' + (repo.description || '') + ' ' + (repo.topics || []).join(' ')).toLowerCase();
-          const repoLanguage = (repo.language || '').toLowerCase();
-          
-          // Special handling for Python
-          if (repoLanguage === 'python' && (text.includes('python') || text.includes('django') || text.includes('flask'))) {
-            return 'python';
-          }
-          
-          for (const [cat, keywords] of Object.entries(categories)) {
-            if (cat === 'other') continue;
-            if (keywords.some(kw => text.includes(kw))) return cat;
-          }
-          return 'other';
-        }
-        
-        async function fetchPage(page) {
-          return new Promise((resolve, reject) => {
-            const options = {
-              hostname: 'api.github.com',
-              path: \`/users/\${USERNAME}/starred?per_page=100&page=\${page}\`,
-              headers: {
-                'User-Agent': 'starred-repos-updater/1.0',
-                'Authorization': \`Bearer \${TOKEN}\`,
-                'Accept': 'application/vnd.github.v3+json'
-              }
-            };
-            
-            const req = https.request(options, (res) => {
-              let data = '';
-              res.on('data', chunk => data += chunk);
-              res.on('end', () => {
-                if (res.statusCode === 200) {
-                  try {
-                    resolve(JSON.parse(data));
-                  } catch (e) {
-                    reject(new Error('Failed to parse JSON response'));
-                  }
-                } else {
-                  reject(new Error(\`HTTP \${res.statusCode}: \${data}\`));
-                }
-              });
-            });
-            req.on('error', reject);
-            req.end();
-          });
-        }
-        
-        async function fetchAll() {
-          let page = 1;
-          let allRepos = [];
-          
-          console.log('Starting to fetch starred repositories...');
-          
-          while (page <= 10) { // Limit to 10 pages (1000 repos max)
-            try {
-              console.log(\`Fetching page \${page}...\`);
-              const repos = await fetchPage(page);
-              
-              if (repos.length === 0) {
-                console.log('No more repositories found.');
-                break;
-              }
-              
-              const processed = repos.map(repo => ({
-                id: repo.id,
-                name: repo.name,
-                owner: repo.owner.login,
-                fullName: repo.full_name,
-                description: (repo.description || '').replace(/[\\\"\\n\\r]/g, ' ').trim(),
-                url: repo.html_url,
-                language: repo.language || 'Unknown',
-                stars: repo.stargazers_count,
-                forks: repo.forks_count,
-                category: categorizeRepo(repo),
-                updatedAt: repo.updated_at,
-                topics: repo.topics || []
-              }));
-              
-              allRepos = allRepos.concat(processed);
-              console.log(\`Total repositories collected: \${allRepos.length}\`);
-              
-              page++;
-              
-              // Rate limiting - wait 1 second between requests
-              await new Promise(resolve => setTimeout(resolve, 1000));
-              
-            } catch (error) {
-              console.error(\`Error fetching page \${page}:, error.message\`);
-              if (page === 1) {
-                throw error; // Fail if we can't get any data
-              }
-              break; // Continue with partial data
-            }
-          }
-          
-          return allRepos;
-        }
-        
-        (async () => {
-          try {
-            const repos = await fetchAll();
-            console.log(\`Successfully fetched \${repos.length} repositories\`);
-            
-            // Calculate category statistics
-            const categoryStats = {};
-            const languageStats = {};
-            
-            repos.forEach(repo => {
-              categoryStats[repo.category] = (categoryStats[repo.category] || 0) + 1;
-              languageStats[repo.language] = (languageStats[repo.language] || 0) + 1;
-            });
-            
-            const data = {
-              repositories: repos,
-              lastUpdated: new Date().toISOString(),
-              totalCount: repos.length,
-              categoryStats,
-              languageStats,
-              metadata: {
-                fetchedAt: new Date().toISOString(),
-                username: USERNAME,
-                version: '2.0'
-              }
-            };
-            
-            fs.writeFileSync('data/repositories.json', JSON.stringify(data, null, 2));
-            console.log('✅ Data saved to data/repositories.json');
-            
-            // Create a summary file
-            const summary = {
-              total: repos.length,
-              categories: Object.entries(categoryStats).sort(([,a], [,b]) => b - a),
-              topLanguages: Object.entries(languageStats).sort(([,a], [,b]) => b - a).slice(0, 10),
-              lastUpdated: new Date().toISOString()
-            };
-            
-            fs.writeFileSync('data/summary.json', JSON.stringify(summary, null, 2));
-            console.log('✅ Summary saved to data/summary.json');
-            
-          } catch (error) {
-            console.error('❌ Error:', error.message);
-            process.exit(1);
-          }
-        })();
-        "
+        # Verify the data file was created
+        if [ -f "data/repositories.json" ]; then
+          echo "✅ Data file exists"
+          REPO_COUNT=$(node -e "const data = require('./data/repositories.json'); console.log(data.totalCount || data.repositories?.length || 0);")
+          echo "📊 Found $REPO_COUNT repositories"
+        else
+          echo "❌ Data file not created!"
+          exit 1
+        fi
     
-    - name: Commit and push changes
+    - name: Commit and push data changes
       run: |
         git config --local user.email "action@github.com"
         git config --local user.name "GitHub Action Bot"
@@ -219,14 +63,22 @@ jobs:
         
         # Check if there are changes to commit
         if git diff --staged --quiet; then
-          echo "📝 No changes to commit"
+          echo "📝 No data changes to commit"
         else
-          REPO_COUNT=$(node -e "const data = require('./data/repositories.json'); console.log(data.totalCount);")
+          REPO_COUNT=$(node -e "const data = require('./data/repositories.json'); console.log(data.totalCount || data.repositories?.length || 0);")
           git commit -m "🔄 Auto-update: ${REPO_COUNT} starred repositories - $(date '+%Y-%m-%d %H:%M UTC')"
           git push
-          echo "✅ Changes committed and pushed"
+          echo "✅ Data changes committed and pushed"
         fi
 
+    - name: Setup Pages
+      uses: actions/configure-pages@v4
+      
+    - name: Upload Pages artifact
+      uses: actions/upload-pages-artifact@v3
+      with:
+        path: '.'
+        
   deploy:
     needs: update-data
     runs-on: ubuntu-latest
@@ -241,19 +93,6 @@ jobs:
       url: ${{ steps.deployment.outputs.page_url }}
       
     steps:
-    - name: Checkout
-      uses: actions/checkout@v4
-      with:
-        ref: main  # Get the updated main branch
-    
-    - name: Setup Pages
-      uses: actions/configure-pages@v4
-      
-    - name: Upload artifact
-      uses: actions/upload-pages-artifact@v3
-      with:
-        path: '.'
-        
     - name: Deploy to GitHub Pages
       id: deployment
       uses: actions/deploy-pages@v4
