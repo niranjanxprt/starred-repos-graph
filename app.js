@@ -114,6 +114,62 @@ class GitHubStarsGraph {
                 window.open(workflowUrl, '_blank');
             });
         }
+
+        // Mobile menu toggles
+        const toggleControls = document.getElementById('toggle-controls');
+        const toggleLegend = document.getElementById('toggle-legend');
+        const closeControls = document.getElementById('close-controls');
+        const closeLegend = document.getElementById('close-legend');
+        const controlsPanel = document.getElementById('controls-panel');
+        const legendPanel = document.getElementById('legend-panel');
+
+        if (toggleControls && controlsPanel) {
+            toggleControls.addEventListener('click', () => {
+                controlsPanel.classList.add('mobile-open');
+                legendPanel.classList.remove('mobile-open');
+            });
+        }
+
+        if (toggleLegend && legendPanel) {
+            toggleLegend.addEventListener('click', () => {
+                legendPanel.classList.add('mobile-open');
+                controlsPanel.classList.remove('mobile-open');
+            });
+        }
+
+        if (closeControls && controlsPanel) {
+            closeControls.addEventListener('click', () => {
+                controlsPanel.classList.remove('mobile-open');
+            });
+        }
+
+        if (closeLegend && legendPanel) {
+            closeLegend.addEventListener('click', () => {
+                legendPanel.classList.remove('mobile-open');
+            });
+        }
+
+        // Close panels when clicking outside on mobile
+        document.addEventListener('click', (e) => {
+            if (window.innerWidth <= 767) {
+                const isClickInsideControls = controlsPanel.contains(e.target);
+                const isClickInsideLegend = legendPanel.contains(e.target);
+                const isToggleButton = e.target.closest('.mobile-toggle');
+
+                if (!isClickInsideControls && !isClickInsideLegend && !isToggleButton) {
+                    controlsPanel.classList.remove('mobile-open');
+                    legendPanel.classList.remove('mobile-open');
+                }
+            }
+        });
+
+        // Close panels on Escape key
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') {
+                controlsPanel.classList.remove('mobile-open');
+                legendPanel.classList.remove('mobile-open');
+            }
+        });
     }
     
     async loadRepositories() {
@@ -620,11 +676,35 @@ class GitHubStarsGraph {
     
     showTooltip(event, d) {
         const [x, y] = [event.pageX, event.pageY];
-        
+        const isMobile = window.innerWidth <= 767;
+        const tooltipWidth = isMobile ? Math.min(window.innerWidth * 0.9, 350) : 350;
+        const tooltipOffset = 15;
+
+        // Calculate optimal position to keep tooltip in viewport
+        let leftPos = x + tooltipOffset;
+        let topPos = y - tooltipOffset;
+
+        // Adjust horizontal position
+        if (leftPos + tooltipWidth > window.innerWidth - 10) {
+            // Position to the left of cursor if it would overflow right
+            leftPos = Math.max(10, x - tooltipWidth - tooltipOffset);
+        }
+
+        // For mobile, center horizontally if near edges
+        if (isMobile) {
+            if (leftPos < 10 || leftPos + tooltipWidth > window.innerWidth - 10) {
+                leftPos = (window.innerWidth - tooltipWidth) / 2;
+            }
+        }
+
+        // Adjust vertical position to stay in viewport
+        topPos = Math.max(10, Math.min(topPos, window.innerHeight - 200));
+
         this.tooltip
             .style('display', 'block')
-            .style('left', Math.min(x + 15, window.innerWidth - 370) + 'px')
-            .style('top', Math.max(y - 15, 10) + 'px')
+            .style('left', leftPos + 'px')
+            .style('top', topPos + 'px')
+            .style('max-width', tooltipWidth + 'px')
             .html(`
                 <div class=\"tooltip-title\">${d.name}</div>
                 <div class=\"tooltip-owner\">by ${d.owner}</div>
