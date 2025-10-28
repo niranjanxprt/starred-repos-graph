@@ -11,39 +11,201 @@ const fs = require('fs');
 const USERNAME = process.env.GITHUB_USERNAME || 'niranjanxprt';
 const TOKEN = process.env.GITHUB_TOKEN;
 
-// Enhanced categorization with comprehensive keywords
+// Enhanced category definitions with weighted keyword scoring
 const categories = {
-  'ai-ml': ['ai', 'artificial intelligence', 'machine learning', 'ml', 'deep learning', 'neural', 'llm', 'gpt', 'openai', 'anthropic', 'langchain', 'tensorflow', 'pytorch', 'huggingface', 'transformer', 'agent', 'rag', 'vector', 'claude', 'gemini', 'chatgpt', 'llama', 'bert', 'embedding', 'semantic'],
-  'web-dev': ['react', 'next', 'nextjs', 'vue', 'vuejs', 'angular', 'svelte', 'web', 'frontend', 'backend', 'fullstack', 'css', 'html', 'tailwind', 'bootstrap', 'javascript', 'typescript', 'node', 'nodejs', 'express', 'fastapi', 'django', 'flask'],
-  'mobile': ['react-native', 'flutter', 'ios', 'android', 'mobile', 'expo', 'swift', 'kotlin', 'xamarin', 'ionic', 'cordova', 'phonegap', 'native', 'app'],
-  'devops': ['docker', 'kubernetes', 'k8s', 'ci/cd', 'deployment', 'infrastructure', 'terraform', 'ansible', 'jenkins', 'helm', 'argo', 'flux', 'monitoring', 'prometheus', 'grafana', 'ops'],
-  'data': ['data', 'analytics', 'database', 'sql', 'postgres', 'postgresql', 'mongodb', 'redis', 'elasticsearch', 'spark', 'pandas', 'etl', 'warehouse', 'pipeline', 'airflow', 'kafka', 'bigdata', 'nosql'],
-  'tools': ['cli', 'command line', 'editor', 'ide', 'extension', 'utility', 'productivity', 'automation', 'terminal', 'shell', 'bash', 'zsh', 'vim', 'vscode', 'tool', 'generator'],
-  'security': ['security', 'auth', 'authentication', 'authorization', 'encryption', 'privacy', 'vulnerability', 'oauth', 'jwt', 'ssl', 'tls', 'crypto', 'cipher', 'hash', 'secure'],
-  'api': ['api', 'rest', 'restful', 'graphql', 'sdk', 'client', 'server', 'microservice', 'webhook', 'endpoint', 'service', 'grpc'],
-  'learning': ['tutorial', 'course', 'learning', 'education', 'examples', 'book', 'guide', 'documentation', 'handbook', 'interview', 'study', 'practice', 'exercise', 'challenge'],
-  'ui-ux': ['ui', 'ux', 'design', 'component', 'library', 'theme', 'icon', 'animation', 'motion', 'transition', 'interface', 'user experience'],
-  'blockchain': ['blockchain', 'crypto', 'cryptocurrency', 'ethereum', 'bitcoin', 'web3', 'solidity', 'nft', 'defi', 'smart contract', 'dapp'],
-  'game-dev': ['game', 'gaming', 'unity', 'unreal', 'godot', 'engine', 'graphics', '3d', 'physics', 'simulation', 'gamedev'],
-  'mcp': ['mcp', 'model context protocol', 'claude desktop', 'anthropic'],
-  'python': ['python', 'py', 'django', 'flask', 'fastapi', 'pandas', 'numpy', 'scipy'],
-  'other': []
+  'ai-ml': {
+    strong: ['tensorflow', 'pytorch', 'huggingface', 'langchain', 'openai', 'anthropic', 'transformers', 'llm', 'gpt', 'chatgpt', 'claude', 'gemini', 'llama', 'bert', 'neural-network', 'deep-learning', 'machine-learning'],
+    medium: ['ai', 'ml', 'rag', 'embedding', 'model-training', 'inference', 'nlp', 'computer-vision', 'generative', 'diffusion'],
+    weak: ['agent', 'semantic', 'vector']
+  },
+  'cloud': {
+    strong: ['aws', 'azure', 'gcp', 'google-cloud', 'cloud-native', 'eks', 'aks', 'gke', 'cloudformation', 'terraform', 'pulumi'],
+    medium: ['cloud', 'infrastructure-as-code', 'iac', 'aws-cdk', 'serverless', 'lambda', 'cloud-functions'],
+    weak: ['infrastructure', 'deployment']
+  },
+  'devops': {
+    strong: ['kubernetes', 'k8s', 'docker', 'helm', 'argocd', 'gitlab-ci', 'github-actions', 'circleci', 'jenkins'],
+    medium: ['ci-cd', 'continuous-integration', 'continuous-deployment', 'devops', 'gitops', 'containerization', 'orchestration'],
+    weak: ['deployment', 'pipeline', 'automation', 'ops']
+  },
+  'web-dev': {
+    strong: ['react', 'nextjs', 'next.js', 'vue', 'vuejs', 'angular', 'svelte', 'remix', 'astro'],
+    medium: ['frontend', 'backend', 'fullstack', 'web-framework', 'express', 'fastify', 'nestjs', 'tailwind', 'css'],
+    weak: ['web', 'html', 'javascript', 'typescript']
+  },
+  'mobile': {
+    strong: ['react-native', 'flutter', 'swift', 'kotlin', 'swiftui', 'jetpack-compose', 'expo'],
+    medium: ['ios', 'android', 'mobile-development', 'mobile-app', 'xamarin', 'ionic'],
+    weak: ['mobile']
+  },
+  'data': {
+    strong: ['postgresql', 'mongodb', 'redis', 'elasticsearch', 'cassandra', 'dynamodb', 'apache-spark', 'apache-kafka', 'apache-airflow'],
+    medium: ['database', 'data-engineering', 'etl', 'data-pipeline', 'data-warehouse', 'bigquery', 'snowflake'],
+    weak: ['sql', 'nosql', 'analytics', 'data']
+  },
+  'monitoring': {
+    strong: ['prometheus', 'grafana', 'datadog', 'new-relic', 'elasticsearch', 'kibana', 'jaeger', 'zipkin'],
+    medium: ['observability', 'monitoring', 'logging', 'tracing', 'metrics', 'apm', 'alerting'],
+    weak: ['logs', 'telemetry']
+  },
+  'testing': {
+    strong: ['jest', 'pytest', 'cypress', 'selenium', 'playwright', 'junit', 'testng', 'mocha'],
+    medium: ['testing', 'test-automation', 'unit-testing', 'integration-testing', 'e2e-testing', 'tdd', 'bdd'],
+    weak: ['test', 'qa', 'quality-assurance']
+  },
+  'python': {
+    strong: ['django', 'flask', 'fastapi', 'pandas', 'numpy', 'scipy', 'scikit-learn'],
+    medium: ['python', 'python3', 'pythonic'],
+    weak: ['py']
+  },
+  'tools': {
+    strong: ['vscode', 'vim', 'neovim', 'cli-tool', 'command-line-tool'],
+    medium: ['cli', 'command-line', 'terminal', 'shell', 'bash', 'developer-tools'],
+    weak: ['tool', 'utility', 'productivity']
+  },
+  'security': {
+    strong: ['oauth', 'jwt', 'authentication', 'authorization', 'encryption', 'vulnerability-scanner', 'penetration-testing'],
+    medium: ['security', 'cybersecurity', 'infosec', 'secure', 'privacy', 'cryptography'],
+    weak: ['auth', 'ssl', 'tls']
+  },
+  'api': {
+    strong: ['graphql', 'rest-api', 'api-gateway', 'grpc', 'swagger', 'openapi'],
+    medium: ['api', 'restful', 'microservices', 'api-client', 'sdk'],
+    weak: ['endpoint', 'webhook']
+  },
+  'learning': {
+    strong: ['tutorial', 'course', 'learning-resources', 'educational', 'coding-interview', 'examples'],
+    medium: ['learning', 'education', 'guide', 'handbook', 'interview-prep'],
+    weak: ['documentation', 'book', 'study']
+  },
+  'ui-ux': {
+    strong: ['design-system', 'ui-components', 'component-library', 'tailwindcss', 'material-ui', 'shadcn'],
+    medium: ['ui', 'ux', 'design', 'user-interface', 'frontend-framework'],
+    weak: ['theme', 'icon', 'animation']
+  },
+  'blockchain': {
+    strong: ['ethereum', 'solidity', 'web3', 'smart-contract', 'defi', 'nft'],
+    medium: ['blockchain', 'cryptocurrency', 'bitcoin', 'dapp'],
+    weak: ['crypto']
+  },
+  'game-dev': {
+    strong: ['unity', 'unreal', 'godot', 'game-engine'],
+    medium: ['game-development', 'gamedev', 'gaming'],
+    weak: ['game', '3d', 'physics-engine']
+  },
+  'mcp': {
+    strong: ['mcp', 'model-context-protocol', 'claude-desktop'],
+    medium: ['anthropic'],
+    weak: []
+  },
+  'networking': {
+    strong: ['networking', 'network-programming', 'tcp-ip', 'http', 'dns', 'load-balancer'],
+    medium: ['protocol', 'socket', 'websocket', 'network'],
+    weak: []
+  },
+  'other': {}
 };
 
 function categorizeRepo(repo) {
-  const text = `${repo.name || ''} ${repo.description || ''} ${(repo.topics || []).join(' ')}`.toLowerCase();
-  const repoLanguage = (repo.language || '').toLowerCase();
-  
-  // Special handling for Python
-  if (repoLanguage === 'python' && (text.includes('python') || text.includes('django') || text.includes('flask'))) {
-    return 'python';
+  // Extract and normalize data
+  const name = (repo.name || '').toLowerCase();
+  const description = (repo.description || '').toLowerCase();
+  const topics = (repo.topics || []).map(t => t.toLowerCase());
+  const language = (repo.language || '').toLowerCase();
+
+  // Combine all text for keyword matching
+  const allText = `${name} ${description} ${topics.join(' ')}`;
+
+  // Create word boundary regex for more precise matching
+  const createWordRegex = (keyword) => {
+    const escaped = keyword.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+    return new RegExp(`\\b${escaped}\\b`, 'i');
+  };
+
+  // Score each category
+  const categoryScores = {};
+
+  for (const [category, keywordGroups] of Object.entries(categories)) {
+    if (category === 'other') continue;
+
+    let score = 0;
+
+    // Strong keywords: 10 points
+    if (keywordGroups.strong) {
+      for (const keyword of keywordGroups.strong) {
+        if (createWordRegex(keyword).test(allText)) {
+          score += 10;
+          // Bonus for topic match
+          if (topics.some(t => t.includes(keyword.toLowerCase()))) {
+            score += 5;
+          }
+        }
+      }
+    }
+
+    // Medium keywords: 5 points
+    if (keywordGroups.medium) {
+      for (const keyword of keywordGroups.medium) {
+        if (createWordRegex(keyword).test(allText)) {
+          score += 5;
+          if (topics.some(t => t.includes(keyword.toLowerCase()))) {
+            score += 3;
+          }
+        }
+      }
+    }
+
+    // Weak keywords: 2 points
+    if (keywordGroups.weak) {
+      for (const keyword of keywordGroups.weak) {
+        if (createWordRegex(keyword).test(allText)) {
+          score += 2;
+        }
+      }
+    }
+
+    categoryScores[category] = score;
   }
-  
-  for (const [cat, keywords] of Object.entries(categories)) {
-    if (cat === 'other') continue;
-    if (keywords.some(kw => text.includes(kw))) return cat;
+
+  // Language-based boosts
+  if (language === 'python') {
+    categoryScores['python'] = (categoryScores['python'] || 0) + 8;
   }
-  return 'other';
+  if (language === 'javascript' || language === 'typescript') {
+    categoryScores['web-dev'] = (categoryScores['web-dev'] || 0) + 3;
+  }
+  if (language === 'swift' || language === 'kotlin') {
+    categoryScores['mobile'] = (categoryScores['mobile'] || 0) + 8;
+  }
+  if (language === 'go' || language === 'rust') {
+    categoryScores['tools'] = (categoryScores['tools'] || 0) + 3;
+    categoryScores['devops'] = (categoryScores['devops'] || 0) + 3;
+  }
+  if (language === 'hcl' || language === 'terraform') {
+    categoryScores['cloud'] = (categoryScores['cloud'] || 0) + 10;
+  }
+  if (language === 'dockerfile') {
+    categoryScores['devops'] = (categoryScores['devops'] || 0) + 8;
+  }
+
+  // Special case: if repo has "kubernetes" and "example", prefer devops over learning
+  if (allText.includes('kubernetes') && allText.includes('example')) {
+    categoryScores['devops'] = (categoryScores['devops'] || 0) + 10;
+    categoryScores['learning'] = Math.max(0, (categoryScores['learning'] || 0) - 5);
+  }
+
+  // Find category with highest score (minimum threshold: 5 points)
+  let bestCategory = 'other';
+  let bestScore = 5;
+
+  for (const [category, score] of Object.entries(categoryScores)) {
+    if (score > bestScore) {
+      bestScore = score;
+      bestCategory = category;
+    }
+  }
+
+  return bestCategory;
 }
 
 async function fetchPage(page) {
