@@ -24,7 +24,7 @@
       "language": "Python",
       "stars": 3140,
       "forks": 807,
-      "category": "other",
+      "category": "python",
       "updatedAt": "2025-10-27T18:38:37Z",
       "topics": []
     },
@@ -84,7 +84,7 @@
       "language": "HTML",
       "stars": 61,
       "forks": 6,
-      "category": "ai-ml",
+      "category": "other",
       "updatedAt": "2025-10-28T02:47:14Z",
       "topics": [
         "awesome",
@@ -105,7 +105,7 @@
       "language": "TypeScript",
       "stars": 491,
       "forks": 220,
-      "category": "ui-ux",
+      "category": "cloud",
       "updatedAt": "2025-10-26T22:10:22Z",
       "topics": []
     },
@@ -119,7 +119,7 @@
       "language": "Shell",
       "stars": 36420,
       "forks": 3902,
-      "category": "web-dev",
+      "category": "cloud",
       "updatedAt": "2025-10-28T03:54:09Z",
       "topics": []
     },
@@ -133,7 +133,7 @@
       "language": "Shell",
       "stars": 6464,
       "forks": 4653,
-      "category": "mobile",
+      "category": "devops",
       "updatedAt": "2025-10-27T15:18:15Z",
       "topics": []
     },
@@ -147,7 +147,7 @@
       "language": "HCL",
       "stars": 856,
       "forks": 494,
-      "category": "ai-ml",
+      "category": "cloud",
       "updatedAt": "2025-10-26T22:09:28Z",
       "topics": [
         "examples",
@@ -165,7 +165,7 @@
       "language": "Bicep",
       "stars": 14607,
       "forks": 16325,
-      "category": "ui-ux",
+      "category": "cloud",
       "updatedAt": "2025-10-27T20:03:13Z",
       "topics": [
         "arm",
@@ -200,7 +200,7 @@
       "language": "Go",
       "stars": 19234,
       "forks": 9044,
-      "category": "mobile",
+      "category": "cloud",
       "updatedAt": "2025-10-28T04:23:49Z",
       "topics": [
         "gcp",
@@ -226,7 +226,7 @@
       "language": "Unknown",
       "stars": 4293,
       "forks": 1458,
-      "category": "other",
+      "category": "cloud",
       "updatedAt": "2025-10-27T11:59:31Z",
       "topics": [
         "certification",
@@ -245,7 +245,7 @@
       "language": "Python",
       "stars": 13784,
       "forks": 1857,
-      "category": "web-dev",
+      "category": "cloud",
       "updatedAt": "2025-10-28T03:10:39Z",
       "topics": [
         "aws",
@@ -280,7 +280,7 @@
       "language": "Python",
       "stars": 5499,
       "forks": 2298,
-      "category": "learning",
+      "category": "cloud",
       "updatedAt": "2025-10-27T03:06:06Z",
       "topics": [
         "cdk",
@@ -297,7 +297,7 @@
       "language": "HCL",
       "stars": 4824,
       "forks": 4299,
-      "category": "devops",
+      "category": "cloud",
       "updatedAt": "2025-10-27T21:50:12Z",
       "topics": [
         "aws",
@@ -320,7 +320,7 @@
       "language": "Unknown",
       "stars": 1489,
       "forks": 836,
-      "category": "ai-ml",
+      "category": "cloud",
       "updatedAt": "2025-10-26T22:08:17Z",
       "topics": []
     },
@@ -355,7 +355,7 @@
       "language": "Unknown",
       "stars": 471,
       "forks": 85,
-      "category": "devops",
+      "category": "other",
       "updatedAt": "2025-10-28T04:19:09Z",
       "topics": []
     },
@@ -369,7 +369,7 @@
       "language": "Groovy",
       "stars": 9285,
       "forks": 2323,
-      "category": "ai-ml",
+      "category": "devops",
       "updatedAt": "2025-10-28T04:18:18Z",
       "topics": [
         "aws",
@@ -399,7 +399,7 @@
       "language": "Shell",
       "stars": 29007,
       "forks": 6633,
-      "category": "ai-ml",
+      "category": "cloud",
       "updatedAt": "2025-10-28T05:12:07Z",
       "topics": [
         "ansible",
@@ -422,7 +422,7 @@
       "language": "Python",
       "stars": 426,
       "forks": 54,
-      "category": "ai-ml",
+      "category": "learning",
       "updatedAt": "2025-10-28T02:39:06Z",
       "topics": []
     },
@@ -436,7 +436,7 @@
       "language": "TypeScript",
       "stars": 12620,
       "forks": 2662,
-      "category": "ai-ml",
+      "category": "other",
       "updatedAt": "2025-10-27T23:28:52Z",
       "topics": []
     },
@@ -450,7 +450,7 @@
       "language": "Batchfile",
       "stars": 29316,
       "forks": 5897,
-      "category": "tools",
+      "category": "learning",
       "updatedAt": "2025-10-28T03:46:09Z",
       "topics": [
         "book",
@@ -491,7 +491,7 @@
       "language": "Ruby",
       "stars": 13440,
       "forks": 635,
-      "category": "web-dev",
+      "category": "other",
       "updatedAt": "2025-10-28T01:29:01Z",
       "topics": []
     },
@@ -505,7 +505,7 @@
       "language": "Elixir",
       "stars": 98,
       "forks": 18,
-      "category": "tools",
+      "category": "other",
       "updatedAt": "2025-10-27T20:03:14Z",
       "topics": [
         "business-writing",
@@ -598,7 +598,7 @@
       "language": "Python",
       "stars": 191,
       "forks": 244,
-      "category": "ai-ml",
+      "category": "mcp",
       "updatedAt": "2025-10-28T03:59:38Z",
       "topics": [
         "hacktoberfest",
@@ -615,7 +615,7 @@
       "language": "JavaScript",
       "stars": 2,
       "forks": 1,
-      "category": "tools",
+      "category": "other",
       "updatedAt": "2025-10-25T00:11:05Z",
       "topics": []
     },
@@ -643,7 +643,7 @@
       "language": "JavaScript",
       "stars": 6,
       "forks": 0,
-      "category": "tools",
+      "category": "learning",
       "updatedAt": "2025-10-24T09:47:23Z",
       "topics": []
     },
@@ -704,10 +704,10 @@
       "description": "What are the principles we can use to build LLM-powered software that is actually good enough to put in the hands of production customers?",
       "url": "https://github.com/humanlayer/12-factor-agents",
       "language": "TypeScript",
-      "stars": 15830,
+      "stars": 15831,
       "forks": 1205,
       "category": "ai-ml",
-      "updatedAt": "2025-10-28T04:50:23Z",
+      "updatedAt": "2025-10-28T05:29:44Z",
       "topics": [
         "12-factor",
         "12-factor-agents",
@@ -746,7 +746,7 @@
       "language": "Ruby",
       "stars": 11192,
       "forks": 505,
-      "category": "ai-ml",
+      "category": "devops",
       "updatedAt": "2025-10-27T23:23:16Z",
       "topics": [
         "bare-metal",
@@ -795,7 +795,7 @@
       "language": "Unknown",
       "stars": 48,
       "forks": 9,
-      "category": "ai-ml",
+      "category": "learning",
       "updatedAt": "2025-10-24T07:22:50Z",
       "topics": [
         "collection",
@@ -818,7 +818,7 @@
       "language": "Unknown",
       "stars": 54,
       "forks": 11,
-      "category": "ai-ml",
+      "category": "other",
       "updatedAt": "2025-10-22T20:30:18Z",
       "topics": [
         "genai",
@@ -962,10 +962,10 @@
       "description": "Introduction to Machine Learning Systems",
       "url": "https://github.com/harvard-edge/cs249r_book",
       "language": "Python",
-      "stars": 6742,
+      "stars": 6743,
       "forks": 670,
       "category": "ai-ml",
-      "updatedAt": "2025-10-28T05:24:28Z",
+      "updatedAt": "2025-10-28T05:28:38Z",
       "topics": [
         "artificial-intelligence",
         "cloud-ml",
@@ -991,7 +991,7 @@
       "language": "TypeScript",
       "stars": 342,
       "forks": 2,
-      "category": "ai-ml",
+      "category": "cloud",
       "updatedAt": "2025-10-28T05:20:45Z",
       "topics": [
         "api",
@@ -1016,7 +1016,7 @@
       "language": "TypeScript",
       "stars": 66,
       "forks": 25,
-      "category": "ai-ml",
+      "category": "cloud",
       "updatedAt": "2025-10-27T23:26:22Z",
       "topics": []
     },
@@ -1030,7 +1030,7 @@
       "language": "Python",
       "stars": 14287,
       "forks": 1835,
-      "category": "python",
+      "category": "ai-ml",
       "updatedAt": "2025-10-26T23:09:42Z",
       "topics": [
         "automated-machine-learning",
@@ -1079,7 +1079,7 @@
       "language": "Python",
       "stars": 3696,
       "forks": 355,
-      "category": "ai-ml",
+      "category": "python",
       "updatedAt": "2025-10-28T04:01:04Z",
       "topics": []
     },
@@ -1113,7 +1113,7 @@
       "language": "Python",
       "stars": 3,
       "forks": 1,
-      "category": "other",
+      "category": "python",
       "updatedAt": "2025-10-19T09:45:51Z",
       "topics": []
     },
@@ -1127,7 +1127,7 @@
       "language": "Go",
       "stars": 14061,
       "forks": 749,
-      "category": "mobile",
+      "category": "devops",
       "updatedAt": "2025-10-28T04:27:58Z",
       "topics": [
         "build-tool",
@@ -1242,10 +1242,10 @@
       "description": "SQL databases in Python, designed for simplicity, compatibility, and robustness.",
       "url": "https://github.com/fastapi/sqlmodel",
       "language": "Python",
-      "stars": 17015,
+      "stars": 17016,
       "forks": 781,
       "category": "python",
-      "updatedAt": "2025-10-28T02:41:20Z",
+      "updatedAt": "2025-10-28T05:25:50Z",
       "topics": [
         "fastapi",
         "json",
@@ -1289,7 +1289,7 @@
       "language": "Python",
       "stars": 3964,
       "forks": 1811,
-      "category": "ai-ml",
+      "category": "devops",
       "updatedAt": "2025-10-27T20:03:16Z",
       "topics": [
         "data-science",
@@ -1344,7 +1344,7 @@
       "language": "Jupyter Notebook",
       "stars": 13550,
       "forks": 2712,
-      "category": "ai-ml",
+      "category": "learning",
       "updatedAt": "2025-10-27T20:10:08Z",
       "topics": [
         "machine-learning",
@@ -1386,7 +1386,7 @@
       "language": "HTML",
       "stars": 1265,
       "forks": 208,
-      "category": "web-dev",
+      "category": "other",
       "updatedAt": "2025-10-21T16:25:42Z",
       "topics": []
     },
@@ -1486,7 +1486,7 @@
       "language": "TypeScript",
       "stars": 1172,
       "forks": 185,
-      "category": "web-dev",
+      "category": "learning",
       "updatedAt": "2025-10-28T03:38:57Z",
       "topics": [
         "design-patterns",
@@ -1517,7 +1517,7 @@
       "language": "Ruby",
       "stars": 20,
       "forks": 33,
-      "category": "devops",
+      "category": "other",
       "updatedAt": "2025-10-17T13:05:52Z",
       "topics": []
     },
@@ -1580,7 +1580,7 @@
       "language": "TypeScript",
       "stars": 8312,
       "forks": 408,
-      "category": "web-dev",
+      "category": "other",
       "updatedAt": "2025-10-27T23:12:01Z",
       "topics": [
         "build-tool",
@@ -1600,7 +1600,7 @@
       "language": "TypeScript",
       "stars": 12504,
       "forks": 445,
-      "category": "web-dev",
+      "category": "api",
       "updatedAt": "2025-10-27T18:27:22Z",
       "topics": [
         "browser-extension",
@@ -1624,7 +1624,7 @@
       "language": "TypeScript",
       "stars": 1,
       "forks": 1,
-      "category": "tools",
+      "category": "other",
       "updatedAt": "2025-10-17T07:51:53Z",
       "topics": []
     },
@@ -1636,10 +1636,10 @@
       "description": "Public repository for Skills",
       "url": "https://github.com/anthropics/skills",
       "language": "Python",
-      "stars": 14112,
+      "stars": 14114,
       "forks": 1107,
-      "category": "other",
-      "updatedAt": "2025-10-28T05:20:30Z",
+      "category": "python",
+      "updatedAt": "2025-10-28T05:28:32Z",
       "topics": []
     },
     {
@@ -1721,7 +1721,7 @@
       "language": "TypeScript",
       "stars": 2697,
       "forks": 226,
-      "category": "web-dev",
+      "category": "mcp",
       "updatedAt": "2025-10-28T02:31:23Z",
       "topics": [
         "mcp",
@@ -1738,7 +1738,7 @@
       "language": "Unknown",
       "stars": 422,
       "forks": 145,
-      "category": "tools",
+      "category": "other",
       "updatedAt": "2025-10-27T23:41:18Z",
       "topics": []
     },
@@ -1752,7 +1752,7 @@
       "language": "TypeScript",
       "stars": 2848,
       "forks": 493,
-      "category": "web-dev",
+      "category": "mcp",
       "updatedAt": "2025-10-28T04:37:01Z",
       "topics": []
     },
@@ -1780,7 +1780,7 @@
       "language": "Python",
       "stars": 4638,
       "forks": 461,
-      "category": "data",
+      "category": "ai-ml",
       "updatedAt": "2025-10-28T04:35:08Z",
       "topics": [
         "data-science",
@@ -1883,7 +1883,7 @@
       "language": "Python",
       "stars": 6356,
       "forks": 1092,
-      "category": "python",
+      "category": "ai-ml",
       "updatedAt": "2025-10-27T16:34:01Z",
       "topics": [
         "ai",
@@ -1918,7 +1918,7 @@
       "language": "Unknown",
       "stars": 1491,
       "forks": 810,
-      "category": "web-dev",
+      "category": "devops",
       "updatedAt": "2025-10-27T13:16:12Z",
       "topics": [
         "devops",
@@ -1940,7 +1940,7 @@
       "language": "Dockerfile",
       "stars": 691,
       "forks": 169,
-      "category": "ai-ml",
+      "category": "devops",
       "updatedAt": "2025-10-25T18:44:37Z",
       "topics": [
         "docker",
@@ -1974,7 +1974,7 @@
       "language": "PowerShell",
       "stars": 2629,
       "forks": 843,
-      "category": "ai-ml",
+      "category": "devops",
       "updatedAt": "2025-10-27T22:26:07Z",
       "topics": [
         "affinity",
@@ -2042,10 +2042,10 @@
       "description": "The best ChatGPT that $100 can buy.",
       "url": "https://github.com/karpathy/nanochat",
       "language": "Python",
-      "stars": 33684,
+      "stars": 33685,
       "forks": 3724,
       "category": "ai-ml",
-      "updatedAt": "2025-10-28T05:24:16Z",
+      "updatedAt": "2025-10-28T05:28:38Z",
       "topics": []
     },
     {
@@ -2056,10 +2056,10 @@
       "description": "Multi-Language Backend Framework that unifies APIs, background jobs, workflows, and AI Agents into a single core primitive with built-in observability and state management.",
       "url": "https://github.com/MotiaDev/motia",
       "language": "TypeScript",
-      "stars": 9750,
+      "stars": 9751,
       "forks": 771,
-      "category": "ai-ml",
-      "updatedAt": "2025-10-28T03:34:41Z",
+      "category": "web-dev",
+      "updatedAt": "2025-10-28T05:28:29Z",
       "topics": [
         "agents",
         "agi",
@@ -2128,7 +2128,7 @@
       "language": "Python",
       "stars": 156,
       "forks": 151,
-      "category": "ai-ml",
+      "category": "cloud",
       "updatedAt": "2025-10-27T14:36:44Z",
       "topics": [
         "msl-data-ai"
@@ -2144,7 +2144,7 @@
       "language": "Python",
       "stars": 623,
       "forks": 57,
-      "category": "ai-ml",
+      "category": "python",
       "updatedAt": "2025-10-28T04:22:35Z",
       "topics": []
     },
@@ -2158,7 +2158,7 @@
       "language": "Markdown",
       "stars": 3655,
       "forks": 257,
-      "category": "ai-ml",
+      "category": "security",
       "updatedAt": "2025-10-28T04:33:07Z",
       "topics": [
         "encryption",
@@ -2180,7 +2180,7 @@
       "language": "TypeScript",
       "stars": 16849,
       "forks": 1038,
-      "category": "ai-ml",
+      "category": "web-dev",
       "updatedAt": "2025-10-28T03:00:38Z",
       "topics": [
         "knowledge-graph",
@@ -2197,7 +2197,7 @@
       "language": "Unknown",
       "stars": 3677,
       "forks": 684,
-      "category": "ai-ml",
+      "category": "learning",
       "updatedAt": "2025-10-27T16:15:05Z",
       "topics": []
     },
@@ -2211,7 +2211,7 @@
       "language": "Python",
       "stars": 506,
       "forks": 179,
-      "category": "ai-ml",
+      "category": "python",
       "updatedAt": "2025-10-27T12:38:36Z",
       "topics": []
     },
@@ -2225,7 +2225,7 @@
       "language": "Python",
       "stars": 24301,
       "forks": 1883,
-      "category": "ai-ml",
+      "category": "python",
       "updatedAt": "2025-10-28T03:46:25Z",
       "topics": []
     },
@@ -2237,10 +2237,10 @@
       "description": "Audio Editor",
       "url": "https://github.com/audacity/audacity",
       "language": "C++",
-      "stars": 15751,
+      "stars": 15752,
       "forks": 2462,
-      "category": "mobile",
-      "updatedAt": "2025-10-28T03:13:36Z",
+      "category": "other",
+      "updatedAt": "2025-10-28T05:26:02Z",
       "topics": [
         "audio",
         "cross-platform",
@@ -2280,7 +2280,7 @@
       "language": "Nunjucks",
       "stars": 60662,
       "forks": 11109,
-      "category": "ai-ml",
+      "category": "web-dev",
       "updatedAt": "2025-10-28T03:53:12Z",
       "topics": [
         "css-questions",
@@ -2301,7 +2301,7 @@
       "language": "Java",
       "stars": 19018,
       "forks": 4702,
-      "category": "ai-ml",
+      "category": "ui-ux",
       "updatedAt": "2025-10-28T04:58:27Z",
       "topics": [
         "awesome",
@@ -2328,7 +2328,7 @@
       "language": "Java",
       "stars": 13799,
       "forks": 3089,
-      "category": "data",
+      "category": "other",
       "updatedAt": "2025-10-28T04:45:44Z",
       "topics": [
         "algorithms",
@@ -2348,7 +2348,7 @@
       "language": "Unknown",
       "stars": 23,
       "forks": 3,
-      "category": "tools",
+      "category": "other",
       "updatedAt": "2025-10-07T06:01:08Z",
       "topics": []
     },
@@ -2362,7 +2362,7 @@
       "language": "TypeScript",
       "stars": 222,
       "forks": 23,
-      "category": "ai-ml",
+      "category": "other",
       "updatedAt": "2025-10-26T18:15:08Z",
       "topics": []
     },
@@ -2376,7 +2376,7 @@
       "language": "TypeScript",
       "stars": 1319,
       "forks": 216,
-      "category": "ai-ml",
+      "category": "other",
       "updatedAt": "2025-10-28T04:03:00Z",
       "topics": []
     },
@@ -2423,7 +2423,7 @@
       "language": "TypeScript",
       "stars": 598,
       "forks": 44,
-      "category": "ai-ml",
+      "category": "other",
       "updatedAt": "2025-10-28T00:45:31Z",
       "topics": []
     },
@@ -2437,7 +2437,7 @@
       "language": "Unknown",
       "stars": 5650,
       "forks": 826,
-      "category": "ai-ml",
+      "category": "other",
       "updatedAt": "2025-10-28T02:35:56Z",
       "topics": [
         "awesome",
@@ -2457,7 +2457,7 @@
       "language": "Unknown",
       "stars": 5645,
       "forks": 608,
-      "category": "web-dev",
+      "category": "learning",
       "updatedAt": "2025-10-28T04:37:22Z",
       "topics": [
         "awesome",
@@ -2478,7 +2478,7 @@
       "language": "Python",
       "stars": 6142,
       "forks": 915,
-      "category": "ai-ml",
+      "category": "python",
       "updatedAt": "2025-10-28T02:38:09Z",
       "topics": [
         "algorithmic-trading",
@@ -2512,7 +2512,7 @@
       "language": "Unknown",
       "stars": 6106,
       "forks": 352,
-      "category": "tools",
+      "category": "other",
       "updatedAt": "2025-10-27T14:20:37Z",
       "topics": [
         "3d",
@@ -2534,7 +2534,7 @@
       "language": "HTML",
       "stars": 6178,
       "forks": 2325,
-      "category": "data",
+      "category": "ai-ml",
       "updatedAt": "2025-10-27T12:42:40Z",
       "topics": [
         "awesome",
@@ -2556,7 +2556,7 @@
       "language": "Unknown",
       "stars": 6185,
       "forks": 958,
-      "category": "devops",
+      "category": "cloud",
       "updatedAt": "2025-10-27T20:11:36Z",
       "topics": [
         "awesome",
@@ -2598,7 +2598,7 @@
       "language": "Unknown",
       "stars": 6447,
       "forks": 1116,
-      "category": "ai-ml",
+      "category": "devops",
       "updatedAt": "2025-10-28T02:21:10Z",
       "topics": [
         "automation",
@@ -2673,7 +2673,7 @@
       "language": "Unknown",
       "stars": 6643,
       "forks": 393,
-      "category": "tools",
+      "category": "other",
       "updatedAt": "2025-10-27T11:01:20Z",
       "topics": [
         "awesome",
@@ -2690,7 +2690,7 @@
       "language": "JavaScript",
       "stars": 6676,
       "forks": 685,
-      "category": "web-dev",
+      "category": "other",
       "updatedAt": "2025-10-26T22:47:33Z",
       "topics": [
         "awesome",
@@ -2712,7 +2712,7 @@
       "language": "Unknown",
       "stars": 6751,
       "forks": 312,
-      "category": "ai-ml",
+      "category": "devops",
       "updatedAt": "2025-10-28T02:20:04Z",
       "topics": [
         "automation",
@@ -2744,7 +2744,7 @@
       "language": "Unknown",
       "stars": 6811,
       "forks": 965,
-      "category": "devops",
+      "category": "security",
       "updatedAt": "2025-10-28T04:58:53Z",
       "topics": [
         "awesome",
@@ -2775,7 +2775,7 @@
       "language": "Unknown",
       "stars": 6856,
       "forks": 456,
-      "category": "game-dev",
+      "category": "other",
       "updatedAt": "2025-10-27T11:58:38Z",
       "topics": [
         "altium",
@@ -2822,7 +2822,7 @@
       "language": "Unknown",
       "stars": 6853,
       "forks": 1468,
-      "category": "web-dev",
+      "category": "mobile",
       "updatedAt": "2025-10-28T02:26:17Z",
       "topics": [
         "android",
@@ -2917,7 +2917,7 @@
       "language": "Python",
       "stars": 6931,
       "forks": 1117,
-      "category": "web-dev",
+      "category": "security",
       "updatedAt": "2025-10-26T19:42:09Z",
       "topics": [
         "awesome",
@@ -2945,7 +2945,7 @@
       "language": "Markdown",
       "stars": 6983,
       "forks": 481,
-      "category": "ai-ml",
+      "category": "other",
       "updatedAt": "2025-10-28T03:18:10Z",
       "topics": [
         "awesome",
@@ -3011,7 +3011,7 @@
       "name": "awesome-developer-streams",
       "owner": "bnb",
       "fullName": "bnb/awesome-developer-streams",
-      "description": "👩🏿‍💻👨🏾‍💻👩🏼‍💻👨🏽‍💻👩🏻‍💻 Awesome Developers, Streaming",
+      "description": "👩🏿‍💻👨🏾‍����👩🏼‍💻👨🏽‍💻👩🏻‍💻 Awesome Developers, Streaming",
       "url": "https://github.com/bnb/awesome-developer-streams",
       "language": "Unknown",
       "stars": 7908,
@@ -3058,7 +3058,7 @@
       "language": "Python",
       "stars": 8016,
       "forks": 1047,
-      "category": "other",
+      "category": "python",
       "updatedAt": "2025-10-28T02:48:03Z",
       "topics": [
         "awesome",
@@ -3149,7 +3149,7 @@
       "language": "Unknown",
       "stars": 8550,
       "forks": 1610,
-      "category": "tools",
+      "category": "security",
       "updatedAt": "2025-10-28T03:44:08Z",
       "topics": [
         "awesome",
@@ -3235,7 +3235,7 @@
       "language": "JavaScript",
       "stars": 8671,
       "forks": 563,
-      "category": "web-dev",
+      "category": "monitoring",
       "updatedAt": "2025-10-27T14:13:41Z",
       "topics": [
         "awesome",
@@ -3346,7 +3346,7 @@
       "language": "Unknown",
       "stars": 8972,
       "forks": 342,
-      "category": "ui-ux",
+      "category": "other",
       "updatedAt": "2025-10-28T04:47:23Z",
       "topics": [
         "awesome",
@@ -3415,7 +3415,7 @@
       "language": "Python",
       "stars": 9160,
       "forks": 1268,
-      "category": "ui-ux",
+      "category": "python",
       "updatedAt": "2025-10-27T20:09:22Z",
       "topics": [
         "awesome",
@@ -3454,7 +3454,7 @@
       "language": "Unknown",
       "stars": 9366,
       "forks": 526,
-      "category": "web-dev",
+      "category": "other",
       "updatedAt": "2025-10-27T20:53:47Z",
       "topics": [
         "awesome",
@@ -3478,7 +3478,7 @@
       "language": "Shell",
       "stars": 9621,
       "forks": 918,
-      "category": "tools",
+      "category": "networking",
       "updatedAt": "2025-10-28T03:23:49Z",
       "topics": [
         "awesome",
@@ -3513,7 +3513,7 @@
       "language": "Unknown",
       "stars": 9498,
       "forks": 678,
-      "category": "learning",
+      "category": "other",
       "updatedAt": "2025-10-27T11:58:36Z",
       "topics": [
         "awesome",
@@ -3538,7 +3538,7 @@
       "language": "Python",
       "stars": 9779,
       "forks": 1301,
-      "category": "other",
+      "category": "python",
       "updatedAt": "2025-10-28T03:53:30Z",
       "topics": [
         "awesome",
@@ -3558,7 +3558,7 @@
       "language": "Go",
       "stars": 9711,
       "forks": 677,
-      "category": "ai-ml",
+      "category": "python",
       "updatedAt": "2025-10-27T20:53:32Z",
       "topics": [
         "awesome",
@@ -3654,10 +3654,10 @@
       "description": "A curated list of awesome mathematics resources",
       "url": "https://github.com/rossant/awesome-math",
       "language": "Python",
-      "stars": 11576,
+      "stars": 11577,
       "forks": 1153,
-      "category": "other",
-      "updatedAt": "2025-10-28T05:14:41Z",
+      "category": "python",
+      "updatedAt": "2025-10-28T05:28:05Z",
       "topics": [
         "awesome",
         "awesome-list",
@@ -3721,7 +3721,7 @@
       "language": "Unknown",
       "stars": 10411,
       "forks": 1173,
-      "category": "data",
+      "category": "learning",
       "updatedAt": "2025-10-28T02:46:41Z",
       "topics": [
         "awesome",
@@ -3743,7 +3743,7 @@
       "language": "JavaScript",
       "stars": 10398,
       "forks": 606,
-      "category": "tools",
+      "category": "learning",
       "updatedAt": "2025-10-28T04:18:30Z",
       "topics": [
         "awesome",
@@ -3790,7 +3790,7 @@
       "language": "Unknown",
       "stars": 10427,
       "forks": 822,
-      "category": "learning",
+      "category": "ui-ux",
       "updatedAt": "2025-10-27T21:26:07Z",
       "topics": [
         "architecture",
@@ -3813,7 +3813,7 @@
       "language": "Unknown",
       "stars": 10583,
       "forks": 776,
-      "category": "web-dev",
+      "category": "python",
       "updatedAt": "2025-10-28T05:09:38Z",
       "topics": [
         "awesome",
@@ -3832,7 +3832,7 @@
       "language": "JavaScript",
       "stars": 10560,
       "forks": 1290,
-      "category": "ai-ml",
+      "category": "blockchain",
       "updatedAt": "2025-10-27T20:52:34Z",
       "topics": [
         "awesome",
@@ -3857,7 +3857,7 @@
       "language": "Unknown",
       "stars": 10566,
       "forks": 641,
-      "category": "web-dev",
+      "category": "other",
       "updatedAt": "2025-10-28T04:39:39Z",
       "topics": [
         "awesome",
@@ -3881,7 +3881,7 @@
       "language": "Unknown",
       "stars": 10695,
       "forks": 727,
-      "category": "blockchain",
+      "category": "other",
       "updatedAt": "2025-10-27T21:33:33Z",
       "topics": [
         "awesome",
@@ -3982,7 +3982,7 @@
       "language": "Markdown",
       "stars": 12420,
       "forks": 1666,
-      "category": "ui-ux",
+      "category": "other",
       "updatedAt": "2025-10-28T04:16:19Z",
       "topics": [
         "awesome",
@@ -4017,7 +4017,7 @@
       "language": "Unknown",
       "stars": 12476,
       "forks": 1091,
-      "category": "other",
+      "category": "web-dev",
       "updatedAt": "2025-10-28T01:06:54Z",
       "topics": [
         "awesome",
@@ -4036,7 +4036,7 @@
       "language": "Unknown",
       "stars": 12549,
       "forks": 1353,
-      "category": "web-dev",
+      "category": "mobile",
       "updatedAt": "2025-10-28T02:45:58Z",
       "topics": [
         "android",
@@ -4057,7 +4057,7 @@
       "language": "Unknown",
       "stars": 12594,
       "forks": 1732,
-      "category": "web-dev",
+      "category": "security",
       "updatedAt": "2025-10-27T20:50:24Z",
       "topics": [
         "awesome",
@@ -4079,7 +4079,7 @@
       "language": "Unknown",
       "stars": 12620,
       "forks": 1586,
-      "category": "web-dev",
+      "category": "python",
       "updatedAt": "2025-10-28T05:04:13Z",
       "topics": [
         "awesome",
@@ -4117,7 +4117,7 @@
       "language": "Unknown",
       "stars": 12738,
       "forks": 1668,
-      "category": "ai-ml",
+      "category": "monitoring",
       "updatedAt": "2025-10-27T22:26:15Z",
       "topics": [
         "alerting",
@@ -4152,7 +4152,7 @@
       "language": "JavaScript",
       "stars": 12921,
       "forks": 1142,
-      "category": "web-dev",
+      "category": "other",
       "updatedAt": "2025-10-27T19:42:38Z",
       "topics": [
         "awesome",
@@ -4184,7 +4184,7 @@
       "language": "Unknown",
       "stars": 12924,
       "forks": 2343,
-      "category": "tools",
+      "category": "other",
       "updatedAt": "2025-10-28T05:09:57Z",
       "topics": [
         "awesome",
@@ -4202,7 +4202,7 @@
       "language": "Unknown",
       "stars": 13515,
       "forks": 2610,
-      "category": "data",
+      "category": "learning",
       "updatedAt": "2025-10-27T13:47:50Z",
       "topics": [
         "algorithm",
@@ -4229,7 +4229,7 @@
       "language": "Unknown",
       "stars": 13503,
       "forks": 888,
-      "category": "web-dev",
+      "category": "learning",
       "updatedAt": "2025-10-27T00:37:52Z",
       "topics": [
         "awesome",
@@ -4250,7 +4250,7 @@
       "language": "Unknown",
       "stars": 13706,
       "forks": 786,
-      "category": "web-dev",
+      "category": "other",
       "updatedAt": "2025-10-27T06:51:34Z",
       "topics": [
         "awesome",
@@ -4309,7 +4309,7 @@
       "language": "Unknown",
       "stars": 13929,
       "forks": 1814,
-      "category": "mobile",
+      "category": "cloud",
       "updatedAt": "2025-10-27T16:37:34Z",
       "topics": [
         "awesome",
@@ -4329,7 +4329,7 @@
       "language": "HTML",
       "stars": 14081,
       "forks": 919,
-      "category": "web-dev",
+      "category": "ai-ml",
       "updatedAt": "2025-10-27T20:49:05Z",
       "topics": [
         "3d-graphics",
@@ -4361,7 +4361,7 @@
       "language": "Unknown",
       "stars": 14614,
       "forks": 990,
-      "category": "ai-ml",
+      "category": "web-dev",
       "updatedAt": "2025-10-26T09:53:34Z",
       "topics": [
         "apps",
@@ -4420,7 +4420,7 @@
       "language": "Unknown",
       "stars": 14945,
       "forks": 1626,
-      "category": "tools",
+      "category": "other",
       "updatedAt": "2025-10-28T01:35:00Z",
       "topics": [
         "awesome",
@@ -4479,7 +4479,7 @@
       "language": "Markdown",
       "stars": 15186,
       "forks": 1085,
-      "category": "mobile",
+      "category": "game-dev",
       "updatedAt": "2025-10-28T02:29:15Z",
       "topics": [
         "art",
@@ -4510,7 +4510,7 @@
       "language": "Shell",
       "stars": 15313,
       "forks": 1062,
-      "category": "tools",
+      "category": "other",
       "updatedAt": "2025-10-28T02:45:25Z",
       "topics": [
         "awesome",
@@ -4566,7 +4566,7 @@
       "language": "Unknown",
       "stars": 16340,
       "forks": 1178,
-      "category": "ai-ml",
+      "category": "ui-ux",
       "updatedAt": "2025-10-28T03:41:06Z",
       "topics": [
         "adobe",
@@ -4614,7 +4614,7 @@
       "language": "Dockerfile",
       "stars": 17433,
       "forks": 867,
-      "category": "ai-ml",
+      "category": "security",
       "updatedAt": "2025-10-28T02:28:49Z",
       "topics": [
         "authentication",
@@ -4649,7 +4649,7 @@
       "language": "Unknown",
       "stars": 16963,
       "forks": 690,
-      "category": "mobile",
+      "category": "security",
       "updatedAt": "2025-10-28T04:54:46Z",
       "topics": [
         "alternatives",
@@ -4699,7 +4699,7 @@
       "language": "Unknown",
       "stars": 17220,
       "forks": 1094,
-      "category": "mobile",
+      "category": "other",
       "updatedAt": "2025-10-28T05:06:38Z",
       "topics": [
         "apple",
@@ -4721,7 +4721,7 @@
       "language": "Vim script",
       "stars": 17534,
       "forks": 623,
-      "category": "ai-ml",
+      "category": "tools",
       "updatedAt": "2025-10-27T23:25:08Z",
       "topics": [
         "awesome",
@@ -4747,7 +4747,7 @@
       "language": "Unknown",
       "stars": 17615,
       "forks": 1294,
-      "category": "ai-ml",
+      "category": "learning",
       "updatedAt": "2025-10-27T20:47:56Z",
       "topics": [
         "awesome",
@@ -4773,7 +4773,7 @@
       "language": "Unknown",
       "stars": 17851,
       "forks": 2703,
-      "category": "learning",
+      "category": "ai-ml",
       "updatedAt": "2025-10-28T01:32:58Z",
       "topics": [
         "awesome",
@@ -4928,7 +4928,7 @@
       "language": "TypeScript",
       "stars": 19910,
       "forks": 1379,
-      "category": "tools",
+      "category": "security",
       "updatedAt": "2025-10-28T02:28:11Z",
       "topics": [
         "awesome",
@@ -4998,7 +4998,7 @@
       "language": "Unknown",
       "stars": 21066,
       "forks": 4657,
-      "category": "tools",
+      "category": "other",
       "updatedAt": "2025-10-28T00:27:08Z",
       "topics": [
         "awesome",
@@ -5036,7 +5036,7 @@
       "language": "Vue",
       "stars": 22888,
       "forks": 1675,
-      "category": "web-dev",
+      "category": "devops",
       "updatedAt": "2025-10-28T04:58:34Z",
       "topics": [
         "awesome",
@@ -5065,7 +5065,7 @@
       "language": "Unknown",
       "stars": 24220,
       "forks": 4650,
-      "category": "tools",
+      "category": "other",
       "updatedAt": "2025-10-28T04:08:21Z",
       "topics": [
         "awesome",
@@ -5082,7 +5082,7 @@
       "language": "TeX",
       "stars": 25565,
       "forks": 5101,
-      "category": "mobile",
+      "category": "other",
       "updatedAt": "2025-10-28T04:07:22Z",
       "topics": [
         "awesome",
@@ -5107,7 +5107,7 @@
       "language": "Unknown",
       "stars": 26541,
       "forks": 621,
-      "category": "ai-ml",
+      "category": "networking",
       "updatedAt": "2025-10-27T22:50:54Z",
       "topics": [
         "awesome",
@@ -5141,7 +5141,7 @@
       "language": "Unknown",
       "stars": 26738,
       "forks": 2021,
-      "category": "mobile",
+      "category": "other",
       "updatedAt": "2025-10-28T01:35:10Z",
       "topics": [
         "awesome",
@@ -5160,7 +5160,7 @@
       "language": "Unknown",
       "stars": 26958,
       "forks": 1566,
-      "category": "other",
+      "category": "devops",
       "updatedAt": "2025-10-28T02:12:25Z",
       "topics": [
         "actions",
@@ -5253,7 +5253,7 @@
       "language": "Unknown",
       "stars": 29517,
       "forks": 2211,
-      "category": "web-dev",
+      "category": "learning",
       "updatedAt": "2025-10-27T14:38:26Z",
       "topics": [
         "awesome",
@@ -5327,7 +5327,7 @@
       "language": "Unknown",
       "stars": 31797,
       "forks": 1948,
-      "category": "learning",
+      "category": "other",
       "updatedAt": "2025-10-28T02:11:47Z",
       "topics": [
         "architecture",
@@ -5356,7 +5356,7 @@
       "language": "Unknown",
       "stars": 32041,
       "forks": 5135,
-      "category": "mobile",
+      "category": "other",
       "updatedAt": "2025-10-28T05:19:33Z",
       "topics": [
         "awesome",
@@ -5378,7 +5378,7 @@
       "language": "Unknown",
       "stars": 34239,
       "forks": 3829,
-      "category": "api",
+      "category": "other",
       "updatedAt": "2025-10-28T04:34:07Z",
       "topics": [
         "awesome",
@@ -5432,7 +5432,7 @@
       "language": "Shell",
       "stars": 16966,
       "forks": 577,
-      "category": "tools",
+      "category": "other",
       "updatedAt": "2025-10-28T04:11:41Z",
       "topics": [
         "awesome",
@@ -5478,7 +5478,7 @@
       "language": "Shell",
       "stars": 17807,
       "forks": 998,
-      "category": "mobile",
+      "category": "tools",
       "updatedAt": "2025-10-28T04:13:10Z",
       "topics": [
         "awesome",
@@ -5521,7 +5521,7 @@
       "language": "Unknown",
       "stars": 44539,
       "forks": 3137,
-      "category": "api",
+      "category": "cloud",
       "updatedAt": "2025-10-28T04:43:14Z",
       "topics": [
         "architecture",
@@ -5545,7 +5545,7 @@
       "language": "Unknown",
       "stars": 46030,
       "forks": 2426,
-      "category": "web-dev",
+      "category": "mobile",
       "updatedAt": "2025-10-28T01:02:32Z",
       "topics": [
         "applications",
@@ -5598,7 +5598,7 @@
       "language": "Unknown",
       "stars": 47139,
       "forks": 5646,
-      "category": "web-dev",
+      "category": "mobile",
       "updatedAt": "2025-10-28T04:44:24Z",
       "topics": [
         "app",
@@ -5633,7 +5633,7 @@
       "language": "Go",
       "stars": 155893,
       "forks": 12710,
-      "category": "ui-ux",
+      "category": "other",
       "updatedAt": "2025-10-28T05:09:49Z",
       "topics": [
         "awesome",
@@ -5652,10 +5652,10 @@
       "description": "Supercharge your workflow automation with this curated collection of n8n templates! Instantly connect your favorite apps-like Gmail, Telegram, Google Drive, Slack, and more-with ready-to-use, AI-powered automations. Save time, boost productivity, and unlock the true potential of n8n in just a few clicks.",
       "url": "https://github.com/enescingoz/awesome-n8n-templates",
       "language": "Unknown",
-      "stars": 14654,
+      "stars": 14655,
       "forks": 4258,
       "category": "ai-ml",
-      "updatedAt": "2025-10-28T05:16:51Z",
+      "updatedAt": "2025-10-28T05:27:47Z",
       "topics": [
         "automation",
         "automation-templates",
@@ -5690,10 +5690,10 @@
       "description": "High performance self-hosted photo and video management solution.",
       "url": "https://github.com/immich-app/immich",
       "language": "TypeScript",
-      "stars": 82575,
+      "stars": 82577,
       "forks": 4334,
       "category": "web-dev",
-      "updatedAt": "2025-10-28T05:20:10Z",
+      "updatedAt": "2025-10-28T05:29:59Z",
       "topics": [
         "backup-tool",
         "flutter",
@@ -5723,7 +5723,7 @@
       "language": "Java",
       "stars": 13715,
       "forks": 1462,
-      "category": "tools",
+      "category": "other",
       "updatedAt": "2025-10-28T02:52:17Z",
       "topics": [
         "grammar",
@@ -5773,7 +5773,7 @@
       "language": "Unknown",
       "stars": 2266,
       "forks": 247,
-      "category": "mobile",
+      "category": "learning",
       "updatedAt": "2025-10-28T05:14:24Z",
       "topics": [
         "collection",
@@ -5796,7 +5796,7 @@
       "language": "JavaScript",
       "stars": 375,
       "forks": 22,
-      "category": "tools",
+      "category": "other",
       "updatedAt": "2025-10-27T02:59:11Z",
       "topics": []
     },
@@ -5824,7 +5824,7 @@
       "language": "JavaScript",
       "stars": 509,
       "forks": 92,
-      "category": "ai-ml",
+      "category": "other",
       "updatedAt": "2025-10-24T09:15:32Z",
       "topics": []
     },
@@ -5838,7 +5838,7 @@
       "language": "JavaScript",
       "stars": 1,
       "forks": 0,
-      "category": "tools",
+      "category": "learning",
       "updatedAt": "2025-09-30T08:24:22Z",
       "topics": [
         "architecture",
@@ -5859,7 +5859,7 @@
       "language": "TypeScript",
       "stars": 6638,
       "forks": 596,
-      "category": "ai-ml",
+      "category": "web-dev",
       "updatedAt": "2025-10-28T04:59:37Z",
       "topics": [
         "betterstack",
@@ -5889,7 +5889,7 @@
       "language": "Python",
       "stars": 5,
       "forks": 0,
-      "category": "ai-ml",
+      "category": "python",
       "updatedAt": "2025-10-02T10:58:08Z",
       "topics": []
     },
@@ -5903,7 +5903,7 @@
       "language": "Jupyter Notebook",
       "stars": 33231,
       "forks": 7056,
-      "category": "web-dev",
+      "category": "devops",
       "updatedAt": "2025-10-28T04:52:44Z",
       "topics": [
         "course",
@@ -5975,10 +5975,10 @@
       "description": "Python Data Science Handbook: full text in Jupyter Notebooks",
       "url": "https://github.com/jakevdp/PythonDataScienceHandbook",
       "language": "Jupyter Notebook",
-      "stars": 45891,
+      "stars": 45892,
       "forks": 18566,
-      "category": "data",
-      "updatedAt": "2025-10-28T04:44:49Z",
+      "category": "python",
+      "updatedAt": "2025-10-28T05:27:48Z",
       "topics": [
         "jupyter-notebook",
         "matplotlib",
@@ -6026,7 +6026,7 @@
       "language": "Jupyter Notebook",
       "stars": 173798,
       "forks": 54780,
-      "category": "python",
+      "category": "other",
       "updatedAt": "2025-10-28T03:55:19Z",
       "topics": []
     },
@@ -6040,7 +6040,7 @@
       "language": "Java",
       "stars": 2,
       "forks": 0,
-      "category": "data",
+      "category": "other",
       "updatedAt": "2025-09-28T20:27:32Z",
       "topics": []
     },
@@ -6054,7 +6054,7 @@
       "language": "TypeScript",
       "stars": 2322,
       "forks": 176,
-      "category": "tools",
+      "category": "ui-ux",
       "updatedAt": "2025-10-28T01:11:57Z",
       "topics": [
         "scaling",
@@ -6071,7 +6071,7 @@
       "language": "Unknown",
       "stars": 16305,
       "forks": 1488,
-      "category": "learning",
+      "category": "other",
       "updatedAt": "2025-10-27T22:57:19Z",
       "topics": [
         "awesome",
@@ -6122,7 +6122,7 @@
       "language": "Unknown",
       "stars": 5341,
       "forks": 663,
-      "category": "learning",
+      "category": "other",
       "updatedAt": "2025-10-27T12:00:42Z",
       "topics": []
     },
@@ -6136,7 +6136,7 @@
       "language": "TypeScript",
       "stars": 3497,
       "forks": 194,
-      "category": "ai-ml",
+      "category": "web-dev",
       "updatedAt": "2025-10-27T20:25:55Z",
       "topics": [
         "i18n",
@@ -6200,7 +6200,7 @@
       "language": "Python",
       "stars": 3147,
       "forks": 1284,
-      "category": "ai-ml",
+      "category": "python",
       "updatedAt": "2025-10-27T21:18:48Z",
       "topics": []
     },
@@ -6214,7 +6214,7 @@
       "language": "Jupyter Notebook",
       "stars": 2723,
       "forks": 2185,
-      "category": "ai-ml",
+      "category": "learning",
       "updatedAt": "2025-10-28T04:03:16Z",
       "topics": []
     },
@@ -6312,7 +6312,7 @@
       "language": "Unknown",
       "stars": 5911,
       "forks": 457,
-      "category": "tools",
+      "category": "mcp",
       "updatedAt": "2025-10-28T04:24:25Z",
       "topics": [
         "clients",
@@ -6329,7 +6329,7 @@
       "language": "Unknown",
       "stars": 1145,
       "forks": 146,
-      "category": "ai-ml",
+      "category": "other",
       "updatedAt": "2025-10-28T02:57:41Z",
       "topics": []
     },
@@ -6371,7 +6371,7 @@
       "language": "C",
       "stars": 24433,
       "forks": 4961,
-      "category": "mobile",
+      "category": "cloud",
       "updatedAt": "2025-10-28T03:01:04Z",
       "topics": [
         "bigdata",
@@ -6483,7 +6483,7 @@
       "language": "Java",
       "stars": 330,
       "forks": 88,
-      "category": "security",
+      "category": "api",
       "updatedAt": "2025-10-27T17:30:15Z",
       "topics": [
         "api",
@@ -6587,10 +6587,10 @@
       "description": "A curated list of awesome Android UI/UX libraries",
       "url": "https://github.com/wasabeef/awesome-android-ui",
       "language": "Unknown",
-      "stars": 54241,
+      "stars": 54242,
       "forks": 10245,
-      "category": "mobile",
-      "updatedAt": "2025-10-28T03:46:09Z",
+      "category": "ui-ux",
+      "updatedAt": "2025-10-28T05:29:01Z",
       "topics": [
         "android",
         "awesome",
@@ -6607,7 +6607,7 @@
       "language": "Dart",
       "stars": 57712,
       "forks": 6818,
-      "category": "web-dev",
+      "category": "mobile",
       "updatedAt": "2025-10-28T01:31:05Z",
       "topics": [
         "android",
@@ -6640,7 +6640,7 @@
       "language": "Python",
       "stars": 15613,
       "forks": 2108,
-      "category": "python",
+      "category": "ai-ml",
       "updatedAt": "2025-10-28T03:57:03Z",
       "topics": [
         "ai",
@@ -6665,10 +6665,10 @@
       "description": "RAG-Anything: All-in-One RAG Framework",
       "url": "https://github.com/HKUDS/RAG-Anything",
       "language": "Python",
-      "stars": 9644,
+      "stars": 9645,
       "forks": 1125,
       "category": "ai-ml",
-      "updatedAt": "2025-10-28T05:18:54Z",
+      "updatedAt": "2025-10-28T05:26:35Z",
       "topics": [
         "multi-modal-rag",
         "retrieval-augmented-generation"
@@ -6684,7 +6684,7 @@
       "language": "Python",
       "stars": 648,
       "forks": 86,
-      "category": "other",
+      "category": "python",
       "updatedAt": "2025-10-27T03:32:02Z",
       "topics": []
     },
@@ -6698,7 +6698,7 @@
       "language": "Python",
       "stars": 3715,
       "forks": 666,
-      "category": "game-dev",
+      "category": "python",
       "updatedAt": "2025-10-28T00:34:52Z",
       "topics": [
         "benchmark",
@@ -6716,7 +6716,7 @@
       "language": "TypeScript",
       "stars": 12941,
       "forks": 759,
-      "category": "ai-ml",
+      "category": "mcp",
       "updatedAt": "2025-10-28T05:12:10Z",
       "topics": [
         "browser",
@@ -6739,7 +6739,7 @@
       "language": "JavaScript",
       "stars": 8912,
       "forks": 15846,
-      "category": "ai-ml",
+      "category": "networking",
       "updatedAt": "2025-10-28T05:12:47Z",
       "topics": [
         "cloudflare",
@@ -6768,7 +6768,7 @@
       "language": "Python",
       "stars": 71,
       "forks": 2,
-      "category": "ai-ml",
+      "category": "python",
       "updatedAt": "2025-10-27T06:54:50Z",
       "topics": []
     },
@@ -6782,7 +6782,7 @@
       "language": "TypeScript",
       "stars": 18871,
       "forks": 3176,
-      "category": "ai-ml",
+      "category": "web-dev",
       "updatedAt": "2025-10-28T05:24:53Z",
       "topics": [
         "anthropic",
@@ -6812,7 +6812,7 @@
       "language": "TypeScript",
       "stars": 10474,
       "forks": 1376,
-      "category": "web-dev",
+      "category": "other",
       "updatedAt": "2025-10-28T02:28:48Z",
       "topics": []
     },
@@ -6826,7 +6826,7 @@
       "language": "TypeScript",
       "stars": 7,
       "forks": 1,
-      "category": "ai-ml",
+      "category": "other",
       "updatedAt": "2025-09-26T01:30:58Z",
       "topics": []
     },
@@ -6910,7 +6910,7 @@
       "language": "JavaScript",
       "stars": 26602,
       "forks": 4832,
-      "category": "web-dev",
+      "category": "other",
       "updatedAt": "2025-10-27T21:53:36Z",
       "topics": [
         "ecmascript",
@@ -6928,10 +6928,10 @@
       "description": ":books: Freely available programming books",
       "url": "https://github.com/EbookFoundation/free-programming-books",
       "language": "Python",
-      "stars": 375254,
+      "stars": 375255,
       "forks": 65185,
-      "category": "ai-ml",
-      "updatedAt": "2025-10-28T05:03:00Z",
+      "category": "python",
+      "updatedAt": "2025-10-28T05:27:20Z",
       "topics": [
         "books",
         "education",
@@ -7027,7 +7027,7 @@
       "language": "C#",
       "stars": 39919,
       "forks": 2491,
-      "category": "ai-ml",
+      "category": "tools",
       "updatedAt": "2025-10-28T05:13:22Z",
       "topics": [
         "alternatives",
@@ -7086,7 +7086,7 @@
       "language": "TypeScript",
       "stars": 5083,
       "forks": 563,
-      "category": "ui-ux",
+      "category": "other",
       "updatedAt": "2025-10-28T05:19:26Z",
       "topics": []
     },
@@ -7125,7 +7125,7 @@
       "language": "TypeScript",
       "stars": 9211,
       "forks": 847,
-      "category": "ai-ml",
+      "category": "web-dev",
       "updatedAt": "2025-10-28T01:00:18Z",
       "topics": [
         "ag-ui-protocol",
@@ -7145,7 +7145,7 @@
       "language": "TypeScript",
       "stars": 4535,
       "forks": 3430,
-      "category": "web-dev",
+      "category": "other",
       "updatedAt": "2025-10-28T03:44:11Z",
       "topics": []
     },
@@ -7159,7 +7159,7 @@
       "language": "C++",
       "stars": 13871,
       "forks": 3003,
-      "category": "ai-ml",
+      "category": "game-dev",
       "updatedAt": "2025-10-27T23:43:06Z",
       "topics": [
         "computer-animation",
@@ -7183,7 +7183,7 @@
       "language": "Kotlin",
       "stars": 18382,
       "forks": 1324,
-      "category": "web-dev",
+      "category": "mobile",
       "updatedAt": "2025-10-28T02:32:10Z",
       "topics": [
         "android",
@@ -7238,7 +7238,7 @@
       "language": "C++",
       "stars": 1467,
       "forks": 60,
-      "category": "web-dev",
+      "category": "mobile",
       "updatedAt": "2025-10-27T23:52:08Z",
       "topics": [
         "cpp",
@@ -7287,7 +7287,7 @@
       "language": "TypeScript",
       "stars": 42840,
       "forks": 4045,
-      "category": "mobile",
+      "category": "other",
       "updatedAt": "2025-10-28T04:46:51Z",
       "topics": [
         "editor",
@@ -7305,7 +7305,7 @@
       "language": "Jupyter Notebook",
       "stars": 1917,
       "forks": 103,
-      "category": "ai-ml",
+      "category": "other",
       "updatedAt": "2025-10-27T10:50:56Z",
       "topics": []
     },
@@ -7333,7 +7333,7 @@
       "language": "Swift",
       "stars": 7458,
       "forks": 323,
-      "category": "other",
+      "category": "mobile",
       "updatedAt": "2025-10-27T14:16:04Z",
       "topics": []
     },
@@ -7347,7 +7347,7 @@
       "language": "TypeScript",
       "stars": 7695,
       "forks": 312,
-      "category": "ai-ml",
+      "category": "mobile",
       "updatedAt": "2025-10-27T14:58:58Z",
       "topics": [
         "android",
@@ -7428,7 +7428,7 @@
       "language": "TypeScript",
       "stars": 3628,
       "forks": 190,
-      "category": "tools",
+      "category": "cloud",
       "updatedAt": "2025-10-27T20:44:15Z",
       "topics": [
         "cloud",
@@ -7469,7 +7469,7 @@
       "language": "HTML",
       "stars": 11757,
       "forks": 479,
-      "category": "ai-ml",
+      "category": "ui-ux",
       "updatedAt": "2025-10-28T03:10:03Z",
       "topics": [
         "tailwindcss",
@@ -7489,7 +7489,7 @@
       "language": "TypeScript",
       "stars": 987,
       "forks": 221,
-      "category": "web-dev",
+      "category": "blockchain",
       "updatedAt": "2025-10-25T03:29:31Z",
       "topics": [
         "coinbase",
@@ -7514,7 +7514,7 @@
       "language": "TypeScript",
       "stars": 451,
       "forks": 94,
-      "category": "ai-ml",
+      "category": "web-dev",
       "updatedAt": "2025-10-20T05:52:14Z",
       "topics": [
         "client-components",
@@ -7547,10 +7547,10 @@
       "description": "Memory engine and app that is extremely fast, scalable. The Memory API for the AI era.",
       "url": "https://github.com/supermemoryai/supermemory",
       "language": "TypeScript",
-      "stars": 12995,
+      "stars": 12996,
       "forks": 1348,
-      "category": "ai-ml",
-      "updatedAt": "2025-10-28T05:12:06Z",
+      "category": "web-dev",
+      "updatedAt": "2025-10-28T05:27:35Z",
       "topics": [
         "cloudflare-kv",
         "cloudflare-pages",
@@ -7573,7 +7573,7 @@
       "language": "TypeScript",
       "stars": 8299,
       "forks": 2274,
-      "category": "ai-ml",
+      "category": "ui-ux",
       "updatedAt": "2025-10-27T14:52:39Z",
       "topics": [
         "deepseek-r1",
@@ -7602,7 +7602,7 @@
       "language": "TypeScript",
       "stars": 193,
       "forks": 16,
-      "category": "ai-ml",
+      "category": "ui-ux",
       "updatedAt": "2025-10-19T16:35:34Z",
       "topics": [
         "design",
@@ -7733,7 +7733,7 @@
       "language": "TypeScript",
       "stars": 317,
       "forks": 94,
-      "category": "mobile",
+      "category": "other",
       "updatedAt": "2025-10-25T19:01:26Z",
       "topics": []
     },
@@ -7805,10 +7805,10 @@
       "description": "The only AI app builder that knows backend",
       "url": "https://github.com/get-convex/chef",
       "language": "TypeScript",
-      "stars": 2352,
+      "stars": 2353,
       "forks": 444,
-      "category": "ai-ml",
-      "updatedAt": "2025-10-28T05:12:44Z",
+      "category": "web-dev",
+      "updatedAt": "2025-10-28T05:29:55Z",
       "topics": []
     },
     {
@@ -7821,7 +7821,7 @@
       "language": "TypeScript",
       "stars": 44444,
       "forks": 9514,
-      "category": "web-dev",
+      "category": "mobile",
       "updatedAt": "2025-10-28T03:56:44Z",
       "topics": [
         "android",
@@ -7852,7 +7852,7 @@
       "language": "Java",
       "stars": 30582,
       "forks": 7745,
-      "category": "ai-ml",
+      "category": "other",
       "updatedAt": "2025-10-28T03:22:48Z",
       "topics": [
         "keycloak",
@@ -7870,7 +7870,7 @@
       "language": "Go",
       "stars": 8011,
       "forks": 232,
-      "category": "ai-ml",
+      "category": "testing",
       "updatedAt": "2025-10-28T03:23:06Z",
       "topics": [
         "email-testing",
@@ -7974,7 +7974,7 @@
       "language": "TypeScript",
       "stars": 43729,
       "forks": 12319,
-      "category": "web-dev",
+      "category": "other",
       "updatedAt": "2025-10-28T05:11:25Z",
       "topics": [
         "chat",
@@ -8020,7 +8020,7 @@
       "language": "TypeScript",
       "stars": 3042,
       "forks": 334,
-      "category": "ai-ml",
+      "category": "devops",
       "updatedAt": "2025-10-28T03:28:03Z",
       "topics": [
         "agent",
@@ -8043,7 +8043,7 @@
       "language": "TypeScript",
       "stars": 7685,
       "forks": 598,
-      "category": "ai-ml",
+      "category": "other",
       "updatedAt": "2025-10-28T04:38:42Z",
       "topics": []
     },
@@ -8057,7 +8057,7 @@
       "language": "Go",
       "stars": 12552,
       "forks": 1634,
-      "category": "devops",
+      "category": "monitoring",
       "updatedAt": "2025-10-28T02:02:08Z",
       "topics": [
         "alerting",
@@ -8081,7 +8081,7 @@
       "language": "JavaScript",
       "stars": 13284,
       "forks": 1004,
-      "category": "mobile",
+      "category": "other",
       "updatedAt": "2025-10-28T02:57:48Z",
       "topics": [
         "automation",
@@ -8152,7 +8152,7 @@
       "language": "TypeScript",
       "stars": 2075,
       "forks": 136,
-      "category": "web-dev",
+      "category": "ui-ux",
       "updatedAt": "2025-10-28T02:29:45Z",
       "topics": [
         "design-system",
@@ -8172,7 +8172,7 @@
       "language": "TypeScript",
       "stars": 6371,
       "forks": 1111,
-      "category": "ai-ml",
+      "category": "web-dev",
       "updatedAt": "2025-10-28T01:27:06Z",
       "topics": [
         "authentication",
@@ -8255,7 +8255,7 @@
       "language": "JavaScript",
       "stars": 8466,
       "forks": 591,
-      "category": "devops",
+      "category": "monitoring",
       "updatedAt": "2025-10-28T03:29:21Z",
       "topics": [
         "good-first-contribution",
@@ -8290,7 +8290,7 @@
       "language": "TypeScript",
       "stars": 6711,
       "forks": 149,
-      "category": "mobile",
+      "category": "tools",
       "updatedAt": "2025-10-28T04:43:33Z",
       "topics": [
         "alacritty",
@@ -8349,10 +8349,10 @@
       "description": "Apache Beam is a unified programming model for Batch and Streaming data processing.",
       "url": "https://github.com/apache/beam",
       "language": "Java",
-      "stars": 8343,
+      "stars": 8344,
       "forks": 4426,
-      "category": "data",
-      "updatedAt": "2025-10-28T04:18:16Z",
+      "category": "python",
+      "updatedAt": "2025-10-28T05:25:29Z",
       "topics": [
         "batch",
         "beam",
@@ -8374,7 +8374,7 @@
       "language": "Python",
       "stars": 20285,
       "forks": 3578,
-      "category": "ai-ml",
+      "category": "python",
       "updatedAt": "2025-10-28T05:04:19Z",
       "topics": []
     },
@@ -8388,7 +8388,7 @@
       "language": "Unknown",
       "stars": 2267,
       "forks": 468,
-      "category": "data",
+      "category": "other",
       "updatedAt": "2025-10-26T08:20:25Z",
       "topics": []
     },
@@ -8402,7 +8402,7 @@
       "language": "Unknown",
       "stars": 146,
       "forks": 40,
-      "category": "ai-ml",
+      "category": "other",
       "updatedAt": "2025-10-20T16:52:12Z",
       "topics": []
     },
@@ -8416,7 +8416,7 @@
       "language": "SQL",
       "stars": 13,
       "forks": 5,
-      "category": "data",
+      "category": "other",
       "updatedAt": "2025-10-22T05:35:55Z",
       "topics": [
         "mysql",
@@ -8434,7 +8434,7 @@
       "language": "Unknown",
       "stars": 1437,
       "forks": 591,
-      "category": "data",
+      "category": "other",
       "updatedAt": "2025-10-28T01:07:10Z",
       "topics": [
         "sql"
@@ -8450,7 +8450,7 @@
       "language": "Unknown",
       "stars": 350,
       "forks": 250,
-      "category": "data",
+      "category": "other",
       "updatedAt": "2025-10-27T07:05:09Z",
       "topics": [
         "music-store-data-analysis",
@@ -8467,7 +8467,7 @@
       "language": "Unknown",
       "stars": 1,
       "forks": 0,
-      "category": "data",
+      "category": "other",
       "updatedAt": "2025-09-12T06:45:25Z",
       "topics": [
         "crud-operation",
@@ -8486,7 +8486,7 @@
       "language": "Unknown",
       "stars": 1634,
       "forks": 740,
-      "category": "data",
+      "category": "other",
       "updatedAt": "2025-10-28T00:14:32Z",
       "topics": [
         "learn-sql",
@@ -8506,7 +8506,7 @@
       "language": "Unknown",
       "stars": 561,
       "forks": 118,
-      "category": "data",
+      "category": "learning",
       "updatedAt": "2025-10-25T14:50:01Z",
       "topics": [
         "data-analysis",
@@ -8529,7 +8529,7 @@
       "language": "Jupyter Notebook",
       "stars": 1,
       "forks": 0,
-      "category": "data",
+      "category": "other",
       "updatedAt": "2025-09-22T11:40:28Z",
       "topics": []
     },
@@ -8543,7 +8543,7 @@
       "language": "TypeScript",
       "stars": 1696,
       "forks": 292,
-      "category": "ai-ml",
+      "category": "other",
       "updatedAt": "2025-10-27T14:10:41Z",
       "topics": []
     },
@@ -8557,7 +8557,7 @@
       "language": "Python",
       "stars": 9,
       "forks": 2,
-      "category": "ai-ml",
+      "category": "python",
       "updatedAt": "2025-10-15T02:04:41Z",
       "topics": []
     },
@@ -8585,7 +8585,7 @@
       "language": "Rust",
       "stars": 20044,
       "forks": 804,
-      "category": "ai-ml",
+      "category": "data",
       "updatedAt": "2025-10-28T04:52:45Z",
       "topics": [
         "database",
@@ -8605,7 +8605,7 @@
       "language": "Ruby",
       "stars": 13063,
       "forks": 4775,
-      "category": "ui-ux",
+      "category": "other",
       "updatedAt": "2025-10-28T03:50:31Z",
       "topics": [
         "language-grammars",
@@ -8624,7 +8624,7 @@
       "language": "C++",
       "stars": 24592,
       "forks": 819,
-      "category": "ai-ml",
+      "category": "data",
       "updatedAt": "2025-10-28T04:23:57Z",
       "topics": [
         "algolia",
@@ -8684,7 +8684,7 @@
       "language": "JavaScript",
       "stars": 904,
       "forks": 749,
-      "category": "tools",
+      "category": "other",
       "updatedAt": "2025-10-27T13:17:34Z",
       "topics": []
     },
@@ -8698,7 +8698,7 @@
       "language": "Unknown",
       "stars": 1861,
       "forks": 81,
-      "category": "tools",
+      "category": "other",
       "updatedAt": "2025-10-28T02:30:56Z",
       "topics": [
         "awesome",
@@ -8725,7 +8725,7 @@
       "language": "Unknown",
       "stars": 1625,
       "forks": 456,
-      "category": "ai-ml",
+      "category": "other",
       "updatedAt": "2025-10-26T12:23:25Z",
       "topics": [
         "amazon-interview",
@@ -8748,7 +8748,7 @@
       "language": "Jupyter Notebook",
       "stars": 10663,
       "forks": 1507,
-      "category": "ai-ml",
+      "category": "other",
       "updatedAt": "2025-10-28T04:38:19Z",
       "topics": []
     },
@@ -8762,7 +8762,7 @@
       "language": "Python",
       "stars": 8466,
       "forks": 1031,
-      "category": "other",
+      "category": "python",
       "updatedAt": "2025-10-28T03:16:15Z",
       "topics": []
     },
@@ -8776,7 +8776,7 @@
       "language": "Go",
       "stars": 5754,
       "forks": 448,
-      "category": "api",
+      "category": "mcp",
       "updatedAt": "2025-10-28T04:08:58Z",
       "topics": [
         "mcp",
@@ -8837,7 +8837,7 @@
       "language": "TypeScript",
       "stars": 27074,
       "forks": 1977,
-      "category": "web-dev",
+      "category": "ui-ux",
       "updatedAt": "2025-10-27T21:12:00Z",
       "topics": [
         "component-library",
@@ -8931,7 +8931,7 @@
       "language": "TypeScript",
       "stars": 2461,
       "forks": 294,
-      "category": "ai-ml",
+      "category": "web-dev",
       "updatedAt": "2025-10-27T16:07:42Z",
       "topics": [
         "ai",
@@ -8954,7 +8954,7 @@
       "language": "JavaScript",
       "stars": 5754,
       "forks": 227,
-      "category": "web-dev",
+      "category": "other",
       "updatedAt": "2025-10-28T02:32:43Z",
       "topics": []
     },
@@ -8968,7 +8968,7 @@
       "language": "Rust",
       "stars": 2483,
       "forks": 63,
-      "category": "mobile",
+      "category": "other",
       "updatedAt": "2025-10-28T04:32:05Z",
       "topics": []
     },
@@ -9001,7 +9001,7 @@
       "language": "HTML",
       "stars": 7559,
       "forks": 1168,
-      "category": "game-dev",
+      "category": "other",
       "updatedAt": "2025-10-27T10:37:54Z",
       "topics": []
     },
@@ -9015,7 +9015,7 @@
       "language": "TypeScript",
       "stars": 1169,
       "forks": 207,
-      "category": "ai-ml",
+      "category": "learning",
       "updatedAt": "2025-10-27T19:49:11Z",
       "topics": [
         "ai",
@@ -9040,10 +9040,10 @@
       "description": "🔥 The Web Data API for AI - Turn entire websites into LLM-ready markdown or structured data",
       "url": "https://github.com/firecrawl/firecrawl",
       "language": "TypeScript",
-      "stars": 65075,
+      "stars": 65077,
       "forks": 5139,
       "category": "ai-ml",
-      "updatedAt": "2025-10-28T05:08:04Z",
+      "updatedAt": "2025-10-28T05:26:42Z",
       "topics": [
         "ai",
         "ai-agents",
@@ -9200,10 +9200,10 @@
       "description": "💫 Toolkit to help you get started with Spec-Driven Development",
       "url": "https://github.com/github/spec-kit",
       "language": "Shell",
-      "stars": 42584,
+      "stars": 42583,
       "forks": 3643,
       "category": "ai-ml",
-      "updatedAt": "2025-10-28T05:23:40Z",
+      "updatedAt": "2025-10-28T05:25:52Z",
       "topics": [
         "ai",
         "copilot",
@@ -9224,7 +9224,7 @@
       "language": "JavaScript",
       "stars": 23088,
       "forks": 3600,
-      "category": "ai-ml",
+      "category": "learning",
       "updatedAt": "2025-10-27T22:50:52Z",
       "topics": [
         "art",
@@ -9283,7 +9283,7 @@
       "language": "Unknown",
       "stars": 20511,
       "forks": 3874,
-      "category": "data",
+      "category": "other",
       "updatedAt": "2025-10-28T01:27:26Z",
       "topics": []
     },
@@ -9297,7 +9297,7 @@
       "language": "HTML",
       "stars": 196069,
       "forks": 24472,
-      "category": "learning",
+      "category": "other",
       "updatedAt": "2025-10-28T05:21:38Z",
       "topics": [
         "awesome-list",
@@ -9347,7 +9347,7 @@
       "language": "Python",
       "stars": 218,
       "forks": 29,
-      "category": "tools",
+      "category": "mcp",
       "updatedAt": "2025-10-22T16:34:35Z",
       "topics": []
     },
@@ -9395,7 +9395,7 @@
       "language": "JavaScript",
       "stars": 151,
       "forks": 46,
-      "category": "game-dev",
+      "category": "other",
       "updatedAt": "2025-10-27T12:53:45Z",
       "topics": []
     },
@@ -9443,7 +9443,7 @@
       "language": "Go",
       "stars": 10,
       "forks": 1,
-      "category": "mobile",
+      "category": "other",
       "updatedAt": "2025-09-05T11:57:18Z",
       "topics": [
         "go",
@@ -9464,7 +9464,7 @@
       "language": "Shell",
       "stars": 111689,
       "forks": 22850,
-      "category": "ai-ml",
+      "category": "other",
       "updatedAt": "2025-10-28T01:38:54Z",
       "topics": [
         "chart",
@@ -9485,7 +9485,7 @@
       "language": "JavaScript",
       "stars": 40,
       "forks": 1,
-      "category": "tools",
+      "category": "other",
       "updatedAt": "2025-10-06T21:50:28Z",
       "topics": []
     },
@@ -9498,8 +9498,8 @@
       "url": "https://github.com/drawdb-io/drawdb",
       "language": "JavaScript",
       "stars": 34456,
-      "forks": 2569,
-      "category": "ai-ml",
+      "forks": 2570,
+      "category": "data",
       "updatedAt": "2025-10-28T05:23:08Z",
       "topics": [
         "database-schema",
@@ -9531,7 +9531,7 @@
       "language": "Blade",
       "stars": 82561,
       "forks": 24555,
-      "category": "ai-ml",
+      "category": "other",
       "updatedAt": "2025-10-28T04:40:50Z",
       "topics": [
         "framework",
@@ -9549,7 +9549,7 @@
       "language": "Python",
       "stars": 280,
       "forks": 65,
-      "category": "tools",
+      "category": "python",
       "updatedAt": "2025-10-28T03:43:38Z",
       "topics": []
     },
@@ -9563,8 +9563,8 @@
       "language": "Python",
       "stars": 92120,
       "forks": 10363,
-      "category": "python",
-      "updatedAt": "2025-10-28T05:24:22Z",
+      "category": "ai-ml",
+      "updatedAt": "2025-10-28T05:25:35Z",
       "topics": [
         "ai",
         "comfy",
@@ -9584,7 +9584,7 @@
       "language": "Python",
       "stars": 1,
       "forks": 2,
-      "category": "other",
+      "category": "python",
       "updatedAt": "2025-09-04T10:00:13Z",
       "topics": []
     },
@@ -9627,10 +9627,10 @@
       "description": "A MCP for Claude Desktop / Claude Code / Windsurf / Cursor to build n8n workflows for you",
       "url": "https://github.com/czlonkowski/n8n-mcp",
       "language": "TypeScript",
-      "stars": 9206,
+      "stars": 9207,
       "forks": 1714,
-      "category": "ai-ml",
-      "updatedAt": "2025-10-28T04:34:51Z",
+      "category": "mcp",
+      "updatedAt": "2025-10-28T05:25:38Z",
       "topics": [
         "mcp",
         "mcp-server",
@@ -9695,7 +9695,7 @@
       "language": "Python",
       "stars": 6810,
       "forks": 475,
-      "category": "ai-ml",
+      "category": "python",
       "updatedAt": "2025-10-28T04:11:14Z",
       "topics": []
     },
@@ -9709,7 +9709,7 @@
       "language": "Python",
       "stars": 2859,
       "forks": 367,
-      "category": "python",
+      "category": "ai-ml",
       "updatedAt": "2025-10-28T04:03:10Z",
       "topics": [
         "ai",
@@ -9797,7 +9797,7 @@
       "language": "JavaScript",
       "stars": 37360,
       "forks": 2669,
-      "category": "web-dev",
+      "category": "learning",
       "updatedAt": "2025-10-27T23:59:43Z",
       "topics": [
         "book",
@@ -9860,7 +9860,7 @@
       "language": "Python",
       "stars": 3779,
       "forks": 217,
-      "category": "learning",
+      "category": "python",
       "updatedAt": "2025-10-28T03:08:49Z",
       "topics": [
         "audiobook",
@@ -9891,7 +9891,7 @@
       "language": "TypeScript",
       "stars": 18885,
       "forks": 2855,
-      "category": "ai-ml",
+      "category": "mcp",
       "updatedAt": "2025-10-28T03:48:23Z",
       "topics": [
         "ai-agent",
@@ -9919,7 +9919,7 @@
       "language": "Shell",
       "stars": 48011,
       "forks": 3578,
-      "category": "ai-ml",
+      "category": "devops",
       "updatedAt": "2025-10-28T05:06:06Z",
       "topics": [
         "docker",
@@ -9954,10 +9954,10 @@
       "description": "Master programming by recreating your favorite technologies from scratch.",
       "url": "https://github.com/codecrafters-io/build-your-own-x",
       "language": "Markdown",
-      "stars": 430666,
-      "forks": 40436,
+      "stars": 430668,
+      "forks": 40437,
       "category": "learning",
-      "updatedAt": "2025-10-28T05:17:03Z",
+      "updatedAt": "2025-10-28T05:30:05Z",
       "topics": [
         "awesome-list",
         "free",
@@ -9996,10 +9996,10 @@
       "description": "The most intuitive desktop API client. Organize and execute REST, GraphQL, WebSockets, Server Sent Events, and gRPC 🦬",
       "url": "https://github.com/mountain-loop/yaak",
       "language": "TypeScript",
-      "stars": 14183,
+      "stars": 14184,
       "forks": 501,
-      "category": "web-dev",
-      "updatedAt": "2025-10-28T05:18:20Z",
+      "category": "api",
+      "updatedAt": "2025-10-28T05:25:49Z",
       "topics": [
         "bruno-alternative",
         "graphql",
@@ -10023,7 +10023,7 @@
       "language": "JavaScript",
       "stars": 19947,
       "forks": 4612,
-      "category": "web-dev",
+      "category": "api",
       "updatedAt": "2025-10-28T02:52:42Z",
       "topics": [
         "api",
@@ -10047,7 +10047,7 @@
       "language": "JavaScript",
       "stars": 3389,
       "forks": 158,
-      "category": "web-dev",
+      "category": "other",
       "updatedAt": "2025-10-27T13:26:23Z",
       "topics": []
     },
@@ -10061,7 +10061,7 @@
       "language": "Go",
       "stars": 4315,
       "forks": 476,
-      "category": "ai-ml",
+      "category": "other",
       "updatedAt": "2025-10-28T04:03:49Z",
       "topics": []
     },
@@ -10097,10 +10097,10 @@
       "description": "RAG on Everything with LEANN. Enjoy 97% storage savings while running a fast, accurate, and 100% private RAG application on your personal device.",
       "url": "https://github.com/yichuan-w/LEANN",
       "language": "Python",
-      "stars": 3245,
+      "stars": 3246,
       "forks": 335,
-      "category": "python",
-      "updatedAt": "2025-10-28T05:15:36Z",
+      "category": "ai-ml",
+      "updatedAt": "2025-10-28T05:27:55Z",
       "topics": [
         "ai",
         "faiss",
@@ -10158,7 +10158,7 @@
       "language": "Python",
       "stars": 104,
       "forks": 25,
-      "category": "web-dev",
+      "category": "cloud",
       "updatedAt": "2025-10-26T00:11:51Z",
       "topics": [
         "architectural-patterns",
@@ -10209,7 +10209,7 @@
       "language": "Svelte",
       "stars": 205,
       "forks": 41,
-      "category": "web-dev",
+      "category": "other",
       "updatedAt": "2025-10-20T21:07:21Z",
       "topics": [
         "contribution",
@@ -10233,7 +10233,7 @@
       "language": "TypeScript",
       "stars": 882,
       "forks": 103,
-      "category": "ai-ml",
+      "category": "web-dev",
       "updatedAt": "2025-10-27T19:40:49Z",
       "topics": [
         "components",
@@ -10256,10 +10256,10 @@
       "description": "Composio equips your AI agents & LLMs with 100+ high-quality integrations via function calling",
       "url": "https://github.com/ComposioHQ/composio",
       "language": "TypeScript",
-      "stars": 25843,
+      "stars": 25844,
       "forks": 4362,
       "category": "ai-ml",
-      "updatedAt": "2025-10-28T00:01:34Z",
+      "updatedAt": "2025-10-28T05:27:43Z",
       "topics": [
         "agentic-ai",
         "agents",
@@ -10312,7 +10312,7 @@
       "language": "JavaScript",
       "stars": 3050,
       "forks": 280,
-      "category": "tools",
+      "category": "other",
       "updatedAt": "2025-10-28T02:47:35Z",
       "topics": [
         "chrome-extension",
@@ -10352,7 +10352,7 @@
       "language": "TypeScript",
       "stars": 24915,
       "forks": 1129,
-      "category": "web-dev",
+      "category": "other",
       "updatedAt": "2025-10-27T19:16:09Z",
       "topics": [
         "feature-introductions",
@@ -10417,7 +10417,7 @@
       "language": "Python",
       "stars": 118216,
       "forks": 19468,
-      "category": "python",
+      "category": "ai-ml",
       "updatedAt": "2025-10-28T05:01:48Z",
       "topics": [
         "agents",
@@ -10451,7 +10451,7 @@
       "language": "Python",
       "stars": 19924,
       "forks": 2080,
-      "category": "python",
+      "category": "ai-ml",
       "updatedAt": "2025-10-28T04:49:43Z",
       "topics": [
         "adapter",
@@ -10476,7 +10476,7 @@
       "language": "Jupyter Notebook",
       "stars": 18181,
       "forks": 2515,
-      "category": "ai-ml",
+      "category": "other",
       "updatedAt": "2025-10-28T05:20:40Z",
       "topics": []
     },
@@ -10572,7 +10572,7 @@
       "language": "TypeScript",
       "stars": 2339,
       "forks": 191,
-      "category": "ai-ml",
+      "category": "other",
       "updatedAt": "2025-10-27T19:33:17Z",
       "topics": [
         "deutsche-bahn",
@@ -10590,7 +10590,7 @@
       "language": "Unknown",
       "stars": 1430,
       "forks": 92,
-      "category": "web-dev",
+      "category": "learning",
       "updatedAt": "2025-10-27T23:44:28Z",
       "topics": [
         "awesome",
@@ -10616,7 +10616,7 @@
       "language": "HTML",
       "stars": 2771,
       "forks": 685,
-      "category": "web-dev",
+      "category": "other",
       "updatedAt": "2025-10-27T21:36:42Z",
       "topics": []
     },
@@ -10669,7 +10669,7 @@
       "language": "JavaScript",
       "stars": 124,
       "forks": 34,
-      "category": "web-dev",
+      "category": "cloud",
       "updatedAt": "2025-10-22T20:59:22Z",
       "topics": [
         "d3-js",
@@ -10832,7 +10832,7 @@
       "language": "HCL",
       "stars": 13,
       "forks": 6,
-      "category": "api",
+      "category": "cloud",
       "updatedAt": "2025-09-05T00:31:09Z",
       "topics": []
     },
@@ -10846,7 +10846,7 @@
       "language": "Jupyter Notebook",
       "stars": 2,
       "forks": 1,
-      "category": "ai-ml",
+      "category": "other",
       "updatedAt": "2025-08-25T14:36:07Z",
       "topics": []
     },
@@ -10860,7 +10860,7 @@
       "language": "JavaScript",
       "stars": 913,
       "forks": 45,
-      "category": "web-dev",
+      "category": "mcp",
       "updatedAt": "2025-10-27T20:18:30Z",
       "topics": [
         "markdown",
@@ -10880,7 +10880,7 @@
       "language": "Vue",
       "stars": 4553,
       "forks": 512,
-      "category": "web-dev",
+      "category": "devops",
       "updatedAt": "2025-10-27T16:12:08Z",
       "topics": [
         "docker",
@@ -10905,10 +10905,10 @@
       "description": "all of the workflows of n8n i could find (also from the site itself)",
       "url": "https://github.com/Zie619/n8n-workflows",
       "language": "Python",
-      "stars": 37926,
+      "stars": 37927,
       "forks": 3463,
-      "category": "other",
-      "updatedAt": "2025-10-28T05:08:51Z",
+      "category": "python",
+      "updatedAt": "2025-10-28T05:27:59Z",
       "topics": []
     },
     {
@@ -10921,7 +10921,7 @@
       "language": "Objective-C",
       "stars": 1193,
       "forks": 286,
-      "category": "data",
+      "category": "other",
       "updatedAt": "2025-10-27T15:05:03Z",
       "topics": []
     },
@@ -10935,7 +10935,7 @@
       "language": "Java",
       "stars": 253,
       "forks": 102,
-      "category": "tools",
+      "category": "learning",
       "updatedAt": "2025-10-27T05:43:13Z",
       "topics": [
         "art",
@@ -10989,7 +10989,7 @@
       "language": "C++",
       "stars": 160,
       "forks": 22,
-      "category": "ui-ux",
+      "category": "other",
       "updatedAt": "2025-10-27T16:04:04Z",
       "topics": []
     },
@@ -11003,7 +11003,7 @@
       "language": "Java",
       "stars": 352,
       "forks": 20,
-      "category": "tools",
+      "category": "other",
       "updatedAt": "2025-10-27T22:21:02Z",
       "topics": []
     },
@@ -11017,7 +11017,7 @@
       "language": "JavaScript",
       "stars": 461,
       "forks": 22,
-      "category": "tools",
+      "category": "other",
       "updatedAt": "2025-10-27T17:24:58Z",
       "topics": []
     },
@@ -11031,7 +11031,7 @@
       "language": "C#",
       "stars": 3971,
       "forks": 229,
-      "category": "tools",
+      "category": "ui-ux",
       "updatedAt": "2025-10-27T23:49:42Z",
       "topics": [
         "animation",
@@ -11054,7 +11054,7 @@
       "language": "Python",
       "stars": 4854,
       "forks": 1052,
-      "category": "ai-ml",
+      "category": "python",
       "updatedAt": "2025-10-27T16:44:09Z",
       "topics": []
     },
@@ -11139,7 +11139,7 @@
       "language": "Python",
       "stars": 32721,
       "forks": 4612,
-      "category": "python",
+      "category": "ai-ml",
       "updatedAt": "2025-10-28T03:21:10Z",
       "topics": [
         "ai",
@@ -11169,10 +11169,10 @@
       "description": "Source code for the X Recommendation Algorithm",
       "url": "https://github.com/twitter/the-algorithm",
       "language": "Scala",
-      "stars": 67641,
+      "stars": 67640,
       "forks": 12607,
       "category": "other",
-      "updatedAt": "2025-10-28T04:41:48Z",
+      "updatedAt": "2025-10-28T05:28:21Z",
       "topics": []
     },
     {
@@ -11185,7 +11185,7 @@
       "language": "Jinja",
       "stars": 118,
       "forks": 14,
-      "category": "ai-ml",
+      "category": "devops",
       "updatedAt": "2025-09-21T08:30:48Z",
       "topics": [
         "container",
@@ -11202,7 +11202,7 @@
       "language": "Ruby",
       "stars": 51000,
       "forks": 10219,
-      "category": "tools",
+      "category": "other",
       "updatedAt": "2025-10-28T03:02:55Z",
       "topics": [
         "blog-engine",
@@ -11223,7 +11223,7 @@
       "language": "Ruby",
       "stars": 11534,
       "forks": 1478,
-      "category": "web-dev",
+      "category": "other",
       "updatedAt": "2025-10-27T16:25:41Z",
       "topics": []
     },
@@ -11237,7 +11237,7 @@
       "language": "HTML",
       "stars": 13237,
       "forks": 27149,
-      "category": "web-dev",
+      "category": "other",
       "updatedAt": "2025-10-28T01:25:14Z",
       "topics": [
         "algolia",
@@ -11260,7 +11260,7 @@
       "language": "HTML",
       "stars": 111796,
       "forks": 2069,
-      "category": "ai-ml",
+      "category": "other",
       "updatedAt": "2025-10-28T05:08:28Z",
       "topics": [
         "digitalplat",
@@ -11332,7 +11332,7 @@
       "language": "Go",
       "stars": 118237,
       "forks": 41586,
-      "category": "ai-ml",
+      "category": "devops",
       "updatedAt": "2025-10-28T03:08:43Z",
       "topics": [
         "cncf",
@@ -11351,7 +11351,7 @@
       "language": "TypeScript",
       "stars": 11676,
       "forks": 910,
-      "category": "web-dev",
+      "category": "devops",
       "updatedAt": "2025-10-28T05:13:59Z",
       "topics": [
         "browserless",
@@ -11376,7 +11376,7 @@
       "language": "Unknown",
       "stars": 2057,
       "forks": 57,
-      "category": "data",
+      "category": "other",
       "updatedAt": "2025-10-27T16:06:00Z",
       "topics": []
     },
@@ -11390,7 +11390,7 @@
       "language": "TypeScript",
       "stars": 44165,
       "forks": 1898,
-      "category": "web-dev",
+      "category": "data",
       "updatedAt": "2025-10-28T04:01:51Z",
       "topics": [
         "cockroachdb",
@@ -11425,7 +11425,7 @@
       "language": "Go",
       "stars": 57470,
       "forks": 6391,
-      "category": "ai-ml",
+      "category": "devops",
       "updatedAt": "2025-10-28T05:22:38Z",
       "topics": [
         "amazon-s3",
@@ -11480,7 +11480,7 @@
       "language": "JavaScript",
       "stars": 2672,
       "forks": 480,
-      "category": "web-dev",
+      "category": "other",
       "updatedAt": "2025-10-28T03:40:19Z",
       "topics": [
         "diagram",
@@ -11498,7 +11498,7 @@
       "language": "Python",
       "stars": 6936,
       "forks": 598,
-      "category": "ai-ml",
+      "category": "python",
       "updatedAt": "2025-10-28T04:12:25Z",
       "topics": []
     },
@@ -11512,7 +11512,7 @@
       "language": "Python",
       "stars": 2,
       "forks": 0,
-      "category": "ai-ml",
+      "category": "python",
       "updatedAt": "2025-08-23T19:20:32Z",
       "topics": []
     },
@@ -11526,7 +11526,7 @@
       "language": "TypeScript",
       "stars": 1883,
       "forks": 150,
-      "category": "mobile",
+      "category": "other",
       "updatedAt": "2025-10-28T05:00:00Z",
       "topics": []
     },
@@ -11540,7 +11540,7 @@
       "language": "C#",
       "stars": 6696,
       "forks": 263,
-      "category": "ai-ml",
+      "category": "game-dev",
       "updatedAt": "2025-10-28T01:09:30Z",
       "topics": [
         "2d",
@@ -11574,7 +11574,7 @@
       "language": "TypeScript",
       "stars": 27184,
       "forks": 2020,
-      "category": "ai-ml",
+      "category": "data",
       "updatedAt": "2025-10-28T04:43:57Z",
       "topics": [
         "ai-app-builder",
@@ -11622,7 +11622,7 @@
       "language": "TypeScript",
       "stars": 19925,
       "forks": 1122,
-      "category": "web-dev",
+      "category": "data",
       "updatedAt": "2025-10-28T04:55:09Z",
       "topics": [
         "database",
@@ -11654,7 +11654,7 @@
       "language": "Python",
       "stars": 14125,
       "forks": 985,
-      "category": "other",
+      "category": "python",
       "updatedAt": "2025-10-28T04:37:36Z",
       "topics": []
     },
@@ -11730,8 +11730,8 @@
       "url": "https://github.com/astral-sh/ruff",
       "language": "Rust",
       "stars": 43367,
-      "forks": 1588,
-      "category": "tools",
+      "forks": 1589,
+      "category": "python",
       "updatedAt": "2025-10-28T04:42:01Z",
       "topics": [
         "linter",
@@ -11795,7 +11795,7 @@
       "language": "TypeScript",
       "stars": 28164,
       "forks": 1397,
-      "category": "ai-ml",
+      "category": "web-dev",
       "updatedAt": "2025-10-28T00:12:47Z",
       "topics": [
         "cli",
@@ -11846,7 +11846,7 @@
       "language": "Python",
       "stars": 7,
       "forks": 1,
-      "category": "mobile",
+      "category": "python",
       "updatedAt": "2025-09-05T17:19:24Z",
       "topics": []
     },
@@ -11860,7 +11860,7 @@
       "language": "Python",
       "stars": 14972,
       "forks": 1222,
-      "category": "python",
+      "category": "ai-ml",
       "updatedAt": "2025-10-28T05:18:24Z",
       "topics": [
         "ai-agents",
@@ -11910,7 +11910,7 @@
       "language": "Python",
       "stars": 5928,
       "forks": 832,
-      "category": "python",
+      "category": "ai-ml",
       "updatedAt": "2025-10-28T05:17:04Z",
       "topics": [
         "anonymization",
@@ -12018,7 +12018,7 @@
       "language": "JavaScript",
       "stars": 109133,
       "forks": 36053,
-      "category": "ai-ml",
+      "category": "other",
       "updatedAt": "2025-10-28T04:10:01Z",
       "topics": [
         "3d",
@@ -12045,7 +12045,7 @@
       "language": "Python",
       "stars": 7402,
       "forks": 828,
-      "category": "ai-ml",
+      "category": "python",
       "updatedAt": "2025-10-27T14:35:05Z",
       "topics": []
     },
@@ -12059,7 +12059,7 @@
       "language": "TypeScript",
       "stars": 7686,
       "forks": 288,
-      "category": "ai-ml",
+      "category": "ui-ux",
       "updatedAt": "2025-10-28T00:13:31Z",
       "topics": [
         "accessibility",
@@ -12085,7 +12085,7 @@
       "language": "TypeScript",
       "stars": 3,
       "forks": 5,
-      "category": "ui-ux",
+      "category": "other",
       "updatedAt": "2025-08-22T11:46:31Z",
       "topics": []
     },
@@ -12099,7 +12099,7 @@
       "language": "JavaScript",
       "stars": 3,
       "forks": 0,
-      "category": "mobile",
+      "category": "other",
       "updatedAt": "2025-08-22T22:43:17Z",
       "topics": []
     },
@@ -12157,7 +12157,7 @@
       "language": "Python",
       "stars": 225,
       "forks": 22,
-      "category": "python",
+      "category": "ai-ml",
       "updatedAt": "2025-10-27T14:57:52Z",
       "topics": [
         "genai",
@@ -12181,7 +12181,7 @@
       "language": "TypeScript",
       "stars": 155,
       "forks": 53,
-      "category": "ai-ml",
+      "category": "web-dev",
       "updatedAt": "2025-10-27T16:14:58Z",
       "topics": [
         "agentic-ai",
@@ -12222,7 +12222,7 @@
       "language": "Rust",
       "stars": 10920,
       "forks": 254,
-      "category": "tools",
+      "category": "other",
       "updatedAt": "2025-10-28T04:06:13Z",
       "topics": [
         "changelog",
@@ -12250,7 +12250,7 @@
       "language": "Jupyter Notebook",
       "stars": 301,
       "forks": 51,
-      "category": "python",
+      "category": "other",
       "updatedAt": "2025-10-12T14:59:03Z",
       "topics": []
     },
@@ -12278,7 +12278,7 @@
       "language": "HTML",
       "stars": 13,
       "forks": 7,
-      "category": "learning",
+      "category": "other",
       "updatedAt": "2025-08-21T11:35:07Z",
       "topics": []
     },
@@ -12320,7 +12320,7 @@
       "language": "Python",
       "stars": 1332,
       "forks": 122,
-      "category": "ai-ml",
+      "category": "python",
       "updatedAt": "2025-10-27T07:50:39Z",
       "topics": []
     },
@@ -12332,10 +12332,10 @@
       "description": "Open Source Alternative to NotebookLM / Perplexity, connected to external sources such as Search Engines, Slack, Linear, Jira, ClickUp, Confluence, Notion, YouTube, GitHub, Discord and more. Join our discord: https://discord.gg/ejRNvftDp9",
       "url": "https://github.com/MODSetter/SurfSense",
       "language": "Python",
-      "stars": 10159,
+      "stars": 10160,
       "forks": 797,
-      "category": "python",
-      "updatedAt": "2025-10-28T03:53:55Z",
+      "category": "ai-ml",
+      "updatedAt": "2025-10-28T05:26:30Z",
       "topics": [
         "aceternity-ui",
         "agent",
@@ -12397,7 +12397,7 @@
       "language": "CSS",
       "stars": 1802,
       "forks": 218,
-      "category": "ai-ml",
+      "category": "data",
       "updatedAt": "2025-10-27T19:05:19Z",
       "topics": [
         "data",
@@ -12420,7 +12420,7 @@
       "language": "Python",
       "stars": 10,
       "forks": 1,
-      "category": "ai-ml",
+      "category": "python",
       "updatedAt": "2025-10-27T05:33:45Z",
       "topics": []
     },
@@ -12434,7 +12434,7 @@
       "language": "TypeScript",
       "stars": 15,
       "forks": 3,
-      "category": "ai-ml",
+      "category": "other",
       "updatedAt": "2025-08-19T13:30:19Z",
       "topics": []
     },
@@ -12481,10 +12481,10 @@
       "description": "Breakthrough Method for Agile Ai Driven Development",
       "url": "https://github.com/bmad-code-org/BMAD-METHOD",
       "language": "JavaScript",
-      "stars": 19861,
+      "stars": 19862,
       "forks": 2908,
-      "category": "ai-ml",
-      "updatedAt": "2025-10-28T05:20:40Z",
+      "category": "other",
+      "updatedAt": "2025-10-28T05:27:02Z",
       "topics": []
     },
     {
@@ -12497,7 +12497,7 @@
       "language": "TypeScript",
       "stars": 8082,
       "forks": 944,
-      "category": "ai-ml",
+      "category": "mcp",
       "updatedAt": "2025-10-28T03:52:43Z",
       "topics": [
         "agent",
@@ -12566,7 +12566,7 @@
       "language": "Python",
       "stars": 13031,
       "forks": 2253,
-      "category": "ai-ml",
+      "category": "python",
       "updatedAt": "2025-10-28T04:41:30Z",
       "topics": []
     },
@@ -12650,7 +12650,7 @@
       "language": "PHP",
       "stars": 8818,
       "forks": 3057,
-      "category": "ai-ml",
+      "category": "other",
       "updatedAt": "2025-10-28T01:05:00Z",
       "topics": [
         "digital-experience-platform",
@@ -12677,7 +12677,7 @@
       "language": "PHP",
       "stars": 157,
       "forks": 186,
-      "category": "web-dev",
+      "category": "data",
       "updatedAt": "2025-10-27T19:31:28Z",
       "topics": [
         "data-sharing",
@@ -12744,7 +12744,7 @@
       "language": "JavaScript",
       "stars": 25,
       "forks": 24,
-      "category": "ai-ml",
+      "category": "other",
       "updatedAt": "2025-10-27T19:57:35Z",
       "topics": [
         "hacktoberfest",
@@ -12782,7 +12782,7 @@
       "language": "Svelte",
       "stars": 4560,
       "forks": 404,
-      "category": "ai-ml",
+      "category": "data",
       "updatedAt": "2025-10-27T22:09:19Z",
       "topics": [
         "airtable-alternative",
@@ -12826,7 +12826,7 @@
       "language": "Jupyter Notebook",
       "stars": 12683,
       "forks": 5460,
-      "category": "learning",
+      "category": "other",
       "updatedAt": "2025-10-28T02:20:26Z",
       "topics": [
         "closember",
@@ -12869,7 +12869,7 @@
       "language": "JavaScript",
       "stars": 788,
       "forks": 191,
-      "category": "web-dev",
+      "category": "other",
       "updatedAt": "2025-10-20T20:46:20Z",
       "topics": [
         "javascript",
@@ -12892,7 +12892,7 @@
       "language": "C++",
       "stars": 118857,
       "forks": 16585,
-      "category": "ai-ml",
+      "category": "web-dev",
       "updatedAt": "2025-10-28T04:54:50Z",
       "topics": [
         "c-plus-plus",
@@ -12916,7 +12916,7 @@
       "language": "TypeScript",
       "stars": 6548,
       "forks": 1294,
-      "category": "web-dev",
+      "category": "blockchain",
       "updatedAt": "2025-10-27T20:21:11Z",
       "topics": [
         "dapp",
@@ -12940,7 +12940,7 @@
       "language": "JavaScript",
       "stars": 366,
       "forks": 20,
-      "category": "ai-ml",
+      "category": "web-dev",
       "updatedAt": "2025-10-22T16:34:59Z",
       "topics": [
         "postcss"
@@ -12956,7 +12956,7 @@
       "language": "Java",
       "stars": 6849,
       "forks": 1601,
-      "category": "mobile",
+      "category": "testing",
       "updatedAt": "2025-10-27T12:30:17Z",
       "topics": [
         "java",
@@ -12979,7 +12979,7 @@
       "language": "C#",
       "stars": 14019,
       "forks": 1263,
-      "category": "web-dev",
+      "category": "other",
       "updatedAt": "2025-10-27T22:31:16Z",
       "topics": [
         "circuit-breaker",
@@ -13002,7 +13002,7 @@
       "language": "JavaScript",
       "stars": 8833,
       "forks": 753,
-      "category": "web-dev",
+      "category": "other",
       "updatedAt": "2025-10-27T17:06:44Z",
       "topics": [
         "browsers",
@@ -13026,7 +13026,7 @@
       "language": "TypeScript",
       "stars": 1564,
       "forks": 137,
-      "category": "ai-ml",
+      "category": "other",
       "updatedAt": "2025-10-28T03:25:37Z",
       "topics": [
         "yaml",
@@ -13044,7 +13044,7 @@
       "language": "TypeScript",
       "stars": 1739,
       "forks": 160,
-      "category": "web-dev",
+      "category": "other",
       "updatedAt": "2025-10-26T17:40:05Z",
       "topics": [
         "language",
@@ -13061,7 +13061,7 @@
       "language": "C++",
       "stars": 14,
       "forks": 3,
-      "category": "data",
+      "category": "python",
       "updatedAt": "2025-10-11T18:40:50Z",
       "topics": [
         "data-analysis",
@@ -13083,7 +13083,7 @@
       "language": "Dart",
       "stars": 2491,
       "forks": 583,
-      "category": "ai-ml",
+      "category": "api",
       "updatedAt": "2025-10-27T22:18:30Z",
       "topics": [
         "api",
@@ -13152,7 +13152,7 @@
       "language": "Go",
       "stars": 42258,
       "forks": 3018,
-      "category": "mobile",
+      "category": "tools",
       "updatedAt": "2025-10-27T20:43:51Z",
       "topics": [
         "cli",
@@ -13183,7 +13183,7 @@
       "language": "Shell",
       "stars": 182325,
       "forks": 26262,
-      "category": "ai-ml",
+      "category": "tools",
       "updatedAt": "2025-10-28T05:25:31Z",
       "topics": [
         "cli",
@@ -13213,7 +13213,7 @@
       "language": "TypeScript",
       "stars": 7016,
       "forks": 355,
-      "category": "web-dev",
+      "category": "security",
       "updatedAt": "2025-10-28T02:50:34Z",
       "topics": [
         "browser",
@@ -13261,7 +13261,7 @@
       "language": "Rust",
       "stars": 10214,
       "forks": 531,
-      "category": "ai-ml",
+      "category": "other",
       "updatedAt": "2025-10-28T05:22:49Z",
       "topics": [
         "caldav",
@@ -13286,7 +13286,7 @@
       "language": "TypeScript",
       "stars": 504,
       "forks": 135,
-      "category": "web-dev",
+      "category": "api",
       "updatedAt": "2025-10-22T13:04:32Z",
       "topics": [
         "did",
@@ -13307,7 +13307,7 @@
       "language": "Go",
       "stars": 12038,
       "forks": 845,
-      "category": "ai-ml",
+      "category": "security",
       "updatedAt": "2025-10-27T14:38:09Z",
       "topics": [
         "2fa",
@@ -13338,7 +13338,7 @@
       "language": "Java",
       "stars": 186,
       "forks": 29,
-      "category": "ai-ml",
+      "category": "mobile",
       "updatedAt": "2025-10-27T08:12:43Z",
       "topics": [
         "android",
@@ -13366,7 +13366,7 @@
       "language": "Python",
       "stars": 2931,
       "forks": 497,
-      "category": "python",
+      "category": "security",
       "updatedAt": "2025-10-25T06:12:22Z",
       "topics": [
         "authentication",
@@ -13424,7 +13424,7 @@
       "language": "C#",
       "stars": 240,
       "forks": 111,
-      "category": "tools",
+      "category": "other",
       "updatedAt": "2025-10-14T17:50:44Z",
       "topics": [
         "bill-of-materials",
@@ -13456,7 +13456,7 @@
       "language": "JavaScript",
       "stars": 808,
       "forks": 217,
-      "category": "ai-ml",
+      "category": "devops",
       "updatedAt": "2025-10-27T19:42:20Z",
       "topics": [
         "bom",
@@ -13485,7 +13485,7 @@
       "language": "Python",
       "stars": 2396,
       "forks": 613,
-      "category": "data",
+      "category": "cloud",
       "updatedAt": "2025-10-26T17:44:53Z",
       "topics": [
         "copyright",
@@ -13520,7 +13520,7 @@
       "language": "Java",
       "stars": 3542,
       "forks": 1693,
-      "category": "web-dev",
+      "category": "monitoring",
       "updatedAt": "2025-10-26T15:14:40Z",
       "topics": [
         "apache",
@@ -13545,7 +13545,7 @@
       "language": "Shell",
       "stars": 2054,
       "forks": 236,
-      "category": "ai-ml",
+      "category": "other",
       "updatedAt": "2025-10-28T04:00:46Z",
       "topics": [
         "bootc",
@@ -13583,7 +13583,7 @@
       "language": "Nix",
       "stars": 22222,
       "forks": 17070,
-      "category": "ui-ux",
+      "category": "other",
       "updatedAt": "2025-10-28T04:58:19Z",
       "topics": [
         "hacktoberfest",
@@ -13603,7 +13603,7 @@
       "language": "Rust",
       "stars": 5790,
       "forks": 199,
-      "category": "devops",
+      "category": "data",
       "updatedAt": "2025-10-28T05:00:15Z",
       "topics": [
         "bastion",
@@ -13649,7 +13649,7 @@
       "language": "Rust",
       "stars": 1587,
       "forks": 143,
-      "category": "ai-ml",
+      "category": "other",
       "updatedAt": "2025-10-28T05:12:43Z",
       "topics": []
     },
@@ -13684,7 +13684,7 @@
       "language": "Rust",
       "stars": 28965,
       "forks": 2119,
-      "category": "web-dev",
+      "category": "other",
       "updatedAt": "2025-10-28T04:00:53Z",
       "topics": [
         "build-system",
@@ -13704,7 +13704,7 @@
       "language": "Go",
       "stars": 19228,
       "forks": 911,
-      "category": "security",
+      "category": "networking",
       "updatedAt": "2025-10-28T04:58:17Z",
       "topics": [
         "golang",
@@ -13729,7 +13729,7 @@
       "language": "Go",
       "stars": 67552,
       "forks": 4516,
-      "category": "web-dev",
+      "category": "security",
       "updatedAt": "2025-10-28T04:50:43Z",
       "topics": [
         "acme",
@@ -13798,7 +13798,7 @@
       "language": "JavaScript",
       "stars": 114009,
       "forks": 33576,
-      "category": "web-dev",
+      "category": "other",
       "updatedAt": "2025-10-28T05:21:21Z",
       "topics": [
         "javascript",
@@ -13822,7 +13822,7 @@
       "language": "TypeScript",
       "stars": 9652,
       "forks": 2635,
-      "category": "web-dev",
+      "category": "testing",
       "updatedAt": "2025-10-27T09:29:02Z",
       "topics": [
         "automation",
@@ -13849,7 +13849,7 @@
       "language": "TypeScript",
       "stars": 8511,
       "forks": 446,
-      "category": "web-dev",
+      "category": "other",
       "updatedAt": "2025-10-27T08:41:38Z",
       "topics": [
         "expressjs",
@@ -13868,7 +13868,7 @@
       "language": "MDX",
       "stars": 173608,
       "forks": 79156,
-      "category": "ai-ml",
+      "category": "web-dev",
       "updatedAt": "2025-10-28T03:47:32Z",
       "topics": [
         "bootstrap",
@@ -13890,7 +13890,7 @@
       "language": "TypeScript",
       "stars": 25221,
       "forks": 1712,
-      "category": "web-dev",
+      "category": "mobile",
       "updatedAt": "2025-10-28T03:18:07Z",
       "topics": [
         "android",
@@ -14103,7 +14103,7 @@
       "language": "Python",
       "stars": 1585,
       "forks": 226,
-      "category": "other",
+      "category": "python",
       "updatedAt": "2025-10-27T19:37:56Z",
       "topics": []
     },
@@ -14115,10 +14115,10 @@
       "description": "Open Source Computer Vision Library",
       "url": "https://github.com/opencv/opencv",
       "language": "C++",
-      "stars": 84640,
+      "stars": 84641,
       "forks": 56333,
-      "category": "learning",
-      "updatedAt": "2025-10-28T02:33:52Z",
+      "category": "ai-ml",
+      "updatedAt": "2025-10-28T05:29:01Z",
       "topics": [
         "c-plus-plus",
         "computer-vision",
@@ -14137,7 +14137,7 @@
       "language": "Python",
       "stars": 29,
       "forks": 6,
-      "category": "ai-ml",
+      "category": "python",
       "updatedAt": "2025-10-05T21:11:20Z",
       "topics": []
     },
@@ -14151,7 +14151,7 @@
       "language": "Python",
       "stars": 9338,
       "forks": 1317,
-      "category": "other",
+      "category": "python",
       "updatedAt": "2025-10-28T03:13:47Z",
       "topics": []
     },
@@ -14165,7 +14165,7 @@
       "language": "Rust",
       "stars": 15899,
       "forks": 1815,
-      "category": "security",
+      "category": "ai-ml",
       "updatedAt": "2025-10-28T04:28:10Z",
       "topics": [
         "algorithmic-trading-engine",
@@ -14207,7 +14207,7 @@
       "language": "Unknown",
       "stars": 5062,
       "forks": 700,
-      "category": "ai-ml",
+      "category": "web-dev",
       "updatedAt": "2025-10-27T08:53:43Z",
       "topics": [
         "animation-frameworks",
@@ -14240,7 +14240,7 @@
       "language": "Unknown",
       "stars": 11123,
       "forks": 933,
-      "category": "ai-ml",
+      "category": "web-dev",
       "updatedAt": "2025-10-28T04:59:14Z",
       "topics": [
         "beginner",
@@ -14269,7 +14269,7 @@
       "language": "Unknown",
       "stars": 8365,
       "forks": 659,
-      "category": "ai-ml",
+      "category": "web-dev",
       "updatedAt": "2025-10-24T09:54:52Z",
       "topics": []
     },
@@ -14300,7 +14300,7 @@
       "language": "Unknown",
       "stars": 14950,
       "forks": 1285,
-      "category": "web-dev",
+      "category": "other",
       "updatedAt": "2025-10-27T18:57:57Z",
       "topics": [
         "challenge",
@@ -14322,7 +14322,7 @@
       "language": "Unknown",
       "stars": 17130,
       "forks": 1248,
-      "category": "ai-ml",
+      "category": "web-dev",
       "updatedAt": "2025-10-27T18:58:02Z",
       "topics": [
         "checklist",
@@ -14351,7 +14351,7 @@
       "language": "JavaScript",
       "stars": 44624,
       "forks": 6604,
-      "category": "ai-ml",
+      "category": "web-dev",
       "updatedAt": "2025-10-28T05:21:54Z",
       "topics": [
         "backend",
@@ -14384,10 +14384,10 @@
       "description": "Manually curated collection of resources for frontend web developers.",
       "url": "https://github.com/dypsilon/frontend-dev-bookmarks",
       "language": "Unknown",
-      "stars": 45195,
+      "stars": 45194,
       "forks": 5153,
       "category": "web-dev",
-      "updatedAt": "2025-10-28T04:34:37Z",
+      "updatedAt": "2025-10-28T05:30:01Z",
       "topics": [
         "awesome",
         "awesome-list",
@@ -14458,10 +14458,10 @@
       "description": "SGLang is a fast serving framework for large language models and vision language models.",
       "url": "https://github.com/sgl-project/sglang",
       "language": "Python",
-      "stars": 19438,
+      "stars": 19439,
       "forks": 3181,
       "category": "ai-ml",
-      "updatedAt": "2025-10-28T05:00:59Z",
+      "updatedAt": "2025-10-28T05:27:38Z",
       "topics": [
         "blackwell",
         "cuda",
@@ -14550,7 +14550,7 @@
       "language": "C++",
       "stars": 37674,
       "forks": 4088,
-      "category": "ai-ml",
+      "category": "other",
       "updatedAt": "2025-10-28T03:55:56Z",
       "topics": []
     },
@@ -14598,7 +14598,7 @@
       "language": "TypeScript",
       "stars": 2457,
       "forks": 167,
-      "category": "ai-ml",
+      "category": "other",
       "updatedAt": "2025-10-28T04:59:45Z",
       "topics": []
     },
@@ -14626,7 +14626,7 @@
       "language": "Jupyter Notebook",
       "stars": 15,
       "forks": 0,
-      "category": "ai-ml",
+      "category": "other",
       "updatedAt": "2025-09-28T13:26:05Z",
       "topics": []
     },
@@ -14654,7 +14654,7 @@
       "language": "Python",
       "stars": 4335,
       "forks": 353,
-      "category": "python",
+      "category": "data",
       "updatedAt": "2025-10-27T22:20:10Z",
       "topics": [
         "data",
@@ -14679,7 +14679,7 @@
       "language": "TypeScript",
       "stars": 1044,
       "forks": 163,
-      "category": "ai-ml",
+      "category": "other",
       "updatedAt": "2025-10-27T20:26:23Z",
       "topics": []
     },
@@ -14718,7 +14718,7 @@
       "language": "Unknown",
       "stars": 7211,
       "forks": 1397,
-      "category": "learning",
+      "category": "other",
       "updatedAt": "2025-10-27T23:14:45Z",
       "topics": [
         "behavioral-interviews",
@@ -14737,7 +14737,7 @@
       "language": "Unknown",
       "stars": 17071,
       "forks": 1884,
-      "category": "learning",
+      "category": "ui-ux",
       "updatedAt": "2025-10-27T22:57:08Z",
       "topics": [
         "computer-science",
@@ -14762,7 +14762,7 @@
       "language": "Unknown",
       "stars": 4278,
       "forks": 550,
-      "category": "ai-ml",
+      "category": "other",
       "updatedAt": "2025-10-28T02:33:38Z",
       "topics": []
     },
@@ -14776,7 +14776,7 @@
       "language": "Unknown",
       "stars": 1102,
       "forks": 205,
-      "category": "ai-ml",
+      "category": "other",
       "updatedAt": "2025-10-23T02:56:18Z",
       "topics": []
     },
@@ -14788,10 +14788,10 @@
       "description": "Learn System Design concepts and prepare for interviews using free resources.",
       "url": "https://github.com/ashishps1/awesome-system-design-resources",
       "language": "Java",
-      "stars": 27166,
+      "stars": 27167,
       "forks": 6348,
       "category": "web-dev",
-      "updatedAt": "2025-10-28T05:10:33Z",
+      "updatedAt": "2025-10-28T05:27:01Z",
       "topics": [
         "awesome",
         "backend",
@@ -14815,7 +14815,7 @@
       "language": "Unknown",
       "stars": 77605,
       "forks": 8416,
-      "category": "ai-ml",
+      "category": "cloud",
       "updatedAt": "2025-10-28T03:18:43Z",
       "topics": [
         "aws",
@@ -14840,7 +14840,7 @@
       "language": "TypeScript",
       "stars": 131427,
       "forks": 15945,
-      "category": "learning",
+      "category": "ui-ux",
       "updatedAt": "2025-10-28T04:49:25Z",
       "topics": [
         "algorithm",
@@ -14865,7 +14865,7 @@
       "language": "Unknown",
       "stars": 331930,
       "forks": 81053,
-      "category": "data",
+      "category": "learning",
       "updatedAt": "2025-10-28T05:17:54Z",
       "topics": [
         "algorithm",
@@ -14892,7 +14892,7 @@
       "language": "Go",
       "stars": 14862,
       "forks": 1116,
-      "category": "ai-ml",
+      "category": "cloud",
       "updatedAt": "2025-10-28T04:49:04Z",
       "topics": [
         "approximate-nearest-neighbor-search",
@@ -14955,7 +14955,7 @@
       "language": "Unknown",
       "stars": 71,
       "forks": 4,
-      "category": "tools",
+      "category": "other",
       "updatedAt": "2025-10-27T23:30:23Z",
       "topics": []
     },
@@ -14996,7 +14996,7 @@
       "language": "TypeScript",
       "stars": 488,
       "forks": 90,
-      "category": "ai-ml",
+      "category": "other",
       "updatedAt": "2025-10-25T19:40:57Z",
       "topics": []
     },
@@ -15047,7 +15047,7 @@
       "language": "Python",
       "stars": 32150,
       "forks": 2173,
-      "category": "ai-ml",
+      "category": "python",
       "updatedAt": "2025-10-28T04:28:54Z",
       "topics": []
     },
@@ -15061,7 +15061,7 @@
       "language": "Python",
       "stars": 16640,
       "forks": 1170,
-      "category": "python",
+      "category": "ai-ml",
       "updatedAt": "2025-10-28T04:51:43Z",
       "topics": [
         "gemini",
@@ -15087,7 +15087,7 @@
       "language": "Python",
       "stars": 583,
       "forks": 38,
-      "category": "python",
+      "category": "mcp",
       "updatedAt": "2025-10-27T05:19:52Z",
       "topics": [
         "ai",
@@ -15111,7 +15111,7 @@
       "language": "Python",
       "stars": 13073,
       "forks": 1331,
-      "category": "python",
+      "category": "ai-ml",
       "updatedAt": "2025-10-28T04:03:04Z",
       "topics": [
         "agent-framework",
@@ -15131,7 +15131,7 @@
       "language": "Python",
       "stars": 2113,
       "forks": 149,
-      "category": "ai-ml",
+      "category": "learning",
       "updatedAt": "2025-10-27T13:24:46Z",
       "topics": [
         "fine",
@@ -15150,10 +15150,10 @@
       "description": "Use Claude Code as the foundation for coding infrastructure, allowing you to decide how to interact with the model while enjoying updates from Anthropic.",
       "url": "https://github.com/musistudio/claude-code-router",
       "language": "TypeScript",
-      "stars": 20290,
+      "stars": 20291,
       "forks": 1550,
       "category": "ai-ml",
-      "updatedAt": "2025-10-28T05:07:01Z",
+      "updatedAt": "2025-10-28T05:27:43Z",
       "topics": []
     },
     {
@@ -15196,7 +15196,7 @@
       "language": "Python",
       "stars": 82172,
       "forks": 4610,
-      "category": "python",
+      "category": "ai-ml",
       "updatedAt": "2025-10-28T03:41:56Z",
       "topics": [
         "autogen",
@@ -15299,10 +15299,10 @@
       "description": "Lightweight coding agent that runs in your terminal",
       "url": "https://github.com/openai/codex",
       "language": "Rust",
-      "stars": 49060,
+      "stars": 49059,
       "forks": 5988,
-      "category": "ai-ml",
-      "updatedAt": "2025-10-28T05:08:15Z",
+      "category": "tools",
+      "updatedAt": "2025-10-28T05:26:51Z",
       "topics": []
     },
     {
@@ -15334,7 +15334,7 @@
       "language": "TypeScript",
       "stars": 22862,
       "forks": 1884,
-      "category": "mobile",
+      "category": "other",
       "updatedAt": "2025-10-28T02:28:11Z",
       "topics": [
         "budgeting",
@@ -15397,7 +15397,7 @@
       "language": "Python",
       "stars": 8070,
       "forks": 529,
-      "category": "python",
+      "category": "web-dev",
       "updatedAt": "2025-10-28T05:15:38Z",
       "topics": [
         "digital-products",
@@ -15456,10 +15456,10 @@
       "description": "The LLM Evaluation Framework",
       "url": "https://github.com/confident-ai/deepeval",
       "language": "Python",
-      "stars": 11845,
+      "stars": 11846,
       "forks": 1036,
       "category": "python",
-      "updatedAt": "2025-10-28T05:10:52Z",
+      "updatedAt": "2025-10-28T05:29:58Z",
       "topics": [
         "evaluation-framework",
         "evaluation-metrics",
@@ -15517,10 +15517,10 @@
       "description": "A collection of notebooks/recipes showcasing some fun and effective ways of using Claude.",
       "url": "https://github.com/anthropics/claude-cookbooks",
       "language": "Jupyter Notebook",
-      "stars": 25541,
+      "stars": 25543,
       "forks": 2588,
       "category": "ai-ml",
-      "updatedAt": "2025-10-28T05:06:41Z",
+      "updatedAt": "2025-10-28T05:27:58Z",
       "topics": []
     },
     {
@@ -15574,7 +15574,7 @@
       "language": "TypeScript",
       "stars": 8617,
       "forks": 847,
-      "category": "mobile",
+      "category": "learning",
       "updatedAt": "2025-10-28T05:24:58Z",
       "topics": [
         "assistant",
@@ -15595,7 +15595,7 @@
       "language": "MDX",
       "stars": 19313,
       "forks": 858,
-      "category": "ai-ml",
+      "category": "ui-ux",
       "updatedAt": "2025-10-28T03:17:22Z",
       "topics": [
         "components",
@@ -15617,7 +15617,7 @@
       "language": "TypeScript",
       "stars": 734,
       "forks": 141,
-      "category": "tools",
+      "category": "other",
       "updatedAt": "2025-10-27T16:01:56Z",
       "topics": [
         "curriculum-vitae",
@@ -15655,10 +15655,10 @@
       "description": ":books: List of awesome university courses for learning Computer Science!",
       "url": "https://github.com/prakhar1989/awesome-courses",
       "language": "Unknown",
-      "stars": 63988,
+      "stars": 63989,
       "forks": 8260,
-      "category": "learning",
-      "updatedAt": "2025-10-28T04:41:33Z",
+      "category": "other",
+      "updatedAt": "2025-10-28T05:28:19Z",
       "topics": [
         "awesome",
         "awesome-list",
@@ -15676,7 +15676,7 @@
       "language": "Unknown",
       "stars": 63318,
       "forks": 6087,
-      "category": "web-dev",
+      "category": "other",
       "updatedAt": "2025-10-28T03:49:40Z",
       "topics": [
         "awesome",
@@ -15697,7 +15697,7 @@
       "language": "Unknown",
       "stars": 34290,
       "forks": 3166,
-      "category": "ai-ml",
+      "category": "devops",
       "updatedAt": "2025-10-28T03:59:01Z",
       "topics": [
         "awesome",
@@ -15730,7 +15730,7 @@
       "language": "Jupyter Notebook",
       "stars": 38380,
       "forks": 7379,
-      "category": "data",
+      "category": "other",
       "updatedAt": "2025-10-27T23:53:54Z",
       "topics": [
         "apachespark",
@@ -15749,10 +15749,10 @@
       "description": "A curated list of free courses with certifications. Also available at https://free-certifications.com/",
       "url": "https://github.com/cloudcommunity/Free-Certifications",
       "language": "Unknown",
-      "stars": 40851,
+      "stars": 40853,
       "forks": 2724,
-      "category": "ai-ml",
-      "updatedAt": "2025-10-28T05:25:31Z",
+      "category": "learning",
+      "updatedAt": "2025-10-28T05:30:12Z",
       "topics": [
         "awesome",
         "awesome-list",
@@ -15786,7 +15786,7 @@
       "language": "JavaScript",
       "stars": 38292,
       "forks": 2164,
-      "category": "tools",
+      "category": "ui-ux",
       "updatedAt": "2025-10-28T04:44:10Z",
       "topics": [
         "animations",
@@ -15809,7 +15809,7 @@
       "language": "Unknown",
       "stars": 40585,
       "forks": 4335,
-      "category": "python",
+      "category": "other",
       "updatedAt": "2025-10-28T04:43:40Z",
       "topics": [
         "awesome",
@@ -15827,7 +15827,7 @@
       "language": "JavaScript",
       "stars": 91894,
       "forks": 6952,
-      "category": "mobile",
+      "category": "other",
       "updatedAt": "2025-10-28T04:41:01Z",
       "topics": [
         "app",
@@ -15859,10 +15859,10 @@
       "description": "A collection of various awesome lists for hackers, pentesters and security researchers",
       "url": "https://github.com/Hack-with-Github/Awesome-Hacking",
       "language": "Unknown",
-      "stars": 99730,
+      "stars": 99731,
       "forks": 9633,
-      "category": "mobile",
-      "updatedAt": "2025-10-28T05:24:10Z",
+      "category": "security",
+      "updatedAt": "2025-10-28T05:28:32Z",
       "topics": [
         "android",
         "awesome",
@@ -15885,7 +15885,7 @@
       "language": "Shell",
       "stars": 99650,
       "forks": 6144,
-      "category": "game-dev",
+      "category": "other",
       "updatedAt": "2025-10-28T05:11:47Z",
       "topics": [
         "awesome",
@@ -15905,10 +15905,10 @@
       "description": ":octocat: 分享 GitHub 上有趣、入门级的开源项目。Share interesting, entry-level open source projects on GitHub.",
       "url": "https://github.com/521xueweihan/HelloGitHub",
       "language": "Python",
-      "stars": 132328,
+      "stars": 132329,
       "forks": 10822,
       "category": "python",
-      "updatedAt": "2025-10-28T05:09:11Z",
+      "updatedAt": "2025-10-28T05:25:36Z",
       "topics": [
         "awesome",
         "github",
@@ -15926,7 +15926,7 @@
       "language": "Unknown",
       "stars": 255096,
       "forks": 11800,
-      "category": "web-dev",
+      "category": "cloud",
       "updatedAt": "2025-10-28T04:48:57Z",
       "topics": [
         "awesome",
@@ -15972,7 +15972,7 @@
       "language": "Python",
       "stars": 29017,
       "forks": 4410,
-      "category": "python",
+      "category": "ai-ml",
       "updatedAt": "2025-10-28T01:50:06Z",
       "topics": [
         "agent",
@@ -16007,7 +16007,7 @@
       "language": "Python",
       "stars": 623,
       "forks": 97,
-      "category": "ai-ml",
+      "category": "python",
       "updatedAt": "2025-10-25T23:29:05Z",
       "topics": []
     },
@@ -16084,7 +16084,7 @@
       "language": "Unknown",
       "stars": 78006,
       "forks": 9201,
-      "category": "ai-ml",
+      "category": "mobile",
       "updatedAt": "2025-10-28T04:39:35Z",
       "topics": [
         "android-interview-questions",
@@ -16138,7 +16138,7 @@
       "language": "Jupyter Notebook",
       "stars": 8428,
       "forks": 1922,
-      "category": "ai-ml",
+      "category": "other",
       "updatedAt": "2025-10-28T02:59:14Z",
       "topics": []
     },
@@ -16152,7 +16152,7 @@
       "language": "Unknown",
       "stars": 90,
       "forks": 10,
-      "category": "web-dev",
+      "category": "other",
       "updatedAt": "2025-10-26T17:16:04Z",
       "topics": []
     },
@@ -16166,7 +16166,7 @@
       "language": "Unknown",
       "stars": 74400,
       "forks": 8512,
-      "category": "web-dev",
+      "category": "other",
       "updatedAt": "2025-10-28T01:15:01Z",
       "topics": [
         "books",
@@ -16274,7 +16274,7 @@
       "language": "TypeScript",
       "stars": 8150,
       "forks": 896,
-      "category": "ai-ml",
+      "category": "web-dev",
       "updatedAt": "2025-10-28T01:54:35Z",
       "topics": [
         "nextjs",
@@ -16297,7 +16297,7 @@
       "language": "HTML",
       "stars": 7378,
       "forks": 715,
-      "category": "web-dev",
+      "category": "devops",
       "updatedAt": "2025-10-28T01:32:46Z",
       "topics": [
         "cookbook",
@@ -16324,7 +16324,7 @@
       "language": "TypeScript",
       "stars": 3397,
       "forks": 149,
-      "category": "ai-ml",
+      "category": "tools",
       "updatedAt": "2025-10-27T15:38:09Z",
       "topics": [
         "agentic-ai",
@@ -16367,7 +16367,7 @@
       "language": "Python",
       "stars": 23788,
       "forks": 4484,
-      "category": "python",
+      "category": "ai-ml",
       "updatedAt": "2025-10-27T23:30:00Z",
       "topics": [
         "applicant-tracking-system",
@@ -16410,7 +16410,7 @@
       "language": "HTML",
       "stars": 114114,
       "forks": 11683,
-      "category": "devops",
+      "category": "other",
       "updatedAt": "2025-10-28T04:45:07Z",
       "topics": [
         "awesome-list",
@@ -16427,7 +16427,7 @@
       "language": "Jupyter Notebook",
       "stars": 12277,
       "forks": 3697,
-      "category": "ai-ml",
+      "category": "mcp",
       "updatedAt": "2025-10-28T03:18:23Z",
       "topics": [
         "csharp",
@@ -16456,7 +16456,7 @@
       "language": "Unknown",
       "stars": 2521,
       "forks": 245,
-      "category": "ai-ml",
+      "category": "other",
       "updatedAt": "2025-10-27T20:19:07Z",
       "topics": [
         "algorave",
@@ -16493,10 +16493,10 @@
       "description": "A list of awesome beginners-friendly projects.",
       "url": "https://github.com/MunGell/awesome-for-beginners",
       "language": "Unknown",
-      "stars": 79096,
+      "stars": 79097,
       "forks": 7550,
       "category": "other",
-      "updatedAt": "2025-10-28T04:02:35Z",
+      "updatedAt": "2025-10-28T05:26:42Z",
       "topics": [
         "awesome",
         "awesome-list",
@@ -16515,7 +16515,7 @@
       "language": "TypeScript",
       "stars": 1532,
       "forks": 376,
-      "category": "tools",
+      "category": "other",
       "updatedAt": "2025-10-27T18:03:52Z",
       "topics": [
         "git",
@@ -16533,7 +16533,7 @@
       "language": "C#",
       "stars": 3148,
       "forks": 289,
-      "category": "tools",
+      "category": "other",
       "updatedAt": "2025-10-28T04:03:28Z",
       "topics": [
         "cross-platform",
@@ -16552,7 +16552,7 @@
       "language": "JavaScript",
       "stars": 32661,
       "forks": 5913,
-      "category": "mobile",
+      "category": "learning",
       "updatedAt": "2025-10-28T02:49:03Z",
       "topics": []
     },
@@ -16566,7 +16566,7 @@
       "language": "Python",
       "stars": 16623,
       "forks": 744,
-      "category": "python",
+      "category": "ai-ml",
       "updatedAt": "2025-10-28T04:05:48Z",
       "topics": [
         "artificial-intelligence",
@@ -16594,7 +16594,7 @@
       "language": "Python",
       "stars": 249,
       "forks": 54,
-      "category": "ai-ml",
+      "category": "learning",
       "updatedAt": "2025-10-27T14:34:04Z",
       "topics": [
         "app",
@@ -16610,10 +16610,10 @@
       "description": "Open Source Alternative to Vercel, Netlify and Heroku.",
       "url": "https://github.com/Dokploy/dokploy",
       "language": "TypeScript",
-      "stars": 26082,
+      "stars": 26083,
       "forks": 1702,
       "category": "web-dev",
-      "updatedAt": "2025-10-28T04:39:19Z",
+      "updatedAt": "2025-10-28T05:25:57Z",
       "topics": [
         "backend",
         "backups",
@@ -16641,7 +16641,7 @@
       "language": "PHP",
       "stars": 46713,
       "forks": 3095,
-      "category": "web-dev",
+      "category": "data",
       "updatedAt": "2025-10-28T05:06:41Z",
       "topics": [
         "analytics",
@@ -16675,7 +16675,7 @@
       "language": "JavaScript",
       "stars": 15817,
       "forks": 2887,
-      "category": "ai-ml",
+      "category": "other",
       "updatedAt": "2025-10-28T02:16:01Z",
       "topics": [
         "cheerp",
@@ -16699,10 +16699,10 @@
       "description": "Python ETL framework for stream processing, real-time analytics, LLM pipelines, and RAG.",
       "url": "https://github.com/pathwaycom/pathway",
       "language": "Python",
-      "stars": 48878,
+      "stars": 48879,
       "forks": 1433,
-      "category": "python",
-      "updatedAt": "2025-10-28T05:21:43Z",
+      "category": "ai-ml",
+      "updatedAt": "2025-10-28T05:27:54Z",
       "topics": [
         "batch-processing",
         "data-analytics",
@@ -16733,7 +16733,7 @@
       "language": "TypeScript",
       "stars": 6321,
       "forks": 395,
-      "category": "ai-ml",
+      "category": "tools",
       "updatedAt": "2025-10-27T20:10:40Z",
       "topics": [
         "code-editor",
@@ -16776,7 +16776,7 @@
       "language": "Unknown",
       "stars": 191435,
       "forks": 11763,
-      "category": "web-dev",
+      "category": "devops",
       "updatedAt": "2025-10-28T05:22:50Z",
       "topics": [
         "awesome",
@@ -16833,10 +16833,10 @@
       "description": "Framework for orchestrating role-playing, autonomous AI agents. By fostering collaborative intelligence, CrewAI empowers agents to work together seamlessly, tackling complex tasks.",
       "url": "https://github.com/crewAIInc/crewAI",
       "language": "Python",
-      "stars": 39766,
+      "stars": 39767,
       "forks": 5299,
       "category": "ai-ml",
-      "updatedAt": "2025-10-28T05:09:01Z",
+      "updatedAt": "2025-10-28T05:27:29Z",
       "topics": [
         "agents",
         "ai",
@@ -16890,7 +16890,7 @@
       "language": "Python",
       "stars": 8143,
       "forks": 1268,
-      "category": "ai-ml",
+      "category": "cloud",
       "updatedAt": "2025-10-28T05:03:43Z",
       "topics": [
         "aws",
@@ -16930,10 +16930,10 @@
       "description": "Visually inspect MCP servers",
       "url": "https://github.com/MCPJam/inspector",
       "language": "TypeScript",
-      "stars": 1279,
+      "stars": 1280,
       "forks": 138,
-      "category": "tools",
-      "updatedAt": "2025-10-28T04:59:20Z",
+      "category": "mcp",
+      "updatedAt": "2025-10-28T05:29:05Z",
       "topics": [
         "mcp",
         "mcp-clients",
@@ -16951,7 +16951,7 @@
       "language": "JavaScript",
       "stars": 50104,
       "forks": 3874,
-      "category": "ai-ml",
+      "category": "other",
       "updatedAt": "2025-10-28T02:03:40Z",
       "topics": [
         "airtable",
@@ -17037,7 +17037,7 @@
       "language": "Dart",
       "stars": 22492,
       "forks": 1301,
-      "category": "web-dev",
+      "category": "mobile",
       "updatedAt": "2025-10-28T03:52:23Z",
       "topics": [
         "2fa",
@@ -17069,7 +17069,7 @@
       "language": "TypeScript",
       "stars": 3008,
       "forks": 262,
-      "category": "tools",
+      "category": "other",
       "updatedAt": "2025-10-27T20:25:02Z",
       "topics": [
         "ambient",
@@ -17089,10 +17089,10 @@
       "description": "Curated list of project-based tutorials",
       "url": "https://github.com/practical-tutorials/project-based-learning",
       "language": "Unknown",
-      "stars": 248021,
+      "stars": 248022,
       "forks": 32425,
-      "category": "web-dev",
-      "updatedAt": "2025-10-28T05:24:34Z",
+      "category": "learning",
+      "updatedAt": "2025-10-28T05:25:59Z",
       "topics": [
         "beginner-project",
         "cpp",
@@ -17137,7 +17137,7 @@
       "language": "TypeScript",
       "stars": 28733,
       "forks": 1621,
-      "category": "web-dev",
+      "category": "other",
       "updatedAt": "2025-10-28T03:29:55Z",
       "topics": [
         "desktop-app",
@@ -17191,7 +17191,7 @@
       "language": "JavaScript",
       "stars": 29369,
       "forks": 1262,
-      "category": "ai-ml",
+      "category": "ui-ux",
       "updatedAt": "2025-10-28T05:16:00Z",
       "topics": [
         "3d",
@@ -17245,7 +17245,7 @@
       "language": "HTML",
       "stars": 5781,
       "forks": 572,
-      "category": "data",
+      "category": "other",
       "updatedAt": "2025-10-27T17:35:50Z",
       "topics": [
         "algorithm",
@@ -17294,7 +17294,7 @@
       "language": "Unknown",
       "stars": 24047,
       "forks": 2901,
-      "category": "learning",
+      "category": "other",
       "updatedAt": "2025-10-28T02:41:02Z",
       "topics": []
     },
@@ -17349,7 +17349,7 @@
       "language": "Unknown",
       "stars": 409985,
       "forks": 32026,
-      "category": "api",
+      "category": "other",
       "updatedAt": "2025-10-28T05:24:31Z",
       "topics": [
         "awesome",
@@ -17367,10 +17367,10 @@
       "description": "📝 Algorithms and data structures implemented in JavaScript with explanations and links to further readings",
       "url": "https://github.com/trekhleb/javascript-algorithms",
       "language": "JavaScript",
-      "stars": 193739,
+      "stars": 193740,
       "forks": 30930,
-      "category": "web-dev",
-      "updatedAt": "2025-10-28T04:24:51Z",
+      "category": "other",
+      "updatedAt": "2025-10-28T05:29:31Z",
       "topics": [
         "algorithm",
         "algorithms",
@@ -17392,7 +17392,7 @@
       "language": "TypeScript",
       "stars": 42283,
       "forks": 3028,
-      "category": "ai-ml",
+      "category": "web-dev",
       "updatedAt": "2025-10-27T21:37:41Z",
       "topics": [
         "csv",
@@ -17416,7 +17416,7 @@
       "language": "Unknown",
       "stars": 771,
       "forks": 62,
-      "category": "tools",
+      "category": "other",
       "updatedAt": "2025-10-25T07:59:21Z",
       "topics": [
         "awesome",
@@ -17506,7 +17506,7 @@
       "language": "JavaScript",
       "stars": 121,
       "forks": 12,
-      "category": "ai-ml",
+      "category": "mcp",
       "updatedAt": "2025-10-27T16:27:38Z",
       "topics": [
         "awesome",
@@ -17531,7 +17531,7 @@
       "language": "TypeScript",
       "stars": 1501,
       "forks": 128,
-      "category": "mobile",
+      "category": "mcp",
       "updatedAt": "2025-10-27T21:23:38Z",
       "topics": []
     },
@@ -17612,7 +17612,7 @@
       "language": "Java",
       "stars": 69231,
       "forks": 5846,
-      "category": "web-dev",
+      "category": "devops",
       "updatedAt": "2025-10-28T05:14:09Z",
       "topics": [
         "docker",
@@ -17658,7 +17658,7 @@
       "language": "Unknown",
       "stars": 3139,
       "forks": 94,
-      "category": "ai-ml",
+      "category": "other",
       "updatedAt": "2025-10-26T21:18:21Z",
       "topics": [
         "awesome-list",
@@ -17674,10 +17674,10 @@
       "description": "2026 SWE internship & new graduate job list updated daily",
       "url": "https://github.com/speedyapply/2026-SWE-College-Jobs",
       "language": "Unknown",
-      "stars": 6067,
+      "stars": 6068,
       "forks": 302,
-      "category": "ai-ml",
-      "updatedAt": "2025-10-28T05:22:08Z",
+      "category": "other",
+      "updatedAt": "2025-10-28T05:26:05Z",
       "topics": [
         "2025-intern",
         "applications",
@@ -17711,7 +17711,7 @@
       "language": "JavaScript",
       "stars": 47926,
       "forks": 7467,
-      "category": "data",
+      "category": "other",
       "updatedAt": "2025-10-28T03:42:02Z",
       "topics": [
         "algorithm",
@@ -17730,7 +17730,7 @@
       "language": "Unknown",
       "stars": 66360,
       "forks": 6661,
-      "category": "web-dev",
+      "category": "ai-ml",
       "updatedAt": "2025-10-28T05:24:57Z",
       "topics": [
         "architecture",
@@ -17763,10 +17763,10 @@
       "description": "A Collection of application ideas which can be used to improve your coding skills.",
       "url": "https://github.com/florinpop17/app-ideas",
       "language": "Unknown",
-      "stars": 87377,
+      "stars": 87378,
       "forks": 10086,
-      "category": "ai-ml",
-      "updatedAt": "2025-10-28T03:54:37Z",
+      "category": "web-dev",
+      "updatedAt": "2025-10-28T05:27:41Z",
       "topics": [
         "applications",
         "coding",
@@ -17789,7 +17789,7 @@
       "language": "Unknown",
       "stars": 70094,
       "forks": 9418,
-      "category": "web-dev",
+      "category": "ai-ml",
       "updatedAt": "2025-10-28T03:54:58Z",
       "topics": [
         "algorithms",
@@ -17822,7 +17822,7 @@
       "language": "JavaScript",
       "stars": 45514,
       "forks": 10353,
-      "category": "ai-ml",
+      "category": "web-dev",
       "updatedAt": "2025-10-27T22:03:46Z",
       "topics": [
         "30daysofjavascript",
@@ -17857,7 +17857,7 @@
       "language": "Unknown",
       "stars": 71589,
       "forks": 6591,
-      "category": "ai-ml",
+      "category": "web-dev",
       "updatedAt": "2025-10-28T05:10:48Z",
       "topics": [
         "checklist",
@@ -17884,7 +17884,7 @@
       "language": "Unknown",
       "stars": 16188,
       "forks": 1997,
-      "category": "learning",
+      "category": "other",
       "updatedAt": "2025-10-26T07:04:57Z",
       "topics": []
     },
@@ -17898,7 +17898,7 @@
       "language": "MDX",
       "stars": 43636,
       "forks": 5949,
-      "category": "ai-ml",
+      "category": "web-dev",
       "updatedAt": "2025-10-27T21:04:17Z",
       "topics": [
         "css",
@@ -17928,7 +17928,7 @@
       "language": "Unknown",
       "stars": 30235,
       "forks": 1933,
-      "category": "ai-ml",
+      "category": "web-dev",
       "updatedAt": "2025-10-27T13:41:28Z",
       "topics": [
         "favicon",
@@ -17954,7 +17954,7 @@
       "language": "JavaScript",
       "stars": 125638,
       "forks": 12362,
-      "category": "ai-ml",
+      "category": "learning",
       "updatedAt": "2025-10-28T05:08:11Z",
       "topics": [
         "astro",
@@ -18008,7 +18008,7 @@
       "language": "Markdown",
       "stars": 12056,
       "forks": 3527,
-      "category": "tools",
+      "category": "other",
       "updatedAt": "2025-10-27T15:45:34Z",
       "topics": []
     },
@@ -18022,7 +18022,7 @@
       "language": "EJS",
       "stars": 9340,
       "forks": 1154,
-      "category": "ai-ml",
+      "category": "tools",
       "updatedAt": "2025-10-28T05:23:50Z",
       "topics": [
         "awk",
@@ -18049,10 +18049,10 @@
       "description": "Interactive roadmaps, guides and other educational content to help developers grow in their careers.",
       "url": "https://github.com/kamranahmedse/developer-roadmap",
       "language": "TypeScript",
-      "stars": 342112,
+      "stars": 342113,
       "forks": 43228,
-      "category": "ai-ml",
-      "updatedAt": "2025-10-28T05:22:30Z",
+      "category": "web-dev",
+      "updatedAt": "2025-10-28T05:29:28Z",
       "topics": [
         "angular-roadmap",
         "backend-roadmap",
@@ -18116,10 +18116,10 @@
       "description": "12 Lessons to Get Started Building AI Agents",
       "url": "https://github.com/microsoft/ai-agents-for-beginners",
       "language": "Jupyter Notebook",
-      "stars": 43346,
-      "forks": 14462,
+      "stars": 43347,
+      "forks": 14463,
       "category": "ai-ml",
-      "updatedAt": "2025-10-28T05:01:16Z",
+      "updatedAt": "2025-10-28T05:26:46Z",
       "topics": [
         "agentic-ai",
         "agentic-framework",
@@ -18141,7 +18141,7 @@
       "language": "PowerShell",
       "stars": 1117,
       "forks": 425,
-      "category": "other",
+      "category": "cloud",
       "updatedAt": "2025-10-18T01:57:19Z",
       "topics": []
     },
@@ -18175,7 +18175,7 @@
       "language": "Shell",
       "stars": 88570,
       "forks": 9484,
-      "category": "web-dev",
+      "category": "tools",
       "updatedAt": "2025-10-28T03:41:03Z",
       "topics": [
         "bash",
@@ -18230,7 +18230,7 @@
       "language": "Unknown",
       "stars": 6619,
       "forks": 1577,
-      "category": "ai-ml",
+      "category": "other",
       "updatedAt": "2025-10-28T03:34:15Z",
       "topics": []
     },
@@ -18244,7 +18244,7 @@
       "language": "Python",
       "stars": 29829,
       "forks": 2004,
-      "category": "python",
+      "category": "web-dev",
       "updatedAt": "2025-10-28T02:55:09Z",
       "topics": [
         "ab-testing",
@@ -18291,7 +18291,7 @@
       "url": "https://github.com/open-webui/open-webui",
       "language": "JavaScript",
       "stars": 113550,
-      "forks": 15781,
+      "forks": 15780,
       "category": "ai-ml",
       "updatedAt": "2025-10-28T04:49:08Z",
       "topics": [
@@ -18320,10 +18320,10 @@
       "description": "Collection of awesome LLM apps with AI Agents and RAG using OpenAI, Anthropic, Gemini and opensource models.",
       "url": "https://github.com/Shubhamsaboo/awesome-llm-apps",
       "language": "Python",
-      "stars": 73644,
+      "stars": 73645,
       "forks": 9579,
-      "category": "python",
-      "updatedAt": "2025-10-28T05:23:13Z",
+      "category": "ai-ml",
+      "updatedAt": "2025-10-28T05:28:25Z",
       "topics": [
         "llms",
         "python",
@@ -18340,7 +18340,7 @@
       "language": "Python",
       "stars": 19618,
       "forks": 1436,
-      "category": "python",
+      "category": "mcp",
       "updatedAt": "2025-10-28T04:46:48Z",
       "topics": [
         "agents",
@@ -18401,7 +18401,7 @@
       "language": "JavaScript",
       "stars": 134,
       "forks": 31,
-      "category": "mobile",
+      "category": "other",
       "updatedAt": "2025-10-20T16:01:07Z",
       "topics": []
     },
@@ -18545,7 +18545,7 @@
       "language": "Python",
       "stars": 2392,
       "forks": 421,
-      "category": "ai-ml",
+      "category": "cloud",
       "updatedAt": "2025-10-25T23:39:39Z",
       "topics": []
     },
@@ -18559,7 +18559,7 @@
       "language": "Unknown",
       "stars": 3696,
       "forks": 1012,
-      "category": "data",
+      "category": "learning",
       "updatedAt": "2025-10-27T08:50:16Z",
       "topics": [
         "algorithms",
@@ -18586,10 +18586,10 @@
       "description": "MCP server that interacts with Obsidian via the Obsidian rest API community plugin",
       "url": "https://github.com/MarkusPfundstein/mcp-obsidian",
       "language": "Python",
-      "stars": 2322,
+      "stars": 2323,
       "forks": 287,
-      "category": "api",
-      "updatedAt": "2025-10-28T04:43:58Z",
+      "category": "mcp",
+      "updatedAt": "2025-10-28T05:28:51Z",
       "topics": []
     },
     {
@@ -18602,7 +18602,7 @@
       "language": "Unknown",
       "stars": 1189,
       "forks": 278,
-      "category": "learning",
+      "category": "networking",
       "updatedAt": "2025-10-24T03:40:25Z",
       "topics": [
         "architecture",
@@ -18624,7 +18624,7 @@
       "language": "Python",
       "stars": 79585,
       "forks": 18012,
-      "category": "python",
+      "category": "cloud",
       "updatedAt": "2025-10-28T05:10:58Z",
       "topics": [
         "ansible",
@@ -18658,7 +18658,7 @@
       "language": "Python",
       "stars": 4266,
       "forks": 359,
-      "category": "python",
+      "category": "ai-ml",
       "updatedAt": "2025-10-28T02:14:10Z",
       "topics": [
         "agent",
@@ -18757,7 +18757,7 @@
       "language": "Jupyter Notebook",
       "stars": 20877,
       "forks": 1121,
-      "category": "ui-ux",
+      "category": "other",
       "updatedAt": "2025-10-28T04:00:20Z",
       "topics": []
     },
@@ -18814,7 +18814,7 @@
       "language": "Python",
       "stars": 1682,
       "forks": 239,
-      "category": "ai-ml",
+      "category": "python",
       "updatedAt": "2025-10-24T05:15:00Z",
       "topics": []
     },
@@ -18877,7 +18877,7 @@
       "language": "TypeScript",
       "stars": 97,
       "forks": 25,
-      "category": "ai-ml",
+      "category": "mcp",
       "updatedAt": "2025-10-21T04:27:01Z",
       "topics": [
         "claude",
@@ -18896,7 +18896,7 @@
       "language": "TypeScript",
       "stars": 14007,
       "forks": 1242,
-      "category": "ai-ml",
+      "category": "other",
       "updatedAt": "2025-10-28T04:50:12Z",
       "topics": []
     },
@@ -18910,7 +18910,7 @@
       "language": "Go",
       "stars": 25207,
       "forks": 494,
-      "category": "ai-ml",
+      "category": "devops",
       "updatedAt": "2025-10-28T04:50:05Z",
       "topics": [
         "containerd",
@@ -18937,7 +18937,7 @@
       "language": "HTML",
       "stars": 22,
       "forks": 64,
-      "category": "ui-ux",
+      "category": "python",
       "updatedAt": "2025-09-18T15:58:40Z",
       "topics": [
         "alpha",
@@ -18979,7 +18979,7 @@
       "language": "Python",
       "stars": 32773,
       "forks": 5057,
-      "category": "python",
+      "category": "ai-ml",
       "updatedAt": "2025-10-28T05:20:37Z",
       "topics": [
         "algorithmic-trading",
@@ -19012,7 +19012,7 @@
       "language": "Jupyter Notebook",
       "stars": 11644,
       "forks": 1708,
-      "category": "ai-ml",
+      "category": "other",
       "updatedAt": "2025-10-28T02:14:40Z",
       "topics": []
     },
@@ -19026,7 +19026,7 @@
       "language": "JavaScript",
       "stars": 1437,
       "forks": 256,
-      "category": "data",
+      "category": "other",
       "updatedAt": "2025-10-26T19:39:37Z",
       "topics": [
         "algo-book",
@@ -19057,7 +19057,7 @@
       "language": "JavaScript",
       "stars": 64,
       "forks": 19,
-      "category": "ai-ml",
+      "category": "mcp",
       "updatedAt": "2025-09-22T04:01:08Z",
       "topics": []
     },
@@ -19071,7 +19071,7 @@
       "language": "C++",
       "stars": 212,
       "forks": 162,
-      "category": "data",
+      "category": "other",
       "updatedAt": "2025-10-19T03:04:37Z",
       "topics": [
         "algorithms",
@@ -19122,7 +19122,7 @@
       "language": "Unknown",
       "stars": 1044,
       "forks": 0,
-      "category": "web-dev",
+      "category": "other",
       "updatedAt": "2025-10-26T20:16:16Z",
       "topics": [
         "book",
@@ -19143,7 +19143,7 @@
       "language": "Python",
       "stars": 324350,
       "forks": 52897,
-      "category": "python",
+      "category": "ui-ux",
       "updatedAt": "2025-10-28T05:21:07Z",
       "topics": [
         "design",
@@ -19206,7 +19206,7 @@
       "language": "Jupyter Notebook",
       "stars": 14668,
       "forks": 2649,
-      "category": "ai-ml",
+      "category": "learning",
       "updatedAt": "2025-10-28T03:04:06Z",
       "topics": []
     },
@@ -19254,7 +19254,7 @@
       "language": "Python",
       "stars": 16881,
       "forks": 2779,
-      "category": "python",
+      "category": "ai-ml",
       "updatedAt": "2025-10-28T04:37:21Z",
       "topics": [
         "agents",
@@ -19275,7 +19275,7 @@
       "language": "HTML",
       "stars": 840,
       "forks": 132,
-      "category": "ai-ml",
+      "category": "web-dev",
       "updatedAt": "2025-10-26T14:06:54Z",
       "topics": [
         "app-landing-page",
@@ -19322,7 +19322,7 @@
       "language": "Python",
       "stars": 41806,
       "forks": 4493,
-      "category": "python",
+      "category": "ai-ml",
       "updatedAt": "2025-10-28T05:11:42Z",
       "topics": [
         "agents",
@@ -19352,7 +19352,7 @@
       "language": "C++",
       "stars": 13322,
       "forks": 464,
-      "category": "web-dev",
+      "category": "other",
       "updatedAt": "2025-10-28T05:19:11Z",
       "topics": [
         "cross-platform"
@@ -19368,7 +19368,7 @@
       "language": "Python",
       "stars": 18704,
       "forks": 3152,
-      "category": "python",
+      "category": "mobile",
       "updatedAt": "2025-10-28T03:11:39Z",
       "topics": [
         "android",
@@ -19390,10 +19390,10 @@
       "description": "A high-throughput and memory-efficient inference and serving engine for LLMs",
       "url": "https://github.com/vllm-project/vllm",
       "language": "Python",
-      "stars": 61178,
+      "stars": 61180,
       "forks": 10828,
       "category": "ai-ml",
-      "updatedAt": "2025-10-28T05:24:28Z",
+      "updatedAt": "2025-10-28T05:27:49Z",
       "topics": [
         "amd",
         "blackwell",
@@ -19427,7 +19427,7 @@
       "language": "Jupyter Notebook",
       "stars": 2057,
       "forks": 447,
-      "category": "learning",
+      "category": "other",
       "updatedAt": "2025-10-27T20:42:51Z",
       "topics": []
     },
@@ -19491,7 +19491,7 @@
       "stars": 27300,
       "forks": 1624,
       "category": "python",
-      "updatedAt": "2025-10-28T05:15:54Z",
+      "updatedAt": "2025-10-28T05:29:54Z",
       "topics": [
         "framework",
         "gui",
@@ -19510,7 +19510,7 @@
       "language": "Python",
       "stars": 667,
       "forks": 127,
-      "category": "ai-ml",
+      "category": "learning",
       "updatedAt": "2025-10-26T20:07:05Z",
       "topics": [
         "algorithms",
@@ -19545,7 +19545,7 @@
       "language": "Rust",
       "stars": 3860,
       "forks": 251,
-      "category": "ai-ml",
+      "category": "data",
       "updatedAt": "2025-10-27T14:47:13Z",
       "topics": [
         "ai",
@@ -19603,7 +19603,7 @@
       "language": "PHP",
       "stars": 8529,
       "forks": 822,
-      "category": "data",
+      "category": "other",
       "updatedAt": "2025-10-28T04:33:03Z",
       "topics": [
         "agile",
@@ -19680,10 +19680,10 @@
       "description": "aider is AI pair programming in your terminal",
       "url": "https://github.com/Aider-AI/aider",
       "language": "Python",
-      "stars": 38093,
-      "forks": 3618,
+      "stars": 38094,
+      "forks": 3619,
       "category": "ai-ml",
-      "updatedAt": "2025-10-28T03:54:39Z",
+      "updatedAt": "2025-10-28T05:26:24Z",
       "topics": [
         "anthropic",
         "chatgpt",
@@ -19724,7 +19724,7 @@
       "language": "Python",
       "stars": 4552,
       "forks": 1628,
-      "category": "ai-ml",
+      "category": "python",
       "updatedAt": "2025-10-28T03:32:34Z",
       "topics": []
     },
@@ -19736,10 +19736,10 @@
       "description": "No-code LLM Platform to launch APIs and ETL Pipelines to structure unstructured documents",
       "url": "https://github.com/Zipstack/unstract",
       "language": "Python",
-      "stars": 5898,
+      "stars": 5899,
       "forks": 556,
       "category": "ai-ml",
-      "updatedAt": "2025-10-27T22:57:06Z",
+      "updatedAt": "2025-10-28T05:27:42Z",
       "topics": [
         "etl-pipeline",
         "llm-platform",
@@ -19756,7 +19756,7 @@
       "language": "TypeScript",
       "stars": 33612,
       "forks": 3639,
-      "category": "ai-ml",
+      "category": "web-dev",
       "updatedAt": "2025-10-28T03:13:25Z",
       "topics": [
         "hacktoberfest",
@@ -19807,7 +19807,7 @@
       "language": "Python",
       "stars": 39547,
       "forks": 6834,
-      "category": "python",
+      "category": "ai-ml",
       "updatedAt": "2025-10-28T04:56:40Z",
       "topics": [
         "data-science",
@@ -19936,7 +19936,7 @@
       "language": "JavaScript",
       "stars": 92484,
       "forks": 14330,
-      "category": "ai-ml",
+      "category": "web-dev",
       "updatedAt": "2025-10-28T05:09:28Z",
       "topics": [
         "css",
@@ -19959,7 +19959,7 @@
       "language": "Jupyter Notebook",
       "stars": 23766,
       "forks": 2038,
-      "category": "ai-ml",
+      "category": "other",
       "updatedAt": "2025-10-28T04:39:20Z",
       "topics": []
     },
@@ -19973,7 +19973,7 @@
       "language": "Python",
       "stars": 30563,
       "forks": 4266,
-      "category": "mobile",
+      "category": "python",
       "updatedAt": "2025-10-28T03:19:40Z",
       "topics": [
         "application-security",
@@ -19995,7 +19995,7 @@
       "language": "Ruby",
       "stars": 5256,
       "forks": 1215,
-      "category": "web-dev",
+      "category": "cloud",
       "updatedAt": "2025-10-27T19:48:00Z",
       "topics": [
         "dependencies",
@@ -20025,7 +20025,7 @@
       "language": "Unknown",
       "stars": 73732,
       "forks": 6172,
-      "category": "ai-ml",
+      "category": "mcp",
       "updatedAt": "2025-10-28T05:22:40Z",
       "topics": [
         "ai",
@@ -20042,7 +20042,7 @@
       "language": "TypeScript",
       "stars": 90762,
       "forks": 10334,
-      "category": "ai-ml",
+      "category": "data",
       "updatedAt": "2025-10-28T05:19:01Z",
       "topics": [
         "ai",
@@ -20076,7 +20076,7 @@
       "language": "TypeScript",
       "stars": 1908,
       "forks": 128,
-      "category": "ai-ml",
+      "category": "other",
       "updatedAt": "2025-10-27T08:15:53Z",
       "topics": []
     },
@@ -20111,10 +20111,10 @@
       "description": "Model Context Protocol Servers",
       "url": "https://github.com/modelcontextprotocol/servers",
       "language": "TypeScript",
-      "stars": 71378,
+      "stars": 71379,
       "forks": 8537,
-      "category": "api",
-      "updatedAt": "2025-10-28T04:59:41Z",
+      "category": "other",
+      "updatedAt": "2025-10-28T05:28:37Z",
       "topics": []
     },
     {
@@ -20125,10 +20125,10 @@
       "description": "Python SDK, Proxy Server (LLM Gateway) to call 100+ LLM APIs in OpenAI format - [Bedrock, Azure, OpenAI, VertexAI, Cohere, Anthropic, Sagemaker, HuggingFace, Replicate, Groq]",
       "url": "https://github.com/BerriAI/litellm",
       "language": "Python",
-      "stars": 30376,
+      "stars": 30377,
       "forks": 4507,
-      "category": "python",
-      "updatedAt": "2025-10-28T05:01:00Z",
+      "category": "ai-ml",
+      "updatedAt": "2025-10-28T05:28:22Z",
       "topics": [
         "ai-gateway",
         "anthropic",
@@ -20156,7 +20156,7 @@
       "language": "TypeScript",
       "stars": 98530,
       "forks": 7043,
-      "category": "ai-ml",
+      "category": "ui-ux",
       "updatedAt": "2025-10-28T05:05:23Z",
       "topics": [
         "components",
@@ -20178,7 +20178,7 @@
       "language": "Python",
       "stars": 71824,
       "forks": 8513,
-      "category": "python",
+      "category": "ai-ml",
       "updatedAt": "2025-10-28T04:06:08Z",
       "topics": [
         "ai-agents",
@@ -20198,10 +20198,10 @@
       "description": "Playwright is a framework for Web Testing and Automation. It allows testing Chromium, Firefox and WebKit with a single API.",
       "url": "https://github.com/microsoft/playwright",
       "language": "TypeScript",
-      "stars": 78675,
+      "stars": 78676,
       "forks": 4742,
-      "category": "web-dev",
-      "updatedAt": "2025-10-28T05:17:19Z",
+      "category": "testing",
+      "updatedAt": "2025-10-28T05:28:27Z",
       "topics": [
         "automation",
         "chrome",
@@ -20228,10 +20228,10 @@
       "description": "Fair-code workflow automation platform with native AI capabilities. Combine visual building with custom code, self-host or cloud, 400+ integrations.",
       "url": "https://github.com/n8n-io/n8n",
       "language": "TypeScript",
-      "stars": 152212,
+      "stars": 152213,
       "forks": 48542,
-      "category": "ai-ml",
-      "updatedAt": "2025-10-28T05:18:58Z",
+      "category": "mcp",
+      "updatedAt": "2025-10-28T05:27:27Z",
       "topics": [
         "ai",
         "apis",
@@ -20290,7 +20290,7 @@
       "language": "Python",
       "stars": 215,
       "forks": 31,
-      "category": "data",
+      "category": "python",
       "updatedAt": "2025-10-22T07:31:22Z",
       "topics": []
     },
@@ -20302,10 +20302,10 @@
       "description": "A collective list of free APIs",
       "url": "https://github.com/public-apis/public-apis",
       "language": "Python",
-      "stars": 373853,
+      "stars": 373855,
       "forks": 39454,
-      "category": "data",
-      "updatedAt": "2025-10-28T05:23:15Z",
+      "category": "python",
+      "updatedAt": "2025-10-28T05:29:49Z",
       "topics": [
         "api",
         "apis",
@@ -20332,7 +20332,7 @@
       "language": "Rust",
       "stars": 774,
       "forks": 59,
-      "category": "tools",
+      "category": "other",
       "updatedAt": "2025-10-28T02:43:20Z",
       "topics": []
     },
@@ -20367,7 +20367,7 @@
       "language": "TypeScript",
       "stars": 83758,
       "forks": 8223,
-      "category": "ai-ml",
+      "category": "web-dev",
       "updatedAt": "2025-10-28T05:13:39Z",
       "topics": [
         "diagrams",
@@ -20390,7 +20390,7 @@
       "language": "Python",
       "stars": 100,
       "forks": 193,
-      "category": "other",
+      "category": "python",
       "updatedAt": "2025-09-17T08:18:03Z",
       "topics": []
     },
@@ -20422,10 +20422,10 @@
       "description": "Virtual whiteboard for sketching hand-drawn like diagrams",
       "url": "https://github.com/excalidraw/excalidraw",
       "language": "TypeScript",
-      "stars": 109289,
+      "stars": 109291,
       "forks": 11341,
-      "category": "tools",
-      "updatedAt": "2025-10-28T05:12:22Z",
+      "category": "other",
+      "updatedAt": "2025-10-28T05:30:11Z",
       "topics": [
         "canvas",
         "collaboration",
@@ -20446,7 +20446,7 @@
       "language": "Python",
       "stars": 40334,
       "forks": 3115,
-      "category": "python",
+      "category": "ai-ml",
       "updatedAt": "2025-10-28T04:06:06Z",
       "topics": [
         "data-analysis",
@@ -20581,7 +20581,7 @@
       "language": "Jupyter Notebook",
       "stars": 504,
       "forks": 375,
-      "category": "learning",
+      "category": "other",
       "updatedAt": "2025-10-15T11:53:36Z",
       "topics": []
     },
@@ -20595,7 +20595,7 @@
       "language": "Python",
       "stars": 4,
       "forks": 1,
-      "category": "ai-ml",
+      "category": "python",
       "updatedAt": "2025-06-19T05:50:09Z",
       "topics": []
     },
@@ -20634,7 +20634,7 @@
       "language": "Python",
       "stars": 53925,
       "forks": 5190,
-      "category": "python",
+      "category": "ai-ml",
       "updatedAt": "2025-10-28T05:10:18Z",
       "topics": [
         "ai",
@@ -20785,7 +20785,7 @@
       "stars": 66657,
       "forks": 7065,
       "category": "ai-ml",
-      "updatedAt": "2025-10-28T05:24:33Z",
+      "updatedAt": "2025-10-28T05:29:20Z",
       "topics": [
         "agent",
         "agentic",
@@ -20863,7 +20863,7 @@
       "language": "Java",
       "stars": 2886,
       "forks": 747,
-      "category": "ai-ml",
+      "category": "other",
       "updatedAt": "2025-10-26T20:45:23Z",
       "topics": [
         "booknotes",
@@ -20892,10 +20892,10 @@
       "description": "Get your documents ready for gen AI",
       "url": "https://github.com/docling-project/docling",
       "language": "Python",
-      "stars": 42366,
+      "stars": 42367,
       "forks": 3036,
       "category": "ai-ml",
-      "updatedAt": "2025-10-28T05:21:48Z",
+      "updatedAt": "2025-10-28T05:28:14Z",
       "topics": [
         "ai",
         "convert",
@@ -20924,7 +20924,7 @@
       "language": "Jupyter Notebook",
       "stars": 9489,
       "forks": 1238,
-      "category": "tools",
+      "category": "other",
       "updatedAt": "2025-10-27T20:36:52Z",
       "topics": [
         "derivatives",
@@ -20984,7 +20984,7 @@
       "language": "Python",
       "stars": 254,
       "forks": 14,
-      "category": "python",
+      "category": "ai-ml",
       "updatedAt": "2025-10-17T09:38:59Z",
       "topics": [
         "gpt",
@@ -21103,7 +21103,7 @@
       "language": "C++",
       "stars": 6181,
       "forks": 799,
-      "category": "tools",
+      "category": "other",
       "updatedAt": "2025-10-27T17:18:46Z",
       "topics": [
         "algorithmic-composition",
@@ -21161,7 +21161,7 @@
       "language": "Unknown",
       "stars": 2149,
       "forks": 417,
-      "category": "mobile",
+      "category": "other",
       "updatedAt": "2025-10-27T22:00:46Z",
       "topics": []
     },
@@ -21175,7 +21175,7 @@
       "language": "Unknown",
       "stars": 107,
       "forks": 44,
-      "category": "ai-ml",
+      "category": "other",
       "updatedAt": "2025-09-02T08:44:52Z",
       "topics": []
     },
@@ -21225,24 +21225,28 @@
       ]
     }
   ],
-  "lastUpdated": "2025-10-28T05:25:43.476Z",
+  "lastUpdated": "2025-10-28T05:30:25.868Z",
   "totalCount": 958,
   "categoryStats": {
-    "learning": 28,
-    "other": 62,
-    "ai-ml": 412,
-    "web-dev": 147,
-    "ui-ux": 17,
-    "mobile": 42,
-    "devops": 18,
-    "tools": 63,
-    "python": 100,
-    "data": 42,
-    "security": 8,
-    "game-dev": 6,
-    "api": 11,
-    "blockchain": 1,
-    "mcp": 1
+    "learning": 41,
+    "python": 112,
+    "ai-ml": 247,
+    "web-dev": 91,
+    "other": 237,
+    "cloud": 31,
+    "devops": 35,
+    "mcp": 23,
+    "tools": 22,
+    "data": 25,
+    "api": 10,
+    "security": 18,
+    "ui-ux": 23,
+    "mobile": 22,
+    "monitoring": 5,
+    "networking": 5,
+    "blockchain": 3,
+    "game-dev": 4,
+    "testing": 4
   },
   "languageStats": {
     "C++": 17,
@@ -21293,7 +21297,7 @@
     "MATLAB": 1
   },
   "metadata": {
-    "fetchedAt": "2025-10-28T05:25:43.476Z",
+    "fetchedAt": "2025-10-28T05:30:25.868Z",
     "username": "niranjanxprt",
     "version": "2.1"
   }
