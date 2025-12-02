@@ -104,6 +104,11 @@ class GitHubStarsGraph {
                 medium: ['protocol', 'socket', 'websocket', 'network'],
                 weak: []
             },
+            'system-design': {
+                strong: ['system-design', 'system-architecture', 'distributed-systems', 'distributed-system', 'scalability', 'high-availability', 'microservices-architecture', 'system-design-interview', 'architecture-patterns', 'design-patterns', 'software-architecture'],
+                medium: ['architecture', 'scalable', 'distributed', 'high-performance', 'load-balancing', 'caching', 'message-queue', 'event-driven', 'microservices-pattern', 'architectural'],
+                weak: ['pattern', 'architecture-diagram', 'system']
+            },
             'other': {}
         };
         
@@ -127,6 +132,7 @@ class GitHubStarsGraph {
             'game-dev': '#FB923C',   // Orange - gaming fun
             'mcp': '#A855F7',        // Purple variant - special
             'networking': '#0EA5E9', // Sky blue - network
+            'system-design': '#14B8A6', // Teal - architecture/structure
             'other': '#6366F1'       // Indigo - general
         };
         
@@ -497,6 +503,13 @@ class GitHubStarsGraph {
             categoryScores['ui-ux'] = (categoryScores['ui-ux'] || 0) + 8;
         }
 
+        // Special case: System Design resources
+        if ((allText.includes('system-design') || allText.includes('system design')) ||
+            ((allText.includes('distributed') || allText.includes('scalability')) &&
+             (allText.includes('architecture') || allText.includes('interview')))) {
+            categoryScores['system-design'] = (categoryScores['system-design'] || 0) + 12;
+        }
+
         // Find category with highest score (minimum threshold: 4 points)
         let bestCategory = 'other';
         let bestScore = 4;
@@ -717,9 +730,10 @@ class GitHubStarsGraph {
     
     applyFilters() {
         this.filteredRepositories = this.repositories.filter(repo => {
-            // Search filter
+            // Enhanced search filter - searches in name, description, topics, language, owner
             if (this.currentFilters.search) {
-                const searchText = `${repo.name} ${repo.description} ${repo.language} ${repo.fullName}`.toLowerCase();
+                const topics = (repo.topics || []).join(' ').toLowerCase();
+                const searchText = `${repo.name} ${repo.description} ${repo.language} ${repo.fullName} ${repo.owner} ${topics}`.toLowerCase();
                 if (!searchText.includes(this.currentFilters.search)) return false;
             }
             

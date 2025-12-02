@@ -103,6 +103,11 @@ const categories = {
     medium: ['protocol', 'socket', 'websocket', 'network'],
     weak: []
   },
+  'system-design': {
+    strong: ['system-design', 'system-architecture', 'distributed-systems', 'distributed-system', 'scalability', 'high-availability', 'microservices-architecture', 'system-design-interview', 'architecture-patterns', 'design-patterns', 'software-architecture'],
+    medium: ['architecture', 'scalable', 'distributed', 'high-performance', 'load-balancing', 'caching', 'message-queue', 'event-driven', 'microservices-pattern', 'architectural'],
+    weak: ['pattern', 'architecture-diagram', 'system']
+  },
   'other': {}
 };
 
@@ -241,6 +246,13 @@ function categorizeRepo(repo) {
   if ((allText.includes('gui') || allText.includes('desktop-application')) &&
       (allText.includes('framework') || allText.includes('components'))) {
     categoryScores['ui-ux'] = (categoryScores['ui-ux'] || 0) + 8;
+  }
+
+  // Special case: System Design resources
+  if ((allText.includes('system-design') || allText.includes('system design')) ||
+      ((allText.includes('distributed') || allText.includes('scalability')) &&
+       (allText.includes('architecture') || allText.includes('interview')))) {
+    categoryScores['system-design'] = (categoryScores['system-design'] || 0) + 12;
   }
 
   // Find category with highest score (minimum threshold: 4 points)
