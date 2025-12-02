@@ -14,24 +14,24 @@ const TOKEN = process.env.GITHUB_TOKEN;
 // Enhanced category definitions with weighted keyword scoring
 const categories = {
   'ai-ml': {
-    strong: ['tensorflow', 'pytorch', 'huggingface', 'langchain', 'openai', 'anthropic', 'transformers', 'llm', 'gpt', 'chatgpt', 'claude', 'gemini', 'llama', 'bert', 'neural-network', 'deep-learning', 'machine-learning'],
-    medium: ['ai', 'ml', 'rag', 'embedding', 'model-training', 'inference', 'nlp', 'computer-vision', 'generative', 'diffusion'],
-    weak: ['agent', 'semantic', 'vector']
+    strong: ['tensorflow', 'pytorch', 'huggingface', 'langchain', 'openai', 'anthropic', 'transformers', 'llm', 'gpt', 'chatgpt', 'claude', 'gemini', 'llama', 'bert', 'neural-network', 'deep-learning', 'machine-learning', 'prompt-engineering', 'prompt-optimization', 'agent-framework', 'agentic-ai', 'deepagents', 'dspy', 'reinforcement-learning'],
+    medium: ['ai', 'ml', 'rag', 'embedding', 'model-training', 'inference', 'nlp', 'computer-vision', 'generative', 'diffusion', 'ai-powered', 'ai-agent', 'ai-assistant', 'llm-ops', 'model-context-protocol', 'ai-native'],
+    weak: ['agent', 'semantic', 'vector', 'optimization', 'prompt']
   },
   'cloud': {
-    strong: ['aws', 'azure', 'gcp', 'google-cloud', 'cloud-native', 'eks', 'aks', 'gke', 'cloudformation', 'terraform', 'pulumi'],
-    medium: ['cloud', 'infrastructure-as-code', 'iac', 'aws-cdk', 'serverless', 'lambda', 'cloud-functions'],
-    weak: ['infrastructure', 'deployment']
+    strong: ['aws', 'azure', 'gcp', 'google-cloud', 'cloud-native', 'eks', 'aks', 'gke', 'cloudformation', 'terraform', 'pulumi', 'cdn', 'cloudflare'],
+    medium: ['cloud', 'infrastructure-as-code', 'iac', 'aws-cdk', 'serverless', 'lambda', 'cloud-functions', 'edge-computing', 'esm'],
+    weak: ['infrastructure', 'deployment', 'hosting']
   },
   'devops': {
-    strong: ['kubernetes', 'k8s', 'docker', 'helm', 'argocd', 'gitlab-ci', 'github-actions', 'circleci', 'jenkins'],
-    medium: ['ci-cd', 'continuous-integration', 'continuous-deployment', 'devops', 'gitops', 'containerization', 'orchestration'],
-    weak: ['deployment', 'pipeline', 'automation', 'ops']
+    strong: ['kubernetes', 'k8s', 'docker', 'helm', 'argocd', 'gitlab-ci', 'github-actions', 'circleci', 'jenkins', 'ansible', 'vagrant', 'backup-automation', 'prometheus-exporter'],
+    medium: ['ci-cd', 'continuous-integration', 'continuous-deployment', 'devops', 'gitops', 'containerization', 'orchestration', 'self-hosted', 'homelab', 'sre', 'site-reliability', 'backup'],
+    weak: ['deployment', 'pipeline', 'automation', 'ops', 'self-hosters']
   },
   'web-dev': {
-    strong: ['react', 'nextjs', 'next.js', 'vue', 'vuejs', 'angular', 'svelte', 'remix', 'astro'],
-    medium: ['frontend', 'backend', 'fullstack', 'web-framework', 'express', 'fastify', 'nestjs', 'tailwind', 'css'],
-    weak: ['web', 'html', 'javascript', 'typescript']
+    strong: ['react', 'nextjs', 'next.js', 'vue', 'vuejs', 'angular', 'svelte', 'remix', 'astro', 'browser-engine', 'web-browser', 'chromium', 'webkit', 'static-site-generator', 'ssg'],
+    medium: ['frontend', 'backend', 'fullstack', 'web-framework', 'express', 'fastify', 'nestjs', 'tailwind', 'css', 'browser', 'web-development', 'obsidian-md', 'markdown-editor', 'nobuild'],
+    weak: ['web', 'html', 'javascript', 'typescript', 'markdown', 'mdx']
   },
   'mobile': {
     strong: ['react-native', 'flutter', 'swift', 'kotlin', 'swiftui', 'jetpack-compose', 'expo'],
@@ -39,14 +39,14 @@ const categories = {
     weak: ['mobile']
   },
   'data': {
-    strong: ['postgresql', 'mongodb', 'redis', 'elasticsearch', 'cassandra', 'dynamodb', 'apache-spark', 'apache-kafka', 'apache-airflow'],
-    medium: ['database', 'data-engineering', 'etl', 'data-pipeline', 'data-warehouse', 'bigquery', 'snowflake'],
-    weak: ['sql', 'nosql', 'analytics', 'data']
+    strong: ['postgresql', 'mongodb', 'redis', 'elasticsearch', 'cassandra', 'dynamodb', 'apache-spark', 'apache-kafka', 'apache-airflow', 'gpu-programming', 'cuda-programming', 'gpu-engineering'],
+    medium: ['database', 'data-engineering', 'etl', 'data-pipeline', 'data-warehouse', 'bigquery', 'snowflake', 'kernels', 'gpu', 'cuda'],
+    weak: ['sql', 'nosql', 'analytics', 'data', 'pandas', 'numpy']
   },
   'monitoring': {
-    strong: ['prometheus', 'grafana', 'datadog', 'new-relic', 'elasticsearch', 'kibana', 'jaeger', 'zipkin'],
-    medium: ['observability', 'monitoring', 'logging', 'tracing', 'metrics', 'apm', 'alerting'],
-    weak: ['logs', 'telemetry']
+    strong: ['prometheus', 'grafana', 'datadog', 'new-relic', 'elasticsearch', 'kibana', 'jaeger', 'zipkin', 'web-analytics', 'google-analytics', 'mixpanel', 'amplitude', 'umami'],
+    medium: ['observability', 'monitoring', 'logging', 'tracing', 'metrics', 'apm', 'alerting', 'analytics', 'product-analytics', 'audience-segmentation', 'cohort-analysis', 'user-journey'],
+    weak: ['logs', 'telemetry', 'statistics', 'tracking']
   },
   'testing': {
     strong: ['jest', 'pytest', 'cypress', 'selenium', 'playwright', 'junit', 'testng', 'mocha'],
@@ -59,14 +59,14 @@ const categories = {
     weak: ['py']
   },
   'tools': {
-    strong: ['vscode', 'vim', 'neovim', 'cli-tool', 'command-line-tool'],
-    medium: ['cli', 'command-line', 'terminal', 'shell', 'bash', 'developer-tools'],
-    weak: ['tool', 'utility', 'productivity']
+    strong: ['vscode', 'vim', 'neovim', 'cli-tool', 'command-line-tool', 'browser-extension', 'chrome-extension', 'firefox-addon', 'text-editor', 'productivity-tool'],
+    medium: ['cli', 'command-line', 'terminal', 'shell', 'bash', 'developer-tools', 'chrome', 'firefox', 'safari', 'edge', 'opera', 'code-review', 'pull-request-review', 'github-tool', 'self-hosted-tools'],
+    weak: ['tool', 'utility', 'productivity', 'extension', 'addon', 'plugin']
   },
   'security': {
-    strong: ['oauth', 'jwt', 'authentication', 'authorization', 'encryption', 'vulnerability-scanner', 'penetration-testing'],
-    medium: ['security', 'cybersecurity', 'infosec', 'secure', 'privacy', 'cryptography'],
-    weak: ['auth', 'ssl', 'tls']
+    strong: ['oauth', 'jwt', 'authentication', 'authorization', 'encryption', 'vulnerability-scanner', 'penetration-testing', 'soc2', 'iso27001', 'gdpr', 'hipaa', 'compliance'],
+    medium: ['security', 'cybersecurity', 'infosec', 'secure', 'privacy', 'cryptography', 'grc', 'governance', 'risk-management', 'compliance-automation', 'iso27701', 'iso42001'],
+    weak: ['auth', 'ssl', 'tls', 'audit']
   },
   'api': {
     strong: ['graphql', 'rest-api', 'api-gateway', 'grpc', 'swagger', 'openapi'],
@@ -74,14 +74,14 @@ const categories = {
     weak: ['endpoint', 'webhook']
   },
   'learning': {
-    strong: ['tutorial', 'course', 'learning-resources', 'educational', 'coding-interview', 'examples'],
-    medium: ['learning', 'education', 'guide', 'handbook', 'interview-prep'],
-    weak: ['documentation', 'book', 'study']
+    strong: ['tutorial', 'course', 'learning-resources', 'educational', 'coding-interview', 'examples', 'awesome-list', 'curated-list', 'learning-path', 'study-guide', 'cheat-sheet'],
+    medium: ['learning', 'education', 'guide', 'handbook', 'interview-prep', 'awesome', 'resources', 'list', 'collection', 'curated', 'flashcard', 'spaced-repetition'],
+    weak: ['documentation', 'book', 'study', 'reference']
   },
   'ui-ux': {
-    strong: ['design-system', 'ui-components', 'component-library', 'tailwindcss', 'material-ui', 'shadcn'],
-    medium: ['ui', 'ux', 'design', 'user-interface', 'frontend-framework'],
-    weak: ['theme', 'icon', 'animation']
+    strong: ['design-system', 'ui-components', 'component-library', 'tailwindcss', 'material-ui', 'shadcn', 'gui-framework', 'gpui', 'uikit', 'swiftui', 'jetpack-compose'],
+    medium: ['ui', 'ux', 'design', 'user-interface', 'frontend-framework', 'desktop-application', 'canvas', 'graphics', 'pixel-art', 'isometric'],
+    weak: ['theme', 'icon', 'animation', 'visual']
   },
   'blockchain': {
     strong: ['ethereum', 'solidity', 'web3', 'smart-contract', 'defi', 'nft'],
@@ -194,9 +194,58 @@ function categorizeRepo(repo) {
     categoryScores['learning'] = Math.max(0, (categoryScores['learning'] || 0) - 5);
   }
 
-  // Find category with highest score (minimum threshold: 5 points)
+  // Special case: Backup/automation tools
+  if (allText.includes('backup') && (allText.includes('automation') || allText.includes('self-hosted'))) {
+    categoryScores['devops'] = (categoryScores['devops'] || 0) + 8;
+  }
+
+  // Special case: Browser engines
+  if (allText.includes('browser') && (allText.includes('engine') || allText.includes('chromium') || allText.includes('webkit'))) {
+    categoryScores['web-dev'] = (categoryScores['web-dev'] || 0) + 10;
+  }
+
+  // Special case: AI agent frameworks
+  if ((allText.includes('agent') || allText.includes('agentic')) && (allText.includes('ai') || allText.includes('llm'))) {
+    categoryScores['ai-ml'] = (categoryScores['ai-ml'] || 0) + 8;
+  }
+
+  // Special case: Analytics platforms
+  if (allText.includes('analytics') && (allText.includes('platform') || allText.includes('alternative') || allText.includes('dashboard'))) {
+    categoryScores['monitoring'] = (categoryScores['monitoring'] || 0) + 8;
+  }
+
+  // Special case: Browser extensions
+  if ((allText.includes('browser-extension') || allText.includes('chrome-extension')) ||
+      (allText.includes('chrome') && allText.includes('extension'))) {
+    categoryScores['tools'] = (categoryScores['tools'] || 0) + 10;
+  }
+
+  // Special case: Static site generators
+  if (allText.includes('static-site') || (allText.includes('site') && allText.includes('generator'))) {
+    categoryScores['web-dev'] = (categoryScores['web-dev'] || 0) + 8;
+  }
+
+  // Special case: Compliance/security tools
+  if ((allText.includes('compliance') || allText.includes('soc2') || allText.includes('gdpr')) &&
+      !allText.includes('ai-native')) {
+    categoryScores['security'] = (categoryScores['security'] || 0) + 10;
+  }
+
+  // Special case: Awesome lists and curated resources
+  if ((allText.includes('awesome') && allText.includes('list')) ||
+      (allText.includes('curated') && (allText.includes('list') || allText.includes('collection')))) {
+    categoryScores['learning'] = (categoryScores['learning'] || 0) + 12;
+  }
+
+  // Special case: GUI/Desktop frameworks
+  if ((allText.includes('gui') || allText.includes('desktop-application')) &&
+      (allText.includes('framework') || allText.includes('components'))) {
+    categoryScores['ui-ux'] = (categoryScores['ui-ux'] || 0) + 8;
+  }
+
+  // Find category with highest score (minimum threshold: 4 points)
   let bestCategory = 'other';
-  let bestScore = 5;
+  let bestScore = 4;
 
   for (const [category, score] of Object.entries(categoryScores)) {
     if (score > bestScore) {
@@ -246,14 +295,15 @@ async function fetchPage(page) {
 async function fetchAllRepositories() {
   let page = 1;
   let allRepos = [];
-  
+  const MAX_PAGES = 100; // Safety limit: 100 pages = 10,000 repos max
+
   console.error(`Starting to fetch starred repositories for ${USERNAME}...`);
-  
-  while (page <= 10) { // Limit to 10 pages (1000 repos max)
+
+  while (page <= MAX_PAGES) {
     try {
       console.error(`Fetching page ${page}...`);
       const repos = await fetchPage(page);
-      
+
       if (repos.length === 0) {
         console.error('No more repositories found.');
         break;
