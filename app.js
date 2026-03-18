@@ -112,28 +112,28 @@ class GitHubStarsGraph {
             'other': {}
         };
         
-        // Enhanced color scheme with better contrast and clustering
+        // Refined color palette - cohesive, sophisticated, limited to 5 primary colors
         this.categoryColors = {
-            'ai-ml': '#8B5CF6',      // Purple - prominent for AI
-            'cloud': '#F59E0B',      // Amber - cloud infrastructure
-            'devops': '#06B6D4',     // Cyan - infrastructure
-            'web-dev': '#10B981',    // Emerald - fresh for web
-            'mobile': '#EF4444',     // Red - mobile energy
-            'data': '#3B82F6',       // Blue - data ocean
-            'monitoring': '#F97316', // Orange - observability
-            'testing': '#84CC16',    // Lime - quality
-            'python': '#FBBF24',     // Yellow - Python's signature color
-            'tools': '#6B7280',      // Gray - utility
-            'security': '#DC2626',   // Dark red - security
-            'api': '#9333EA',        // Violet - connections
-            'learning': '#22C55E',   // Green - growth
-            'ui-ux': '#EC4899',      // Pink - design
-            'blockchain': '#D97706', // Gold - crypto
-            'game-dev': '#FB923C',   // Orange - gaming fun
-            'mcp': '#A855F7',        // Purple variant - special
-            'networking': '#0EA5E9', // Sky blue - network
-            'system-design': '#14B8A6', // Teal - architecture/structure
-            'other': '#6366F1'       // Indigo - general
+            'ai-ml': '#8b5cf6',      // Primary violet
+            'cloud': '#06b6d4',      // Primary cyan
+            'devops': '#0ea5e9',     // Cyan variant
+            'web-dev': '#10b981',    // Primary emerald
+            'mobile': '#f472b6',     // Primary rose
+            'data': '#7c3aed',       // Violet variant
+            'monitoring': '#f59e0b', // Primary gold
+            'testing': '#6ee7b7',    // Emerald variant
+            'python': '#f59e0b',     // Gold (Python)
+            'tools': '#6b7280',      // Slate - neutral utility
+            'security': '#dc2626',   // Crimson - safety
+            'api': '#06b6d4',        // Cyan (connections)
+            'learning': '#10b981',   // Emerald (growth)
+            'ui-ux': '#f472b6',      // Rose (design)
+            'blockchain': '#fcd34d', // Gold variant (crypto)
+            'game-dev': '#f97316',   // Orange-gold (fun)
+            'mcp': '#8b5cf6',        // Violet (special)
+            'networking': '#06b6d4', // Cyan (network)
+            'system-design': '#14b8a6', // Teal/Emerald
+            'other': '#6b7280'       // Slate (general)
         };
         
         this.currentFilters = {
@@ -734,35 +734,36 @@ class GitHubStarsGraph {
     setupSVGDefs() {
         const defs = this.svg.append('defs');
 
-        // Create radial gradients for each category
+        // Create refined radial gradients for each category
         Object.entries(this.categoryColors).forEach(([category, color]) => {
             defs.append('radialGradient')
                 .attr('id', `grad-${category}`)
-                .attr('cx', '35%')
-                .attr('cy', '35%')
-                .append('stop').attr('offset', '0%').attr('stop-color', '#ffffff').attr('stop-opacity', 0.4);
+                .attr('cx', '30%')
+                .attr('cy', '30%')
+                .append('stop').attr('offset', '0%').attr('stop-color', '#ffffff').attr('stop-opacity', 0.2);
             d3.select(`#grad-${category}`).append('stop').attr('offset', '100%').attr('stop-color', color).attr('stop-opacity', 1);
         });
 
-        // Create glow filters for each category
-        Object.keys(this.categoryColors).forEach(category => {
-            const filter = defs.append('filter')
-                .attr('id', `glow-${category}`)
-                .attr('x', '-50%').attr('y', '-50%')
-                .attr('width', '200%').attr('height', '200%');
-            filter.append('feGaussianBlur').attr('stdDeviation', '6').attr('result', 'coloredBlur');
-            filter.append('feMerge').append('feMergeNode').attr('in', 'coloredBlur');
-            filter.append('feMergeNode').attr('in', 'SourceGraphic');
-        });
-
-        // Strong pulse glow filter for top-10
-        const pulseFilter = defs.append('filter')
-            .attr('id', 'glow-pulse')
-            .attr('x', '-60%').attr('y', '-60%')
-            .attr('width', '220%').attr('height', '220%');
-        pulseFilter.append('feGaussianBlur').attr('stdDeviation', '10').attr('result', 'coloredBlur');
-        pulseFilter.append('feMerge').append('feMergeNode').attr('in', 'coloredBlur');
-        pulseFilter.append('feMergeNode').attr('in', 'SourceGraphic');
+        // Create subtle drop shadow filters
+        const shadowFilter = defs.append('filter')
+            .attr('id', 'drop-shadow')
+            .attr('x', '-50%')
+            .attr('y', '-50%')
+            .attr('width', '200%')
+            .attr('height', '200%');
+        shadowFilter.append('feGaussianBlur')
+            .attr('in', 'SourceGraphic')
+            .attr('stdDeviation', '1.5');
+        shadowFilter.append('feOffset')
+            .attr('dx', '0')
+            .attr('dy', '2')
+            .attr('result', 'offsetblur');
+        shadowFilter.append('feComponentTransfer').append('feFuncA')
+            .attr('type', 'linear')
+            .attr('slope', '0.15');
+        const merge = shadowFilter.append('feMerge');
+        merge.append('feMergeNode').attr('in', 'offsetblur');
+        merge.append('feMergeNode').attr('in', 'SourceGraphic');
     }
 
     getNodeRadius(d) {
@@ -962,7 +963,7 @@ class GitHubStarsGraph {
             .slice(0, 10)
             .map(d => d.id);
 
-        // Update nodes with enhanced sizing, gradients, and glow
+        // Update nodes with refined design
         const node = g.append('g')
             .selectAll('circle')
             .data(this.filteredRepositories)
@@ -979,16 +980,11 @@ class GitHubStarsGraph {
             .attr('stroke', d => this.categoryColors[d.category] || '#6366F1')
             .attr('stroke-width', d => {
                 const r = this.getNodeRadius(d);
-                if (r >= 35) return 3;
-                if (r >= 22) return 2.5;
-                return 2;
+                if (r >= 35) return 1.5;
+                if (r >= 22) return 1;
+                return 0.5;
             })
-            .attr('filter', d => {
-                const r = this.getNodeRadius(d);
-                if (top10Repos.includes(d.id)) return 'url(#glow-pulse)';
-                if (r >= 15) return `url(#glow-${d.category})`;
-                return 'none';
-            })
+            .attr('stroke-opacity', 0.5)
             .attr('opacity', 0.95)
             .each(function(d, i) {
                 // Add staggered animation delay
