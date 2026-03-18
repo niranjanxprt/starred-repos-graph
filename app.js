@@ -641,12 +641,15 @@ class GitHubStarsGraph {
         this.svg = d3.select('#graph')
             .attr('width', this.width)
             .attr('height', this.height);
-        
+
         this.tooltip = d3.select('#tooltip');
-        
+
         // Clear existing content
         this.svg.selectAll('*').remove();
-        
+
+        // Setup SVG defs (gradients, filters)
+        this.setupSVGDefs();
+
         // Create zoom behavior
         const zoom = d3.zoom()
             .scaleExtent([0.1, 4])
@@ -655,15 +658,20 @@ class GitHubStarsGraph {
             });
         
         this.svg.call(zoom);
-        
+
+        // Fix iOS pinch-to-zoom conflicts
+        document.getElementById('graph').style.touchAction = 'none';
+
         // Create main container group
         const g = this.svg.append('g').attr('class', 'main-group');
         
-        // Mobile: stronger repulsion and collision to reduce overlap on narrow viewports
+        // Responsive force parameters: mobile > tablet > desktop
         const isMobile = this.isMobileViewport();
-        const chargeStrength = isMobile ? -400 : -200;
-        const chargeDistMax = isMobile ? 500 : 300;
-        const collideRadius = d => this.getNodeRadius(d) + (isMobile ? 8 : 3);
+        const isTablet = window.innerWidth >= 768 && window.innerWidth <= 1023;
+        const chargeStrength = isMobile ? -600 : isTablet ? -350 : -200;
+        const chargeDistMax = isMobile ? 500 : isTablet ? 400 : 300;
+        const collideExtra = isMobile ? 12 : isTablet ? 6 : 3;
+        const collideRadius = d => this.getNodeRadius(d) + collideExtra;
 
         this.simulation = d3.forceSimulation()
             .force('link', d3.forceLink().id(d => d.id).distance(100).strength(0.1))
@@ -672,7 +680,9 @@ class GitHubStarsGraph {
             .force('collision', d3.forceCollide().radius(collideRadius))
             // Add category-based positioning forces for better clustering
             .force('x', d3.forceX().x(d => this.getCategoryPosition(d.category).x).strength(0.1))
-            .force('y', d3.forceY().y(d => this.getCategoryPosition(d.category).y).strength(0.1));
+            .force('y', d3.forceY().y(d => this.getCategoryPosition(d.category).y).strength(0.1))
+            .alphaDecay(0.025)
+            .velocityDecay(0.35);
         
         this.filteredRepositories = [...this.repositories];
         this.updateVisualization();
@@ -721,10 +731,48 @@ class GitHubStarsGraph {
         return positions[category] || positions['other'];
     }
     
+    setupSVGDefs() {
+        const defs = this.svg.append('defs');
+
+        // Create radial gradients for each category
+        Object.entries(this.categoryColors).forEach(([category, color]) => {
+            defs.append('radialGradient')
+                .attr('id', `grad-${category}`)
+                .attr('cx', '35%')
+                .attr('cy', '35%')
+                .append('stop').attr('offset', '0%').attr('stop-color', '#ffffff').attr('stop-opacity', 0.4);
+            d3.select(`#grad-${category}`).append('stop').attr('offset', '100%').attr('stop-color', color).attr('stop-opacity', 1);
+        });
+
+        // Create glow filters for each category
+        Object.keys(this.categoryColors).forEach(category => {
+            const filter = defs.append('filter')
+                .attr('id', `glow-${category}`)
+                .attr('x', '-50%').attr('y', '-50%')
+                .attr('width', '200%').attr('height', '200%');
+            filter.append('feGaussianBlur').attr('stdDeviation', '6').attr('result', 'coloredBlur');
+            filter.append('feMerge').append('feMergeNode').attr('in', 'coloredBlur');
+            filter.append('feMergeNode').attr('in', 'SourceGraphic');
+        });
+
+        // Strong pulse glow filter for top-10
+        const pulseFilter = defs.append('filter')
+            .attr('id', 'glow-pulse')
+            .attr('x', '-60%').attr('y', '-60%')
+            .attr('width', '220%').attr('height', '220%');
+        pulseFilter.append('feGaussianBlur').attr('stdDeviation', '10').attr('result', 'coloredBlur');
+        pulseFilter.append('feMerge').append('feMergeNode').attr('in', 'coloredBlur');
+        pulseFilter.append('feMergeNode').attr('in', 'SourceGraphic');
+    }
+
     getNodeRadius(d) {
-        // Enhanced radius calculation for better visibility
-        const baseSize = Math.sqrt(d.stars || 1);
-        return Math.max(5, Math.min(30, baseSize * 0.2 + 4));
+        // Tiered radius formula for dramatic visual hierarchy
+        const stars = d.stars || 1;
+        const base = Math.sqrt(stars) * 0.28 + 5;
+        if (stars >= 100000) return Math.min(55, base);
+        if (stars >= 10000)  return Math.min(40, base);
+        if (stars >= 1000)   return Math.min(28, base);
+        return Math.min(15, Math.max(5, base));
     }
     
     setupFilters() {
@@ -908,17 +956,47 @@ class GitHubStarsGraph {
             .attr('stroke-opacity', 0.15)
             .attr('stroke-width', 1.5);
         
-        // Update nodes with enhanced sizing and colors
+        // Identify top 10 repos by stars
+        const top10Repos = [...this.filteredRepositories]
+            .sort((a, b) => (b.stars || 0) - (a.stars || 0))
+            .slice(0, 10)
+            .map(d => d.id);
+
+        // Update nodes with enhanced sizing, gradients, and glow
         const node = g.append('g')
             .selectAll('circle')
             .data(this.filteredRepositories)
             .enter().append('circle')
-            .attr('class', 'node')
+            .attr('class', d => {
+                const classes = ['node'];
+                const radius = this.getNodeRadius(d);
+                if (radius >= 15) classes.push('node-entering');
+                if (top10Repos.includes(d.id)) classes.push('node-top10');
+                return classes.join(' ');
+            })
             .attr('r', d => this.getNodeRadius(d))
-            .attr('fill', d => this.categoryColors[d.category] || '#6366F1')
-            .attr('stroke', '#ffffff')
-            .attr('stroke-width', 2)
-            .attr('opacity', 0.9)
+            .attr('fill', d => `url(#grad-${d.category})`)
+            .attr('stroke', d => this.categoryColors[d.category] || '#6366F1')
+            .attr('stroke-width', d => {
+                const r = this.getNodeRadius(d);
+                if (r >= 35) return 3;
+                if (r >= 22) return 2.5;
+                return 2;
+            })
+            .attr('filter', d => {
+                const r = this.getNodeRadius(d);
+                if (top10Repos.includes(d.id)) return 'url(#glow-pulse)';
+                if (r >= 15) return `url(#glow-${d.category})`;
+                return 'none';
+            })
+            .attr('opacity', 0.95)
+            .each(function(d, i) {
+                // Add staggered animation delay
+                if (d3.select(this).classed('node-entering')) {
+                    const delay = Math.min(i * 2, 300);
+                    d3.select(this).style('animation-delay', `${delay}ms`);
+                }
+            })
             .call(this.createDragHandler())
             .on('click', (event, d) => {
                 // On touch devices, first tap shows tooltip; second opens URL
@@ -928,14 +1006,16 @@ class GitHubStarsGraph {
             .on('mouseover', (event, d) => {
                 this.showTooltip(event, d);
                 d3.select(event.target)
-                    .attr('stroke-width', 4)
+                    .transition().duration(150)
+                    .attr('r', this.getNodeRadius(d) * 1.15)
                     .attr('opacity', 1);
             })
             .on('mouseout', (event, d) => {
                 this.hideTooltip();
                 d3.select(event.target)
-                    .attr('stroke-width', 2)
-                    .attr('opacity', 0.9);
+                    .transition().duration(200)
+                    .attr('r', this.getNodeRadius(d))
+                    .attr('opacity', 0.95);
             })
             .on('touchstart', (event, d) => {
                 this._isTouchDevice = true;
@@ -967,9 +1047,23 @@ class GitHubStarsGraph {
                     }, 3000);
                 }
             }, { passive: true });
-        
+
+        // Add shimmer highlights (specular spots) for dramatic effect
+        const highlights = g.append('g')
+            .selectAll('ellipse')
+            .data(this.filteredRepositories.filter(d => this.getNodeRadius(d) >= 10))
+            .enter().append('ellipse')
+            .attr('class', 'node-highlight')
+            .attr('rx', d => this.getNodeRadius(d) * 0.25)
+            .attr('ry', d => this.getNodeRadius(d) * 0.15)
+            .attr('cx', d => 0)
+            .attr('cy', d => -this.getNodeRadius(d) * 0.35)
+            .attr('fill', '#ffffff')
+            .attr('opacity', 0.25)
+            .style('pointer-events', 'none');
+
         // Add labels for bigger circles: top repos by stars + any bubble large enough (radius >= 14)
-        const maxLabels = this.isMobileViewport() ? 50 : 100;
+        const maxLabels = this.isMobileViewport() ? 60 : 120;
         const minRadiusForLabel = 14;
         const topByStars = [...this.filteredRepositories]
             .sort((a, b) => (b.stars || 0) - (a.stars || 0))
@@ -984,10 +1078,17 @@ class GitHubStarsGraph {
             .text(d => {
                 const name = d.name || d.fullName || 'Unknown';
                 const display = String(name);
-                return display.length > 12 ? display.substring(0, 12) + '...' : display;
+                const r = this.getNodeRadius(d);
+                const maxChars = r >= 35 ? 20 : r >= 22 ? 14 : 12;
+                return display.length > maxChars ? display.substring(0, maxChars) + '...' : display;
             })
             .attr('dy', '.35em')
-            .style('font-size', '11px')
+            .style('font-size', d => {
+                const r = this.getNodeRadius(d);
+                if (r >= 35) return '13px';
+                if (r >= 22) return '11px';
+                return '9px';
+            })
             .style('font-weight', 'bold')
             .style('fill', '#ffffff')
             .style('text-anchor', 'middle')
@@ -1006,11 +1107,15 @@ class GitHubStarsGraph {
                 .attr('y1', d => d.source.y)
                 .attr('x2', d => d.target.x)
                 .attr('y2', d => d.target.y);
-            
+
             node
                 .attr('cx', d => d.x)
                 .attr('cy', d => d.y);
-            
+
+            highlights
+                .attr('cx', d => d.x)
+                .attr('cy', d => d.y - this.getNodeRadius(d) * 0.35);
+
             label
                 .attr('x', d => d.x)
                 .attr('y', d => d.y);
@@ -1114,7 +1219,6 @@ class GitHubStarsGraph {
             : `<div class=\"tooltip-action\">${svgTap} Click to open repository</div>`;
 
         this.tooltip
-            .style('display', 'block')
             .style('left', leftPos + 'px')
             .style('top', topPos + 'px')
             .style('max-width', tooltipWidth + 'px')
@@ -1130,11 +1234,12 @@ class GitHubStarsGraph {
                 </div>
                 <div class=\"tooltip-desc\">${d.description || 'No description available'}</div>
                 ${actionHint}
-            `);
+            `)
+            .classed('visible', true);
     }
-    
+
     hideTooltip() {
-        this.tooltip.style('display', 'none');
+        this.tooltip.classed('visible', false);
     }
     
     showEmptyState() {
