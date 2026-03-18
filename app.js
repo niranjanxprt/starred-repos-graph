@@ -223,6 +223,11 @@ class GitHubStarsGraph {
                 otherToggleBtn.classList.remove('active-toggle');
                 otherToggleBtn.setAttribute('aria-expanded', 'false');
             }
+            const toggleFiltersHeader = document.getElementById('toggle-filters-header');
+            if (toggleFiltersHeader && panelToOpen === controlsPanel) {
+                toggleFiltersHeader.classList.remove('collapsed');
+                toggleFiltersHeader.setAttribute('aria-expanded', 'true');
+            }
         };
 
         const closeAllPanels = () => {
@@ -237,6 +242,8 @@ class GitHubStarsGraph {
                 toggleLegend.classList.remove('active-toggle');
                 toggleLegend.setAttribute('aria-expanded', 'false');
             }
+            const toggleFiltersHeader = document.getElementById('toggle-filters-header');
+            if (toggleFiltersHeader) toggleFiltersHeader.classList.add('collapsed');
             this.hideTooltip();
         };
 
@@ -264,6 +271,32 @@ class GitHubStarsGraph {
         if (closeLegend) closeLegend.addEventListener('click', closeAllPanels);
         if (backdrop) backdrop.addEventListener('click', closeAllPanels);
 
+        // Header Filters toggle - collapsible on all viewports
+        const toggleFiltersHeader = document.getElementById('toggle-filters-header');
+        if (toggleFiltersHeader && controlsPanel) {
+            if (window.innerWidth <= 767) {
+                toggleFiltersHeader.classList.add('collapsed');
+            } else {
+                toggleFiltersHeader.classList.remove('collapsed');
+                toggleFiltersHeader.setAttribute('aria-expanded', 'true');
+            }
+            toggleFiltersHeader.addEventListener('click', () => {
+                const isMobile = window.innerWidth <= 767;
+                if (isMobile) {
+                    if (controlsPanel.classList.contains('mobile-open')) {
+                        closeAllPanels();
+                    } else {
+                        openPanel(controlsPanel, legendPanel, toggleControls, toggleLegend);
+                    }
+                } else {
+                    controlsPanel.classList.toggle('collapsed');
+                    const collapsed = controlsPanel.classList.contains('collapsed');
+                    toggleFiltersHeader.classList.toggle('collapsed', collapsed);
+                    toggleFiltersHeader.setAttribute('aria-expanded', !collapsed);
+                }
+            });
+        }
+
         // Swipe-down to close bottom sheet panels
         this.setupSwipeToClose(controlsPanel, closeAllPanels);
         this.setupSwipeToClose(legendPanel, closeAllPanels);
@@ -273,7 +306,7 @@ class GitHubStarsGraph {
             if (window.innerWidth <= 767) {
                 const isClickInsideControls = controlsPanel.contains(e.target);
                 const isClickInsideLegend = legendPanel.contains(e.target);
-                const isToggleButton = e.target.closest('.mobile-toggle');
+                const isToggleButton = e.target.closest('.mobile-toggle, #toggle-filters-header');
                 if (!isClickInsideControls && !isClickInsideLegend && !isToggleButton) {
                     closeAllPanels();
                 }
@@ -303,7 +336,7 @@ class GitHubStarsGraph {
         }
 
         // Ripple effect on interactive buttons
-        document.querySelectorAll('.filter-btn, .refresh-btn, .mobile-toggle').forEach(btn => {
+        document.querySelectorAll('.filter-btn, .refresh-btn, .mobile-toggle, .filter-toggle-btn').forEach(btn => {
             this.attachRipple(btn);
         });
     }

@@ -445,33 +445,31 @@
                 padding: 6px 10px;
             }
 
-            /* Filters: always visible below header (easy to toggle on iPhone) */
+            /* Filters: collapsible bottom sheet - collapsed by default so bubbles get full view */
             .controls-panel {
                 position: fixed;
-                top: 120px;
                 left: 0;
                 right: 0;
-                bottom: auto;
+                bottom: -100%;
+                top: auto;
                 max-width: 100%;
                 width: 100%;
-                max-height: 42vh;
-                border-radius: 0 0 16px 16px;
+                max-height: 70vh;
+                border-radius: 20px 20px 0 0;
                 border: 1px solid rgba(255, 255, 255, 0.12);
-                border-top: none;
+                border-bottom: none;
                 overflow-y: auto;
                 overflow-x: hidden;
-                padding: 12px 16px 20px;
-                transition: none;
+                padding: 0 20px 30px;
+                transition: bottom 0.35s cubic-bezier(0.4, 0, 0.2, 1);
                 -webkit-overflow-scrolling: touch;
             }
 
-            .controls-panel .panel-drag-handle,
-            .controls-panel .swipe-hint,
-            .controls-panel .panel-close {
-                display: none;
+            .controls-panel.mobile-open {
+                bottom: 0;
             }
 
-            /* Legend: keep as bottom sheet */
+            /* Legend: collapsible bottom sheet */
             .legend-panel {
                 position: fixed;
                 left: 0;
@@ -493,11 +491,8 @@
                 bottom: 0;
             }
 
-            /* Hide Filters toggle (filters always visible); keep Legend toggle */
-            .toggle-controls {
-                display: none;
-            }
-
+            /* Show both toggles - tap to expand filters or legend */
+            .toggle-controls,
             .toggle-legend {
                 display: flex;
                 flex-direction: column;
@@ -656,8 +651,9 @@
                 font-size: 9px;
             }
 
-            .toggle-controls {
-                display: none;
+            .toggle-controls,
+            .toggle-legend {
+                display: flex;
             }
 
             .toggle-legend {
@@ -665,14 +661,17 @@
                 left: 15px;
             }
 
-            /* Filters: compact strip below header in landscape */
+            /* Filters: bottom sheet in landscape too (collapsible) */
             .controls-panel {
-                top: 55px;
-                max-height: 35vh;
+                bottom: -100%;
+                top: auto;
                 left: 0;
                 right: 0;
-                width: 100%;
-                padding: 8px 12px 12px;
+                max-height: 60vh;
+            }
+
+            .controls-panel.mobile-open {
+                bottom: 0;
             }
 
             /* Legend: side panel in landscape */
@@ -710,7 +709,8 @@
             .filter-btn,
             .legend-item,
             .refresh-btn,
-            .mobile-toggle {
+            .mobile-toggle,
+            .filter-toggle-btn {
                 min-height: 44px;
                 min-width: 44px;
             }
@@ -769,6 +769,53 @@
         .refresh-btn:hover {
             background: rgba(255,255,255,0.22);
             box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        .filter-toggle-btn {
+            display: none;
+            padding: 8px 12px;
+            border: 1px solid rgba(255,255,255,0.2);
+            background: rgba(255,255,255,0.12);
+            color: white;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 12px;
+            font-weight: 600;
+            backdrop-filter: blur(8px);
+            align-items: center;
+            gap: 6px;
+        }
+
+        .filter-toggle-btn:hover {
+            background: rgba(255,255,255,0.22);
+        }
+
+        .filter-toggle-btn.collapsed {
+            background: rgba(78, 205, 196, 0.25);
+            border-color: rgba(78, 205, 196, 0.5);
+        }
+
+        /* Desktop: collapsible sidebar */
+        @media (min-width: 768px) {
+            .filter-toggle-btn {
+                display: inline-flex;
+            }
+
+            .controls-panel.collapsed {
+                transform: translateX(-100%);
+                pointer-events: none;
+            }
+
+            .controls-panel {
+                transition: transform 0.3s ease;
+            }
+        }
+
+        /* Mobile: show Filters toggle in header to open bottom sheet */
+        @media (max-width: 767px) {
+            .filter-toggle-btn {
+                display: inline-flex;
+            }
         }
 
         /* small note text under stats */
@@ -921,6 +968,7 @@
 
         /* Visible focus states for keyboard navigation */
         .filter-btn:focus-visible,
+        .filter-toggle-btn:focus-visible,
         .mobile-toggle:focus-visible,
         .panel-close:focus-visible,
         .legend-item:focus-visible,
@@ -964,6 +1012,7 @@
             </div>
         </div>
         <div class="header-actions">
+            <button id="toggle-filters-header" class="filter-toggle-btn" title="Toggle filters" aria-label="Toggle filters" aria-expanded="false"><svg class="icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><line x1="21" x2="14" y1="4" y2="4"/><line x1="10" x2="3" y1="4" y2="4"/><line x1="21" x2="12" y1="12" y2="12"/><line x1="8" x2="3" y1="12" y2="12"/><line x1="21" x2="16" y1="20" y2="20"/><line x1="12" x2="3" y1="20" y2="20"/><line x1="14" y1="2" x2="14" y2="6"/><line x1="8" y1="10" x2="8" y2="14"/><line x1="16" y1="18" x2="16" y2="22"/></svg> Filters</button>
             <button id="refresh-now" class="refresh-btn" title="Opens GitHub Actions → Update Stars and Deploy to Pages → Run workflow. This fetches latest stars and redeploys Pages automatically."><svg class="icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 12a9 9 0 0 1 9-9 9.75 9.75 0 0 1 6.74 2.74L21 8"/><path d="M21 3v5h-5"/><path d="M21 12a9 9 0 0 1-9 9 9.75 9.75 0 0 1-6.74-2.74L3 16"/><path d="M3 21v-5h5"/></svg> Refresh Data</button>
         </div>
     </div>
