@@ -1099,10 +1099,6 @@ class GitHubStarsGraph {
                 .attr('cx', d => d.x)
                 .attr('cy', d => d.y);
 
-            highlights
-                .attr('cx', d => d.x)
-                .attr('cy', d => d.y - this.getNodeRadius(d) * 0.35);
-
             label
                 .attr('x', d => d.x)
                 .attr('y', d => d.y);
