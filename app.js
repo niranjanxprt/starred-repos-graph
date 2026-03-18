@@ -668,21 +668,22 @@ class GitHubStarsGraph {
         // Responsive force parameters: mobile > tablet > desktop
         const isMobile = this.isMobileViewport();
         const isTablet = window.innerWidth >= 768 && window.innerWidth <= 1023;
-        const chargeStrength = isMobile ? -600 : isTablet ? -350 : -200;
-        const chargeDistMax = isMobile ? 500 : isTablet ? 400 : 300;
-        const collideExtra = isMobile ? 12 : isTablet ? 6 : 3;
+        const chargeStrength = isMobile ? -1000 : isTablet ? -600 : -400;
+        const chargeDistMax = isMobile ? 800 : isTablet ? 600 : 450;
+        const collideExtra = isMobile ? 18 : isTablet ? 12 : 8;
         const collideRadius = d => this.getNodeRadius(d) + collideExtra;
+        const linkDistance = isMobile ? 120 : isTablet ? 140 : 160;
 
         this.simulation = d3.forceSimulation()
-            .force('link', d3.forceLink().id(d => d.id).distance(100).strength(0.1))
+            .force('link', d3.forceLink().id(d => d.id).distance(linkDistance).strength(0.05))
             .force('charge', d3.forceManyBody().strength(chargeStrength).distanceMax(chargeDistMax))
-            .force('center', d3.forceCenter(this.width / 2, this.height / 2))
-            .force('collision', d3.forceCollide().radius(collideRadius))
-            // Add category-based positioning forces for better clustering
-            .force('x', d3.forceX().x(d => this.getCategoryPosition(d.category).x).strength(0.1))
-            .force('y', d3.forceY().y(d => this.getCategoryPosition(d.category).y).strength(0.1))
-            .alphaDecay(0.025)
-            .velocityDecay(0.35);
+            .force('center', d3.forceCenter(this.width / 2, this.height / 2).strength(0.08))
+            .force('collision', d3.forceCollide().radius(collideRadius).strength(0.95))
+            // Weaker category clustering - don't force too hard
+            .force('x', d3.forceX().x(d => this.getCategoryPosition(d.category).x).strength(0.05))
+            .force('y', d3.forceY().y(d => this.getCategoryPosition(d.category).y).strength(0.05))
+            .alphaDecay(0.015)
+            .velocityDecay(0.4);
         
         this.filteredRepositories = [...this.repositories];
         this.updateVisualization();
