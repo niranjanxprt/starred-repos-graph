@@ -135,14 +135,14 @@ class GitHubStarsGraph {
             'system-design': '#7d9d8d', // Blue-green
             'other': '#7d7d8d'         // Neutral gray
         };
-        
+
         this.currentFilters = {
             search: '',
-            category: 'all',
+            category: 'ai-ml',
             language: 'all',
             stars: 'all'
         };
-        
+
         this.init();
     }
     
