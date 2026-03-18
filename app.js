@@ -153,8 +153,11 @@ class GitHubStarsGraph {
             this.setupGraph();
             this.setupFilters();
             this.setupLegend();
-            // Apply default filter
-            this.filterByCategory(this.currentFilters.category);
+            // Apply default LEARNING filter
+            const learningBtn = document.querySelector('[data-category="learning"]');
+            if (learningBtn) {
+                this.filterByCategory('learning', learningBtn);
+            }
             this.hideLoading();
             console.log('GitHub Stars Graph initialized successfully!');
         } catch (error) {
