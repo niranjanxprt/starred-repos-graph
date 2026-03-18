@@ -1048,9 +1048,9 @@ class GitHubStarsGraph {
                 }
             }, { passive: true });
 
-        // Add labels only for significantly large bubbles to avoid clutter
-        const maxLabels = this.isMobileViewport() ? 25 : 50;
-        const minRadiusForLabel = 22;  // Only label bubbles that are visually prominent
+        // Balanced label visibility: enough for context, not too much clutter
+        const maxLabels = this.isMobileViewport() ? 40 : 75;
+        const minRadiusForLabel = 18;  // Show labels on moderately-sized bubbles
         const topByStars = [...this.filteredRepositories]
             .sort((a, b) => (b.stars || 0) - (a.stars || 0))
             .slice(0, maxLabels);
