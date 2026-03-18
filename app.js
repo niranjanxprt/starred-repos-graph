@@ -968,14 +968,24 @@ class GitHubStarsGraph {
                 }
             }, { passive: true });
         
-        // Add labels for popular repositories (hide on mobile to reduce clutter)
-        const labelData = this.isMobileViewport() ? [] : this.filteredRepositories.filter(d => d.stars > 30000);
+        // Add labels for bigger circles: top repos by stars + any bubble large enough (radius >= 14)
+        const maxLabels = this.isMobileViewport() ? 50 : 100;
+        const minRadiusForLabel = 14;
+        const topByStars = [...this.filteredRepositories]
+            .sort((a, b) => (b.stars || 0) - (a.stars || 0))
+            .slice(0, maxLabels);
+        const bigBubbles = this.filteredRepositories.filter(d => this.getNodeRadius(d) >= minRadiusForLabel);
+        const labelData = [...new Map([...topByStars, ...bigBubbles].map(d => [d.id, d])).values()];
         const label = g.append('g')
             .selectAll('text')
             .data(labelData)
             .enter().append('text')
             .attr('class', 'node-label')
-            .text(d => d.name.length > 12 ? d.name.substring(0, 12) + '...' : d.name)
+            .text(d => {
+                const name = d.name || d.fullName || 'Unknown';
+                const display = String(name);
+                return display.length > 12 ? display.substring(0, 12) + '...' : display;
+            })
             .attr('dy', '.35em')
             .style('font-size', '11px')
             .style('font-weight', 'bold')
@@ -1109,8 +1119,8 @@ class GitHubStarsGraph {
             .style('top', topPos + 'px')
             .style('max-width', tooltipWidth + 'px')
             .html(`
-                <div class=\"tooltip-title\">${d.name}</div>
-                <div class=\"tooltip-owner\">by ${d.owner}</div>
+                <div class=\"tooltip-title\">${d.name || d.fullName || 'Unknown'}</div>
+                <div class=\"tooltip-owner\">by ${d.owner || '—'}</div>
                 <div class=\"tooltip-category\">${d.category.replace('-', ' ').toUpperCase()}</div>
                 <div class=\"tooltip-meta\">
                     <div class=\"tooltip-stat\">${svgStar} ${d.stars.toLocaleString()}</div>
