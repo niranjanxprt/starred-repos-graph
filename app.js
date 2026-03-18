@@ -138,7 +138,7 @@ class GitHubStarsGraph {
 
         this.currentFilters = {
             search: '',
-            category: 'ai-ml',
+            category: 'learning',
             language: 'all',
             stars: 'all'
         };
