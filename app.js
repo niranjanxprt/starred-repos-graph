@@ -153,6 +153,8 @@ class GitHubStarsGraph {
             this.setupGraph();
             this.setupFilters();
             this.setupLegend();
+            // Apply default filter
+            this.filterByCategory(this.currentFilters.category);
             this.hideLoading();
             console.log('GitHub Stars Graph initialized successfully!');
         } catch (error) {
