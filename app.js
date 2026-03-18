@@ -209,32 +209,52 @@ class GitHubStarsGraph {
         const closeLegend = document.getElementById('close-legend');
         const controlsPanel = document.getElementById('controls-panel');
         const legendPanel = document.getElementById('legend-panel');
+        const backdrop = document.getElementById('panel-backdrop');
+
+        const openPanel = (panelToOpen, otherPanel, toggleBtn, otherToggleBtn) => {
+            panelToOpen.classList.add('mobile-open');
+            otherPanel.classList.remove('mobile-open');
+            if (backdrop) backdrop.classList.add('visible');
+            if (toggleBtn) toggleBtn.classList.add('active-toggle');
+            if (otherToggleBtn) otherToggleBtn.classList.remove('active-toggle');
+        };
+
+        const closeAllPanels = () => {
+            controlsPanel.classList.remove('mobile-open');
+            legendPanel.classList.remove('mobile-open');
+            if (backdrop) backdrop.classList.remove('visible');
+            if (toggleControls) toggleControls.classList.remove('active-toggle');
+            if (toggleLegend) toggleLegend.classList.remove('active-toggle');
+            this.hideTooltip();
+        };
 
         if (toggleControls && controlsPanel) {
             toggleControls.addEventListener('click', () => {
-                controlsPanel.classList.add('mobile-open');
-                legendPanel.classList.remove('mobile-open');
+                if (controlsPanel.classList.contains('mobile-open')) {
+                    closeAllPanels();
+                } else {
+                    openPanel(controlsPanel, legendPanel, toggleControls, toggleLegend);
+                }
             });
         }
 
         if (toggleLegend && legendPanel) {
             toggleLegend.addEventListener('click', () => {
-                legendPanel.classList.add('mobile-open');
-                controlsPanel.classList.remove('mobile-open');
+                if (legendPanel.classList.contains('mobile-open')) {
+                    closeAllPanels();
+                } else {
+                    openPanel(legendPanel, controlsPanel, toggleLegend, toggleControls);
+                }
             });
         }
 
-        if (closeControls && controlsPanel) {
-            closeControls.addEventListener('click', () => {
-                controlsPanel.classList.remove('mobile-open');
-            });
-        }
+        if (closeControls) closeControls.addEventListener('click', closeAllPanels);
+        if (closeLegend) closeLegend.addEventListener('click', closeAllPanels);
+        if (backdrop) backdrop.addEventListener('click', closeAllPanels);
 
-        if (closeLegend && legendPanel) {
-            closeLegend.addEventListener('click', () => {
-                legendPanel.classList.remove('mobile-open');
-            });
-        }
+        // Swipe-down to close bottom sheet panels
+        this.setupSwipeToClose(controlsPanel, closeAllPanels);
+        this.setupSwipeToClose(legendPanel, closeAllPanels);
 
         // Close panels when clicking outside on mobile
         document.addEventListener('click', (e) => {
@@ -242,10 +262,8 @@ class GitHubStarsGraph {
                 const isClickInsideControls = controlsPanel.contains(e.target);
                 const isClickInsideLegend = legendPanel.contains(e.target);
                 const isToggleButton = e.target.closest('.mobile-toggle');
-
                 if (!isClickInsideControls && !isClickInsideLegend && !isToggleButton) {
-                    controlsPanel.classList.remove('mobile-open');
-                    legendPanel.classList.remove('mobile-open');
+                    closeAllPanels();
                 }
             }
         });
@@ -253,9 +271,29 @@ class GitHubStarsGraph {
         // Close panels on Escape key
         document.addEventListener('keydown', (e) => {
             if (e.key === 'Escape') {
-                controlsPanel.classList.remove('mobile-open');
-                legendPanel.classList.remove('mobile-open');
+                closeAllPanels();
             }
+        });
+
+        // Search clear button
+        const searchInput = document.getElementById('search');
+        const searchClear = document.getElementById('search-clear');
+        if (searchInput && searchClear) {
+            searchInput.addEventListener('input', () => {
+                searchClear.classList.toggle('visible', searchInput.value.length > 0);
+            });
+            searchClear.addEventListener('click', () => {
+                searchInput.value = '';
+                searchClear.classList.remove('visible');
+                this.currentFilters.search = '';
+                this.applyFilters();
+                searchInput.focus();
+            });
+        }
+
+        // Ripple effect on interactive buttons
+        document.querySelectorAll('.filter-btn, .refresh-btn, .mobile-toggle').forEach(btn => {
+            this.attachRipple(btn);
         });
     }
     
@@ -616,6 +654,7 @@ class GitHubStarsGraph {
                 btn.textContent = category === 'all' ? 'All' : category.replace('-', ' ').toUpperCase();
                 btn.dataset.category = category;
                 btn.addEventListener('click', (e) => this.filterByCategory(category, e.target));
+                this.attachRipple(btn);
                 categoryContainer.appendChild(btn);
             });
         }
@@ -643,8 +682,9 @@ class GitHubStarsGraph {
             allBtn.textContent = 'All';
             allBtn.dataset.language = 'all';
             allBtn.addEventListener('click', (e) => this.filterByLanguage('all', e.target));
+            this.attachRipple(allBtn);
             languageContainer.appendChild(allBtn);
-            
+
             // Individual language buttons
             topLanguages.forEach(language => {
                 const btn = document.createElement('button');
@@ -652,6 +692,7 @@ class GitHubStarsGraph {
                 btn.textContent = language;
                 btn.dataset.language = language;
                 btn.addEventListener('click', (e) => this.filterByLanguage(language, e.target));
+                this.attachRipple(btn);
                 languageContainer.appendChild(btn);
             });
         }
@@ -799,11 +840,12 @@ class GitHubStarsGraph {
             .attr('opacity', 0.9)
             .call(this.createDragHandler())
             .on('click', (event, d) => {
+                // On touch devices, first tap shows tooltip; second opens URL
+                if (this._isTouchDevice) return;
                 window.open(d.url, '_blank');
             })
             .on('mouseover', (event, d) => {
                 this.showTooltip(event, d);
-                // Highlight connected nodes
                 d3.select(event.target)
                     .attr('stroke-width', 4)
                     .attr('opacity', 1);
@@ -813,7 +855,37 @@ class GitHubStarsGraph {
                 d3.select(event.target)
                     .attr('stroke-width', 2)
                     .attr('opacity', 0.9);
-            });
+            })
+            .on('touchstart', (event, d) => {
+                this._isTouchDevice = true;
+                event.stopPropagation();
+                const touch = event.touches[0];
+
+                if (this._lastTappedNodeId === d.id) {
+                    // Second tap: open URL
+                    window.open(d.url, '_blank');
+                    this._lastTappedNodeId = null;
+                    this.hideTooltip();
+                } else {
+                    // First tap: show tooltip with tap-again hint
+                    this._lastTappedNodeId = d.id;
+                    this.showTooltip({ pageX: touch.pageX, pageY: touch.pageY }, d, true);
+                    d3.select(event.target)
+                        .attr('stroke-width', 4)
+                        .attr('opacity', 1);
+                    // Auto-reset after 3s
+                    clearTimeout(this._tapTimeout);
+                    this._tapTimeout = setTimeout(() => {
+                        if (this._lastTappedNodeId === d.id) {
+                            this._lastTappedNodeId = null;
+                            this.hideTooltip();
+                            d3.select(event.target)
+                                .attr('stroke-width', 2)
+                                .attr('opacity', 0.9);
+                        }
+                    }, 3000);
+                }
+            }, { passive: true });
         
         // Add labels for popular repositories
         const label = g.append('g')
@@ -914,31 +986,34 @@ class GitHubStarsGraph {
             });
     }
     
-    showTooltip(event, d) {
+    showTooltip(event, d, isTouchTap = false) {
         const [x, y] = [event.pageX, event.pageY];
         const isMobile = window.innerWidth <= 767;
-        const tooltipWidth = isMobile ? Math.min(window.innerWidth * 0.9, 350) : 350;
+        const tooltipWidth = isMobile ? Math.min(window.innerWidth * 0.9, 340) : 350;
         const tooltipOffset = 15;
 
-        // Calculate optimal position to keep tooltip in viewport
-        let leftPos = x + tooltipOffset;
-        let topPos = y - tooltipOffset;
+        let leftPos, topPos;
 
-        // Adjust horizontal position
-        if (leftPos + tooltipWidth > window.innerWidth - 10) {
-            // Position to the left of cursor if it would overflow right
-            leftPos = Math.max(10, x - tooltipWidth - tooltipOffset);
-        }
+        if (isMobile && isTouchTap) {
+            // On mobile tap: pin tooltip to bottom of screen, centered
+            leftPos = (window.innerWidth - tooltipWidth) / 2;
+            topPos = window.innerHeight - 220;
+        } else {
+            leftPos = x + tooltipOffset;
+            topPos = y - tooltipOffset;
 
-        // For mobile, center horizontally if near edges
-        if (isMobile) {
-            if (leftPos < 10 || leftPos + tooltipWidth > window.innerWidth - 10) {
+            if (leftPos + tooltipWidth > window.innerWidth - 10) {
+                leftPos = Math.max(10, x - tooltipWidth - tooltipOffset);
+            }
+            if (isMobile && (leftPos < 10 || leftPos + tooltipWidth > window.innerWidth - 10)) {
                 leftPos = (window.innerWidth - tooltipWidth) / 2;
             }
+            topPos = Math.max(10, Math.min(topPos, window.innerHeight - 220));
         }
 
-        // Adjust vertical position to stay in viewport
-        topPos = Math.max(10, Math.min(topPos, window.innerHeight - 200));
+        const actionHint = isTouchTap
+            ? `<div class=\"tooltip-tap-hint\">👆 Tap again to open repository</div>`
+            : `<div class=\"tooltip-action\">👆 Click to open repository</div>`;
 
         this.tooltip
             .style('display', 'block')
@@ -956,7 +1031,7 @@ class GitHubStarsGraph {
                     <div class=\"tooltip-stat\">🔗 ${d.fullName}</div>
                 </div>
                 <div class=\"tooltip-desc\">${d.description || 'No description available'}</div>
-                <div class=\"tooltip-action\">👆 Click to open repository</div>
+                ${actionHint}
             `);
     }
     
@@ -986,8 +1061,15 @@ class GitHubStarsGraph {
     }
     
     updateStats() {
-        document.getElementById('total-repos').textContent = this.repositories.length;
-        document.getElementById('visible-repos').textContent = this.filteredRepositories.length;
+        const totalEl = document.getElementById('total-repos');
+        const visibleEl = document.getElementById('visible-repos');
+
+        this.animateCounter(totalEl, this.repositories.length);
+        this.animateCounter(visibleEl, this.filteredRepositories.length);
+
+        // Dynamic page title with actual count
+        document.title = `🌟 GitHub Stars Graph - ${this.repositories.length} Repositories`;
+
         const updatedEl = document.getElementById('last-updated');
         const ts = this.dataLastUpdated ? new Date(this.dataLastUpdated) : new Date();
         updatedEl.textContent = ts.toLocaleString('en-US', {
@@ -1002,7 +1084,52 @@ class GitHubStarsGraph {
             noteEl.textContent = this.dataSource === 'live' ? 'Live (API)' : 'Cached (Actions)';
         }
     }
+
+    animateCounter(el, target) {
+        if (!el) return;
+        const current = parseInt(el.textContent) || 0;
+        if (current === target) return;
+
+        el.textContent = target;
+        el.classList.remove('pop');
+        // Force reflow to restart animation
+        void el.offsetWidth;
+        el.classList.add('pop');
+        el.addEventListener('animationend', () => el.classList.remove('pop'), { once: true });
+    }
     
+    setupSwipeToClose(panel, closeCallback) {
+        if (!panel) return;
+        let startY = 0;
+        let startTime = 0;
+
+        panel.addEventListener('touchstart', (e) => {
+            startY = e.touches[0].clientY;
+            startTime = Date.now();
+        }, { passive: true });
+
+        panel.addEventListener('touchend', (e) => {
+            const deltaY = e.changedTouches[0].clientY - startY;
+            const deltaTime = Date.now() - startTime;
+            // Swipe down: at least 60px in under 400ms
+            if (deltaY > 60 && deltaTime < 400) {
+                closeCallback();
+            }
+        }, { passive: true });
+    }
+
+    attachRipple(btn) {
+        btn.addEventListener('pointerdown', (e) => {
+            const rect = btn.getBoundingClientRect();
+            const size = Math.max(rect.width, rect.height);
+            const ripple = document.createElement('span');
+            ripple.className = 'ripple';
+            ripple.style.cssText = `width:${size}px;height:${size}px;left:${e.clientX - rect.left - size / 2}px;top:${e.clientY - rect.top - size / 2}px`;
+            btn.appendChild(ripple);
+            ripple.addEventListener('animationend', () => ripple.remove());
+        });
+    }
+
     resetFilters() {
         // Reset all filters
         this.currentFilters = {

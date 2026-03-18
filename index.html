@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>🌟 GitHub Stars Graph - 699+ Repositories</title>
+    <title>🌟 GitHub Stars Graph</title>
     <script src="https://d3js.org/d3.v7.min.js"></script>
     <style>
         * {
@@ -381,18 +381,18 @@
             background: rgba(255, 255, 255, 0.3);
         }
 
-        /* Responsive adjustments - Mobile First Approach */
+        /* Responsive adjustments - Enhanced Mobile UI (Bottom Sheet Panels) */
 
-        /* Extra small devices (phones, less than 480px) */
-        @media (max-width: 479px) {
+        /* Mobile devices (up to 767px) */
+        @media (max-width: 767px) {
             .app-header {
                 flex-direction: column;
                 gap: 8px;
-                padding: 12px 10px;
+                padding: 10px 14px;
             }
 
             .title {
-                font-size: 18px;
+                font-size: 19px;
             }
 
             .stats {
@@ -422,44 +422,52 @@
 
             .mobile-toggle {
                 display: flex;
-                width: 45px;
-                height: 45px;
+                flex-direction: column;
+                width: 56px;
+                height: 56px;
                 font-size: 20px;
+                border-radius: 14px;
+                gap: 2px;
+            }
+
+            .toggle-label {
+                display: block;
             }
 
             .panel-close {
                 display: flex;
             }
 
+            /* Bottom sheet panels */
             .controls-panel,
             .legend-panel {
                 position: fixed;
-                top: 0;
-                bottom: 0;
-                left: -100%;
-                right: auto;
-                margin: 0;
-                max-width: 85%;
-                width: 85%;
-                max-height: 100vh;
-                border-radius: 0;
-                border-right: 1px solid rgba(255, 255, 255, 0.1);
-                border-left: none;
-                border-top: none;
+                left: 0;
+                right: 0;
+                bottom: -100%;
+                top: auto;
+                max-width: 100%;
+                width: 100%;
+                max-height: 80vh;
+                border-radius: 20px 20px 0 0;
+                border: 1px solid rgba(255, 255, 255, 0.12);
                 border-bottom: none;
                 overflow-y: auto;
-                transition: left 0.3s ease;
-                padding-top: 50px;
+                transition: bottom 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+                padding: 0 20px 30px;
             }
 
             .controls-panel.mobile-open,
             .legend-panel.mobile-open {
-                left: 0;
+                bottom: 0;
             }
 
-            .legend-panel {
-                max-width: 85%;
-                width: 85%;
+            .panel-drag-handle {
+                display: block;
+            }
+
+            .swipe-hint {
+                display: block;
             }
 
             #graph {
@@ -482,84 +490,18 @@
             }
 
             .search-input {
-                font-size: 13px;
-                padding: 10px 12px;
+                font-size: 16px;
+                padding: 11px 36px 11px 12px;
             }
 
             .filter-btn {
                 font-size: 10px;
-                padding: 6px 10px;
+                padding: 7px 10px;
             }
 
             .legend-item {
                 font-size: 11px;
-            }
-        }
-
-        /* Small devices (phones, 480px to 767px) */
-        @media (min-width: 480px) and (max-width: 767px) {
-            .app-header {
-                flex-direction: column;
-                gap: 10px;
-                padding: 15px;
-            }
-
-            .title {
-                font-size: 20px;
-            }
-
-            .stats {
-                flex-wrap: wrap;
-                gap: 12px;
-                justify-content: center;
-            }
-
-            .stat-item {
-                font-size: 12px;
-            }
-
-            .stat-number {
-                font-size: 17px;
-            }
-
-            .mobile-toggle {
-                display: flex;
-            }
-
-            .panel-close {
-                display: flex;
-            }
-
-            .controls-panel,
-            .legend-panel {
-                position: fixed;
-                top: 0;
-                bottom: 0;
-                left: -100%;
-                right: auto;
-                margin: 0;
-                max-width: 70%;
-                width: 70%;
-                max-height: 100vh;
-                border-radius: 0;
-                overflow-y: auto;
-                transition: left 0.3s ease;
-                padding-top: 50px;
-            }
-
-            .controls-panel.mobile-open,
-            .legend-panel.mobile-open {
-                left: 0;
-            }
-
-            #graph {
-                width: 100vw;
-                height: 100vh;
-                position: fixed;
-            }
-
-            .tooltip {
-                max-width: 80vw;
+                padding: 6px 8px;
             }
         }
 
@@ -606,7 +548,9 @@
         /* Landscape orientation optimizations for mobile */
         @media (max-width: 767px) and (orientation: landscape) {
             .app-header {
+                flex-direction: row;
                 padding: 8px 15px;
+                gap: 10px;
             }
 
             .title {
@@ -616,6 +560,7 @@
             .stats {
                 gap: 8px;
                 font-size: 11px;
+                flex-wrap: nowrap;
             }
 
             .stat-number {
@@ -626,10 +571,19 @@
                 font-size: 10px;
             }
 
+            .header-actions {
+                width: auto;
+            }
+
             .mobile-toggle {
-                width: 40px;
-                height: 40px;
+                width: 44px;
+                height: 44px;
                 font-size: 18px;
+                border-radius: 12px;
+            }
+
+            .toggle-label {
+                font-size: 9px;
             }
 
             .toggle-controls {
@@ -638,14 +592,39 @@
             }
 
             .toggle-legend {
-                bottom: 15px;
+                bottom: 10px;
                 left: 15px;
             }
 
+            /* Side panel in landscape for more space */
             .controls-panel,
             .legend-panel {
-                max-width: 50%;
-                width: 50%;
+                bottom: auto;
+                top: 0;
+                left: -60%;
+                right: auto;
+                width: 55%;
+                max-width: 55%;
+                max-height: 100vh;
+                border-radius: 0 16px 16px 0;
+                border: 1px solid rgba(255, 255, 255, 0.12);
+                border-left: none;
+                padding: 50px 20px 20px;
+                transition: left 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+            }
+
+            .controls-panel.mobile-open,
+            .legend-panel.mobile-open {
+                left: 0;
+                bottom: auto;
+            }
+
+            .panel-drag-handle {
+                display: none;
+            }
+
+            .swipe-hint {
+                display: none;
             }
         }
 
@@ -722,6 +701,139 @@
             margin-top: 2px;
             font-style: italic;
         }
+
+        /* ===== Enhanced Mobile UI Additions ===== */
+
+        /* Panel backdrop overlay */
+        .panel-backdrop {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.55);
+            z-index: 997;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            backdrop-filter: blur(2px);
+        }
+        .panel-backdrop.visible {
+            display: block;
+            opacity: 1;
+        }
+
+        /* Bottom sheet drag handle */
+        .panel-drag-handle {
+            display: none;
+            width: 40px;
+            height: 4px;
+            background: rgba(255, 255, 255, 0.25);
+            border-radius: 2px;
+            margin: 12px auto 10px;
+            flex-shrink: 0;
+            cursor: grab;
+        }
+
+        /* Swipe hint text */
+        .swipe-hint {
+            display: none;
+            text-align: center;
+            font-size: 11px;
+            color: rgba(255, 255, 255, 0.35);
+            margin-bottom: 10px;
+            font-style: italic;
+        }
+
+        /* Search wrapper for clear button */
+        .search-wrapper {
+            position: relative;
+        }
+
+        /* Search clear button */
+        .search-clear-btn {
+            position: absolute;
+            right: 8px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: none;
+            border: none;
+            color: rgba(255, 255, 255, 0.45);
+            cursor: pointer;
+            font-size: 15px;
+            padding: 4px 6px;
+            display: none;
+            line-height: 1;
+            transition: color 0.2s;
+            touch-action: manipulation;
+            border-radius: 50%;
+        }
+        .search-clear-btn.visible {
+            display: block;
+        }
+        .search-clear-btn:hover {
+            color: white;
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        /* Mobile toggle label */
+        .toggle-label {
+            display: none;
+            font-size: 10px;
+            font-weight: 600;
+            line-height: 1;
+            letter-spacing: 0.02em;
+        }
+
+        /* Active toggle state */
+        .mobile-toggle.active-toggle {
+            background: rgba(78, 205, 196, 0.25);
+            border-color: rgba(78, 205, 196, 0.6);
+            color: #4ECDC4;
+        }
+
+        /* Ripple effect on buttons */
+        .filter-btn,
+        .refresh-btn,
+        .mobile-toggle,
+        .legend-item {
+            position: relative;
+            overflow: hidden;
+        }
+        .ripple {
+            position: absolute;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.28);
+            transform: scale(0);
+            animation: ripple-anim 0.5s linear;
+            pointer-events: none;
+        }
+        @keyframes ripple-anim {
+            to { transform: scale(4); opacity: 0; }
+        }
+
+        /* Animated stat counter pop */
+        @keyframes statPop {
+            0%   { transform: scale(1); }
+            40%  { transform: scale(1.18); color: #7EDDD7; }
+            100% { transform: scale(1); }
+        }
+        .stat-number.pop {
+            animation: statPop 0.35s ease;
+        }
+
+        /* Touch tap tooltip (mobile) - shows a "tap again to open" hint */
+        .tooltip-tap-hint {
+            font-size: 11px;
+            color: #4ECDC4;
+            font-style: italic;
+            margin-top: 4px;
+        }
+
+        /* Smooth panel appearance on mobile */
+        @media (max-width: 767px) {
+            .controls-panel,
+            .legend-panel {
+                will-change: bottom;
+            }
+        }
     </style>
 </head>
 <body>
@@ -747,11 +859,18 @@
         </div>
     </div>
 
+    <div class="panel-backdrop" id="panel-backdrop"></div>
+
     <div class="controls-panel" id="controls-panel">
+        <div class="panel-drag-handle" id="controls-drag-handle"></div>
+        <div class="swipe-hint">Swipe down to close</div>
         <button class="panel-close" id="close-controls">✕</button>
         <div class="control-section">
             <label class="control-label">🔍 Search Repositories</label>
-            <input type="text" id="search" class="search-input" placeholder="Search by name, description, topics, language, owner...">
+            <div class="search-wrapper">
+                <input type="text" id="search" class="search-input" placeholder="Search name, topics, language…">
+                <button class="search-clear-btn" id="search-clear" title="Clear search">✕</button>
+            </div>
         </div>
         
         <div class="control-section">
@@ -777,14 +896,22 @@
     </div>
 
     <div class="legend-panel" id="legend-panel">
+        <div class="panel-drag-handle" id="legend-drag-handle"></div>
+        <div class="swipe-hint">Swipe down to close</div>
         <button class="panel-close" id="close-legend">✕</button>
         <div class="legend-title">🎨 Repository Categories</div>
         <div id="legend-items"></div>
     </div>
 
     <!-- Mobile toggle buttons -->
-    <button class="mobile-toggle toggle-controls" id="toggle-controls" title="Open Filters">⚙️</button>
-    <button class="mobile-toggle toggle-legend" id="toggle-legend" title="Open Legend">🎨</button>
+    <button class="mobile-toggle toggle-controls" id="toggle-controls" title="Open Filters">
+        <span class="toggle-icon">⚙️</span>
+        <span class="toggle-label">Filters</span>
+    </button>
+    <button class="mobile-toggle toggle-legend" id="toggle-legend" title="Open Legend">
+        <span class="toggle-icon">🎨</span>
+        <span class="toggle-label">Legend</span>
+    </button>
 
     <div class="loading" id="loading">
         <div class="spinner"></div>
