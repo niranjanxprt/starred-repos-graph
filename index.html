@@ -3,7 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>🌟 GitHub Stars Graph</title>
+    <title>GitHub Stars Graph</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@600;700&display=swap" rel="stylesheet">
     <script src="https://d3js.org/d3.v7.min.js"></script>
     <style>
         * {
@@ -13,7 +16,7 @@
         }
 
         body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
             background: linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #0f172a 100%);
             min-height: 100vh;
             color: white;
@@ -42,6 +45,17 @@
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
+            white-space: nowrap;
+        }
+
+        .title .icon {
+            -webkit-text-fill-color: initial;
+        }
+
+        .title-count {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.7em;
+            opacity: 0.85;
         }
 
         .stats {
@@ -59,8 +73,9 @@
         }
 
         .stat-number {
+            font-family: 'JetBrains Mono', monospace;
             font-size: 18px;
-            font-weight: bold;
+            font-weight: 700;
             color: #4ECDC4;
         }
 
@@ -78,15 +93,25 @@
         }
 
         .control-section {
-            margin-bottom: 20px;
+            margin-bottom: 12px;
+            padding-bottom: 12px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+        }
+
+        .control-section:last-child {
+            border-bottom: none;
+            margin-bottom: 0;
+            padding-bottom: 0;
         }
 
         .control-label {
             display: block;
             margin-bottom: 8px;
-            font-size: 14px;
-            font-weight: 600;
-            color: #E2E8F0;
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: 0.06em;
+            text-transform: uppercase;
+            color: #718096;
         }
 
         .search-input {
@@ -134,7 +159,7 @@
 
         .filter-btn:hover {
             background: rgba(255, 255, 255, 0.25);
-            transform: translateY(-1px);
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
         }
 
         .filter-btn.active {
@@ -330,7 +355,7 @@
         .mobile-toggle {
             display: none;
             position: fixed;
-            z-index: 1001;
+            z-index: 998;
             background: rgba(0, 0, 0, 0.9);
             border: 1px solid rgba(255, 255, 255, 0.2);
             border-radius: 50%;
@@ -486,7 +511,7 @@
             }
 
             .control-label {
-                font-size: 13px;
+                font-size: 10px;
             }
 
             .search-input {
@@ -691,7 +716,7 @@
         }
         .refresh-btn:hover {
             background: rgba(255,255,255,0.22);
-            transform: translateY(-1px);
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
         }
 
         /* small note text under stats */
@@ -834,18 +859,50 @@
                 will-change: bottom;
             }
         }
+
+        /* Inline SVG icon helper */
+        .icon {
+            display: inline-block;
+            vertical-align: -0.125em;
+            flex-shrink: 0;
+        }
+
+        /* Visible focus states for keyboard navigation */
+        .filter-btn:focus-visible,
+        .mobile-toggle:focus-visible,
+        .panel-close:focus-visible,
+        .legend-item:focus-visible,
+        .refresh-btn:focus-visible,
+        .search-clear-btn:focus-visible {
+            outline: 2px solid #4ECDC4;
+            outline-offset: 2px;
+        }
+
+        .search-input:focus-visible {
+            outline: none;
+            box-shadow: 0 0 0 2px rgba(78, 205, 196, 0.5);
+        }
+
+        /* Respect reduced-motion preference */
+        @media (prefers-reduced-motion: reduce) {
+            *, *::before, *::after {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+            }
+        }
     </style>
 </head>
 <body>
     <div class="app-header">
-        <h1 class="title">🌟 GitHub Stars Graph</h1>
+        <h1 class="title"><svg class="icon" width="22" height="22" viewBox="0 0 24 24" fill="#ffd700" stroke="#ffd700" stroke-width="1" aria-hidden="true"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg> GitHub Stars Graph</h1>
         <div class="stats">
             <div class="stat-item">
-                <div class="stat-number" id="total-repos">0</div>
+                <div class="stat-number" id="total-repos" aria-live="polite">0</div>
                 <div>Total Repos</div>
             </div>
             <div class="stat-item">
-                <div class="stat-number" id="visible-repos">0</div>
+                <div class="stat-number" id="visible-repos" aria-live="polite">0</div>
                 <div>Visible</div>
             </div>
             <div class="stat-item">
@@ -855,37 +912,37 @@
             </div>
         </div>
         <div class="header-actions">
-            <button id="refresh-now" class="refresh-btn" title="Opens GitHub Actions → Update Stars and Deploy to Pages → Run workflow. This fetches latest stars and redeploys Pages automatically.">🔄 Refresh Data</button>
+            <button id="refresh-now" class="refresh-btn" title="Opens GitHub Actions → Update Stars and Deploy to Pages → Run workflow. This fetches latest stars and redeploys Pages automatically."><svg class="icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 12a9 9 0 0 1 9-9 9.75 9.75 0 0 1 6.74 2.74L21 8"/><path d="M21 3v5h-5"/><path d="M21 12a9 9 0 0 1-9 9 9.75 9.75 0 0 1-6.74-2.74L3 16"/><path d="M3 21v-5h5"/></svg> Refresh Data</button>
         </div>
     </div>
 
     <div class="panel-backdrop" id="panel-backdrop"></div>
 
-    <div class="controls-panel" id="controls-panel">
+    <div class="controls-panel" id="controls-panel" role="region" aria-label="Filters">
         <div class="panel-drag-handle" id="controls-drag-handle"></div>
         <div class="swipe-hint">Swipe down to close</div>
-        <button class="panel-close" id="close-controls">✕</button>
+        <button class="panel-close" id="close-controls" aria-label="Close filters"><svg class="icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg></button>
         <div class="control-section">
-            <label class="control-label">🔍 Search Repositories</label>
-            <div class="search-wrapper">
-                <input type="text" id="search" class="search-input" placeholder="Search name, topics, language…">
-                <button class="search-clear-btn" id="search-clear" title="Clear search">✕</button>
+            <label class="control-label"><svg class="icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg> Search Repositories</label>
+            <div class="search-wrapper" role="search">
+                <input type="text" id="search" class="search-input" placeholder="Search name, topics, language…" aria-label="Search repositories">
+                <button class="search-clear-btn" id="search-clear" aria-label="Clear search"><svg class="icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg></button>
             </div>
         </div>
         
         <div class="control-section">
-            <label class="control-label">📁 Filter by Category</label>
-            <div class="filter-grid" id="category-filters"></div>
+            <label class="control-label"><svg class="icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 20a2 2 0 0 0 2-2V8a2 2 0 0 0-2-2h-7.9a2 2 0 0 1-1.69-.9L9.6 3.9A2 2 0 0 0 7.93 3H4a2 2 0 0 0-2 2v13a2 2 0 0 0 2 2Z"/></svg> Filter by Category</label>
+            <div class="filter-grid" id="category-filters" role="group" aria-label="Category filters"></div>
         </div>
 
         <div class="control-section">
-            <label class="control-label">💻 Filter by Language</label>
-            <div class="filter-grid" id="language-filters"></div>
+            <label class="control-label"><svg class="icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg> Filter by Language</label>
+            <div class="filter-grid" id="language-filters" role="group" aria-label="Language filters"></div>
         </div>
 
         <div class="control-section">
-            <label class="control-label">⭐ Filter by Stars</label>
-            <div class="filter-grid" id="stars-filters">
+            <label class="control-label"><svg class="icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg> Filter by Stars</label>
+            <div class="filter-grid" id="stars-filters" role="group" aria-label="Star count filters">
                 <button class="filter-btn active" data-stars="all">All</button>
                 <button class="filter-btn" data-stars="1000">1K+</button>
                 <button class="filter-btn" data-stars="5000">5K+</button>
@@ -895,21 +952,21 @@
         </div>
     </div>
 
-    <div class="legend-panel" id="legend-panel">
+    <div class="legend-panel" id="legend-panel" role="region" aria-label="Legend">
         <div class="panel-drag-handle" id="legend-drag-handle"></div>
         <div class="swipe-hint">Swipe down to close</div>
-        <button class="panel-close" id="close-legend">✕</button>
-        <div class="legend-title">🎨 Repository Categories</div>
+        <button class="panel-close" id="close-legend" aria-label="Close legend"><svg class="icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg></button>
+        <div class="legend-title"><svg class="icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="13.5" cy="6.5" r=".5" fill="currentColor"/><circle cx="17.5" cy="10.5" r=".5" fill="currentColor"/><circle cx="8.5" cy="7.5" r=".5" fill="currentColor"/><circle cx="6.5" cy="12.5" r=".5" fill="currentColor"/><path d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10c.926 0 1.648-.746 1.648-1.688 0-.437-.18-.835-.437-1.125-.29-.289-.438-.652-.438-1.125a1.64 1.64 0 0 1 1.668-1.668h1.996c3.051 0 5.555-2.503 5.555-5.554C21.965 6.012 17.461 2 12 2z"/></svg> Repository Categories</div>
         <div id="legend-items"></div>
     </div>
 
     <!-- Mobile toggle buttons -->
-    <button class="mobile-toggle toggle-controls" id="toggle-controls" title="Open Filters">
-        <span class="toggle-icon">⚙️</span>
+    <button class="mobile-toggle toggle-controls" id="toggle-controls" aria-label="Open filters" aria-expanded="false">
+        <span class="toggle-icon"><svg class="icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="21" x2="14" y1="4" y2="4"/><line x1="10" x2="3" y1="4" y2="4"/><line x1="21" x2="12" y1="12" y2="12"/><line x1="8" x2="3" y1="12" y2="12"/><line x1="21" x2="16" y1="20" y2="20"/><line x1="12" x2="3" y1="20" y2="20"/><line x1="14" y1="2" x2="14" y2="6"/><line x1="8" y1="10" x2="8" y2="14"/><line x1="16" y1="18" x2="16" y2="22"/></svg></span>
         <span class="toggle-label">Filters</span>
     </button>
-    <button class="mobile-toggle toggle-legend" id="toggle-legend" title="Open Legend">
-        <span class="toggle-icon">🎨</span>
+    <button class="mobile-toggle toggle-legend" id="toggle-legend" aria-label="Open legend" aria-expanded="false">
+        <span class="toggle-icon"><svg class="icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="13.5" cy="6.5" r=".5" fill="currentColor"/><circle cx="17.5" cy="10.5" r=".5" fill="currentColor"/><circle cx="8.5" cy="7.5" r=".5" fill="currentColor"/><circle cx="6.5" cy="12.5" r=".5" fill="currentColor"/><path d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10c.926 0 1.648-.746 1.648-1.688 0-.437-.18-.835-.437-1.125-.29-.289-.438-.652-.438-1.125a1.64 1.64 0 0 1 1.668-1.668h1.996c3.051 0 5.555-2.503 5.555-5.554C21.965 6.012 17.461 2 12 2z"/></svg></span>
         <span class="toggle-label">Legend</span>
     </button>
 
@@ -922,12 +979,6 @@
     <svg id="graph"></svg>
     <div class="tooltip" id="tooltip"></div>
 
-    <script>
-        // Initialize the application
-        document.addEventListener('DOMContentLoaded', () => {
-            new GitHubStarsGraph();
-        });
-    </script>
     <script src="app.js"></script>
 </body>
 </html>

@@ -215,16 +215,28 @@ class GitHubStarsGraph {
             panelToOpen.classList.add('mobile-open');
             otherPanel.classList.remove('mobile-open');
             if (backdrop) backdrop.classList.add('visible');
-            if (toggleBtn) toggleBtn.classList.add('active-toggle');
-            if (otherToggleBtn) otherToggleBtn.classList.remove('active-toggle');
+            if (toggleBtn) {
+                toggleBtn.classList.add('active-toggle');
+                toggleBtn.setAttribute('aria-expanded', 'true');
+            }
+            if (otherToggleBtn) {
+                otherToggleBtn.classList.remove('active-toggle');
+                otherToggleBtn.setAttribute('aria-expanded', 'false');
+            }
         };
 
         const closeAllPanels = () => {
             controlsPanel.classList.remove('mobile-open');
             legendPanel.classList.remove('mobile-open');
             if (backdrop) backdrop.classList.remove('visible');
-            if (toggleControls) toggleControls.classList.remove('active-toggle');
-            if (toggleLegend) toggleLegend.classList.remove('active-toggle');
+            if (toggleControls) {
+                toggleControls.classList.remove('active-toggle');
+                toggleControls.setAttribute('aria-expanded', 'false');
+            }
+            if (toggleLegend) {
+                toggleLegend.classList.remove('active-toggle');
+                toggleLegend.setAttribute('aria-expanded', 'false');
+            }
             this.hideTooltip();
         };
 
@@ -276,7 +288,6 @@ class GitHubStarsGraph {
         });
 
         // Search clear button
-        const searchInput = document.getElementById('search');
         const searchClear = document.getElementById('search-clear');
         if (searchInput && searchClear) {
             searchInput.addEventListener('input', () => {
@@ -643,40 +654,37 @@ class GitHubStarsGraph {
     }
     
     setupFilters() {
-        // Category filters
         const categoryContainer = document.getElementById('category-filters');
         if (categoryContainer) {
+            categoryContainer.innerHTML = '';
             const categories = ['all', ...Object.keys(this.categories)];
-            
+
             categories.forEach(category => {
                 const btn = document.createElement('button');
                 btn.className = 'filter-btn' + (category === 'all' ? ' active' : '');
-                btn.textContent = category === 'all' ? 'All' : category.replace('-', ' ').toUpperCase();
+                btn.textContent = category.replace('-', ' ').toUpperCase();
                 btn.dataset.category = category;
                 btn.addEventListener('click', (e) => this.filterByCategory(category, e.target));
                 this.attachRipple(btn);
                 categoryContainer.appendChild(btn);
             });
         }
-        
-        // Language filters - FIXED: Now includes Python and all languages
+
         const languageContainer = document.getElementById('language-filters');
         if (languageContainer) {
-            // Get all unique languages with counts
+            languageContainer.innerHTML = '';
             const languageCounts = new Map();
             this.repositories.forEach(repo => {
                 if (repo.language && repo.language !== 'Unknown') {
                     languageCounts.set(repo.language, (languageCounts.get(repo.language) || 0) + 1);
                 }
             });
-            
-            // Sort by count and take top languages
+
             const topLanguages = Array.from(languageCounts.entries())
                 .sort((a, b) => b[1] - a[1])
                 .slice(0, 15)
                 .map(([lang, count]) => lang);
-            
-            // All languages button
+
             const allBtn = document.createElement('button');
             allBtn.className = 'filter-btn active';
             allBtn.textContent = 'All';
@@ -685,7 +693,6 @@ class GitHubStarsGraph {
             this.attachRipple(allBtn);
             languageContainer.appendChild(allBtn);
 
-            // Individual language buttons
             topLanguages.forEach(language => {
                 const btn = document.createElement('button');
                 btn.className = 'filter-btn';
@@ -1011,9 +1018,15 @@ class GitHubStarsGraph {
             topPos = Math.max(10, Math.min(topPos, window.innerHeight - 220));
         }
 
+        const svgStar = '<svg class="icon" width="12" height="12" viewBox="0 0 24 24" fill="#ffd700" stroke="#ffd700" stroke-width="1"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>';
+        const svgFork = '<svg class="icon" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="18" r="3"/><circle cx="6" cy="6" r="3"/><circle cx="18" cy="6" r="3"/><path d="M18 9v2c0 .6-.4 1-1 1H7c-.6 0-1-.4-1-1V9"/><path d="M12 12v3"/></svg>';
+        const svgCode = '<svg class="icon" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>';
+        const svgLink = '<svg class="icon" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 3h6v6"/><path d="M10 14 21 3"/><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/></svg>';
+        const svgTap = '<svg class="icon" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 11V6a2 2 0 0 0-2-2a2 2 0 0 0-2 2"/><path d="M14 10V4a2 2 0 0 0-2-2a2 2 0 0 0-2 2v2"/><path d="M10 10.5V6a2 2 0 0 0-2-2a2 2 0 0 0-2 2v8"/><path d="M18 8a2 2 0 1 1 4 0v6a8 8 0 0 1-8 8h-2c-2.8 0-4.5-.86-5.99-2.34l-3.6-3.6a2 2 0 0 1 2.83-2.82L7 13"/></svg>';
+
         const actionHint = isTouchTap
-            ? `<div class=\"tooltip-tap-hint\">👆 Tap again to open repository</div>`
-            : `<div class=\"tooltip-action\">👆 Click to open repository</div>`;
+            ? `<div class=\"tooltip-tap-hint\">${svgTap} Tap again to open repository</div>`
+            : `<div class=\"tooltip-action\">${svgTap} Click to open repository</div>`;
 
         this.tooltip
             .style('display', 'block')
@@ -1025,10 +1038,10 @@ class GitHubStarsGraph {
                 <div class=\"tooltip-owner\">by ${d.owner}</div>
                 <div class=\"tooltip-category\">${d.category.replace('-', ' ').toUpperCase()}</div>
                 <div class=\"tooltip-meta\">
-                    <div class=\"tooltip-stat\">⭐ ${d.stars.toLocaleString()}</div>
-                    <div class=\"tooltip-stat\">🍴 ${d.forks.toLocaleString()}</div>
-                    <div class=\"tooltip-stat\">💻 ${d.language}</div>
-                    <div class=\"tooltip-stat\">🔗 ${d.fullName}</div>
+                    <div class=\"tooltip-stat\">${svgStar} ${d.stars.toLocaleString()}</div>
+                    <div class=\"tooltip-stat\">${svgFork} ${d.forks.toLocaleString()}</div>
+                    <div class=\"tooltip-stat\">${svgCode} ${d.language}</div>
+                    <div class=\"tooltip-stat\">${svgLink} ${d.fullName}</div>
                 </div>
                 <div class=\"tooltip-desc\">${d.description || 'No description available'}</div>
                 ${actionHint}
@@ -1067,8 +1080,15 @@ class GitHubStarsGraph {
         this.animateCounter(totalEl, this.repositories.length);
         this.animateCounter(visibleEl, this.filteredRepositories.length);
 
-        // Dynamic page title with actual count
-        document.title = `🌟 GitHub Stars Graph - ${this.repositories.length} Repositories`;
+        const count = this.repositories.length;
+        document.title = `GitHub Stars Graph - ${count}+ Repositories`;
+
+        const titleEl = document.querySelector('.title');
+        if (titleEl) {
+            const starSvg = titleEl.querySelector('.icon');
+            const svgHtml = starSvg ? starSvg.outerHTML : '';
+            titleEl.innerHTML = `${svgHtml} GitHub Stars Graph <span class="title-count">${count}+</span>`;
+        }
 
         const updatedEl = document.getElementById('last-updated');
         const ts = this.dataLastUpdated ? new Date(this.dataLastUpdated) : new Date();
@@ -1176,12 +1196,14 @@ class GitHubStarsGraph {
     showError(message) {
         const loading = document.getElementById('loading');
         if (loading) {
+            const warnIcon = '<svg class="icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3"/><path d="M12 9v4"/><path d="M12 17h.01"/></svg>';
+            const refreshIcon = '<svg class="icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12a9 9 0 0 1 9-9 9.75 9.75 0 0 1 6.74 2.74L21 8"/><path d="M21 3v5h-5"/><path d="M21 12a9 9 0 0 1-9 9 9.75 9.75 0 0 1-6.74-2.74L3 16"/><path d="M3 21v-5h5"/></svg>';
             loading.innerHTML = `
                 <div class=\"error-message\">
-                    <h3>⚠️ Error</h3>
+                    <h3>${warnIcon} Error</h3>
                     <p>${message}</p>
                     <button onclick=\"location.reload()\" class=\"filter-btn\" style=\"margin-top: 15px; background: #EF4444;\">
-                        🔄 Retry
+                        ${refreshIcon} Retry
                     </button>
                 </div>
             `;
