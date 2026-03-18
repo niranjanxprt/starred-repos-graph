@@ -112,28 +112,28 @@ class GitHubStarsGraph {
             'other': {}
         };
         
-        // Obsidian-style palette: cohesive, matte, professional
+        // True Obsidian-style palette: dark, muted, professional
         this.categoryColors = {
-            'ai-ml': '#7c6dd6',        // Soft purple
-            'cloud': '#c8934c',        // Muted gold
-            'devops': '#4a9fb5',       // Teal
-            'web-dev': '#5fa876',      // Muted green
-            'mobile': '#b85555',       // Muted red
-            'data': '#4a7ba7',         // Steel blue
-            'monitoring': '#c97c4d',   // Burnt orange
-            'testing': '#7cb370',      // Sage green
-            'python': '#c9a34d',       // Olive gold
-            'tools': '#6b7280',        // Gray
-            'security': '#9d5d5d',     // Deep rose
-            'api': '#8b6fa3',          // Mauve
-            'learning': '#6eb691',     // Soft teal
-            'ui-ux': '#b866a4',        // Soft magenta
-            'blockchain': '#a88860',   // Bronze
-            'game-dev': '#b8864d',     // Tan
-            'mcp': '#8b7bb0',          // Lavender
-            'networking': '#5a8fb9',   // Slate blue
-            'system-design': '#5fa896', // Green-blue
-            'other': '#7a7ab8'         // Periwinkle
+            'ai-ml': '#6d5d9a',        // Dark purple
+            'cloud': '#9d7d5d',        // Dusty brown
+            'devops': '#5d8d9d',       // Muted teal
+            'web-dev': '#6d8d7d',      // Muted sage
+            'mobile': '#9d6d6d',       // Muted mauve red
+            'data': '#5d7d9d',         // Deep slate
+            'monitoring': '#9d7d5d',   // Warm taupe
+            'testing': '#7d9d6d',      // Muted green
+            'python': '#9d956d',       // Muted olive
+            'tools': '#7d7d8d',        // Cool gray
+            'security': '#8d6d7d',     // Deep plum
+            'api': '#7d6d8d',          // Muted purple
+            'learning': '#7d9d8d',     // Soft teal-green
+            'ui-ux': '#9d7d8d',        // Muted dusty rose
+            'blockchain': '#8d7d6d',   // Warm taupe
+            'game-dev': '#9d8d7d',     // Soft tan
+            'mcp': '#7d7d9d',          // Periwinkle
+            'networking': '#6d8d9d',   // Slate blue
+            'system-design': '#7d9d8d', // Blue-green
+            'other': '#7d7d8d'         // Neutral gray
         };
         
         this.currentFilters = {
@@ -979,16 +979,17 @@ class GitHubStarsGraph {
                 return classes.join(' ');
             })
             .attr('r', d => this.getNodeRadius(d))
-            .attr('fill', d => this.categoryColors[d.category] || '#7a7ab8')
+            .attr('fill', d => this.categoryColors[d.category] || '#7d7d8d')
             .attr('stroke', '#ffffff')
             .attr('stroke-width', d => {
                 const r = this.getNodeRadius(d);
-                if (r >= 35) return 1.5;
-                if (r >= 22) return 1.2;
-                return 0.8;
+                if (r >= 35) return 1.2;
+                if (r >= 22) return 1;
+                return 0.6;
             })
+            .attr('stroke-opacity', 0.6)
             .attr('filter', d => top10Repos.includes(d.id) ? 'url(#glow-pulse)' : 'url(#node-shadow)')
-            .attr('opacity', 1)
+            .attr('opacity', 0.85)
             .each(function(d, i) {
                 // Add staggered animation delay
                 if (d3.select(this).classed('node-entering')) {
