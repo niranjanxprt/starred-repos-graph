@@ -273,6 +273,37 @@ class GitHubStarsGraph {
 
         // Header Filters toggle - collapsible on all viewports
         const toggleFiltersHeader = document.getElementById('toggle-filters-header');
+        const filterToggleWrap = document.getElementById('filter-toggle-wrap');
+        const showFiltersFab = document.getElementById('show-filters-fab');
+        const hideFiltersBtn = document.getElementById('hide-filters-btn');
+        const FILTERS_HIDDEN_KEY = 'github-stars-graph-filters-hidden';
+
+        const applyFiltersVisibility = () => {
+            const hidden = localStorage.getItem(FILTERS_HIDDEN_KEY) === 'true';
+            if (filterToggleWrap) filterToggleWrap.classList.toggle('hidden', hidden);
+            if (showFiltersFab) showFiltersFab.classList.toggle('visible', hidden);
+        };
+
+        applyFiltersVisibility();
+
+        if (hideFiltersBtn && filterToggleWrap && showFiltersFab) {
+            hideFiltersBtn.addEventListener('click', () => {
+                localStorage.setItem(FILTERS_HIDDEN_KEY, 'true');
+                filterToggleWrap.classList.add('hidden');
+                showFiltersFab.classList.add('visible');
+                if (window.innerWidth > 767) controlsPanel.classList.add('collapsed');
+                closeAllPanels();
+            });
+        }
+
+        if (showFiltersFab && filterToggleWrap) {
+            showFiltersFab.addEventListener('click', () => {
+                localStorage.setItem(FILTERS_HIDDEN_KEY, 'false');
+                filterToggleWrap.classList.remove('hidden');
+                showFiltersFab.classList.remove('visible');
+            });
+        }
+
         if (toggleFiltersHeader && controlsPanel) {
             if (window.innerWidth <= 767) {
                 toggleFiltersHeader.classList.add('collapsed');
@@ -306,7 +337,7 @@ class GitHubStarsGraph {
             if (window.innerWidth <= 767) {
                 const isClickInsideControls = controlsPanel.contains(e.target);
                 const isClickInsideLegend = legendPanel.contains(e.target);
-                const isToggleButton = e.target.closest('.mobile-toggle, #toggle-filters-header');
+                const isToggleButton = e.target.closest('.mobile-toggle, #toggle-filters-header, #show-filters-fab');
                 if (!isClickInsideControls && !isClickInsideLegend && !isToggleButton) {
                     closeAllPanels();
                 }
@@ -336,7 +367,7 @@ class GitHubStarsGraph {
         }
 
         // Ripple effect on interactive buttons
-        document.querySelectorAll('.filter-btn, .refresh-btn, .mobile-toggle, .filter-toggle-btn').forEach(btn => {
+        document.querySelectorAll('.filter-btn, .refresh-btn, .mobile-toggle, .filter-toggle-btn, .hide-filters-btn, .show-filters-fab').forEach(btn => {
             this.attachRipple(btn);
         });
     }
