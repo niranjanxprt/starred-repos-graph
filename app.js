@@ -1063,13 +1063,14 @@ class GitHubStarsGraph {
             .attr('opacity', 0.25)
             .style('pointer-events', 'none');
 
-        // Add labels for bigger circles: top repos by stars + any bubble large enough (radius >= 14)
-        const maxLabels = this.isMobileViewport() ? 60 : 120;
-        const minRadiusForLabel = 14;
+        // Add labels only for significantly large bubbles to avoid clutter
+        const maxLabels = this.isMobileViewport() ? 25 : 50;
+        const minRadiusForLabel = 22;  // Only label bubbles that are visually prominent
         const topByStars = [...this.filteredRepositories]
             .sort((a, b) => (b.stars || 0) - (a.stars || 0))
             .slice(0, maxLabels);
         const bigBubbles = this.filteredRepositories.filter(d => this.getNodeRadius(d) >= minRadiusForLabel);
+        // Combine: take top repos, then add any big bubbles not already included
         const labelData = [...new Map([...topByStars, ...bigBubbles].map(d => [d.id, d])).values()];
         const label = g.append('g')
             .selectAll('text')
