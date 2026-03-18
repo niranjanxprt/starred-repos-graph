@@ -175,7 +175,7 @@ class GitHubStarsGraph {
         document.querySelectorAll('#stars-filters .filter-btn').forEach(btn => {
             btn.addEventListener('click', (e) => {
                 document.querySelectorAll('#stars-filters .filter-btn').forEach(b => b.classList.remove('active'));
-                e.target.classList.add('active');
+                e.currentTarget.classList.add('active');
                 this.currentFilters.stars = e.target.dataset.stars;
                 this.applyFilters();
             });
@@ -595,18 +595,28 @@ class GitHubStarsGraph {
         // Create main container group
         const g = this.svg.append('g').attr('class', 'main-group');
         
-        // Enhanced force simulation for better clustering
+        // Mobile: stronger repulsion and collision to reduce overlap on narrow viewports
+        const isMobile = this.isMobileViewport();
+        const chargeStrength = isMobile ? -400 : -200;
+        const chargeDistMax = isMobile ? 500 : 300;
+        const collideRadius = d => this.getNodeRadius(d) + (isMobile ? 8 : 3);
+
         this.simulation = d3.forceSimulation()
             .force('link', d3.forceLink().id(d => d.id).distance(100).strength(0.1))
-            .force('charge', d3.forceManyBody().strength(-200).distanceMax(300))
+            .force('charge', d3.forceManyBody().strength(chargeStrength).distanceMax(chargeDistMax))
             .force('center', d3.forceCenter(this.width / 2, this.height / 2))
-            .force('collision', d3.forceCollide().radius(d => this.getNodeRadius(d) + 3))
+            .force('collision', d3.forceCollide().radius(collideRadius))
             // Add category-based positioning forces for better clustering
             .force('x', d3.forceX().x(d => this.getCategoryPosition(d.category).x).strength(0.1))
             .force('y', d3.forceY().y(d => this.getCategoryPosition(d.category).y).strength(0.1));
         
         this.filteredRepositories = [...this.repositories];
         this.updateVisualization();
+        this.updateStats();
+    }
+    
+    isMobileViewport() {
+        return window.innerWidth <= 767;
     }
     
     getCategoryPosition(category) {
@@ -664,7 +674,7 @@ class GitHubStarsGraph {
                 btn.className = 'filter-btn' + (category === 'all' ? ' active' : '');
                 btn.textContent = category.replace('-', ' ').toUpperCase();
                 btn.dataset.category = category;
-                btn.addEventListener('click', (e) => this.filterByCategory(category, e.target));
+                btn.addEventListener('click', (e) => this.filterByCategory(category, e.currentTarget));
                 this.attachRipple(btn);
                 categoryContainer.appendChild(btn);
             });
@@ -689,7 +699,7 @@ class GitHubStarsGraph {
             allBtn.className = 'filter-btn active';
             allBtn.textContent = 'All';
             allBtn.dataset.language = 'all';
-            allBtn.addEventListener('click', (e) => this.filterByLanguage('all', e.target));
+            allBtn.addEventListener('click', (e) => this.filterByLanguage('all', e.currentTarget));
             this.attachRipple(allBtn);
             languageContainer.appendChild(allBtn);
 
@@ -698,7 +708,7 @@ class GitHubStarsGraph {
                 btn.className = 'filter-btn';
                 btn.textContent = language;
                 btn.dataset.language = language;
-                btn.addEventListener('click', (e) => this.filterByLanguage(language, e.target));
+                btn.addEventListener('click', (e) => this.filterByLanguage(language, e.currentTarget));
                 this.attachRipple(btn);
                 languageContainer.appendChild(btn);
             });
@@ -894,10 +904,11 @@ class GitHubStarsGraph {
                 }
             }, { passive: true });
         
-        // Add labels for popular repositories
+        // Add labels for popular repositories (hide on mobile to reduce clutter)
+        const labelData = this.isMobileViewport() ? [] : this.filteredRepositories.filter(d => d.stars > 30000);
         const label = g.append('g')
             .selectAll('text')
-            .data(this.filteredRepositories.filter(d => d.stars > 30000))
+            .data(labelData)
             .enter().append('text')
             .attr('class', 'node-label')
             .text(d => d.name.length > 12 ? d.name.substring(0, 12) + '...' : d.name)
@@ -1183,6 +1194,12 @@ class GitHubStarsGraph {
         
         this.svg.attr('width', this.width).attr('height', this.height);
         this.simulation.force('center', d3.forceCenter(this.width / 2, this.height / 2));
+
+        // Re-apply mobile-aware force params on resize
+        const isMobile = this.isMobileViewport();
+        this.simulation.force('charge', d3.forceManyBody().strength(isMobile ? -400 : -200).distanceMax(isMobile ? 500 : 300));
+        this.simulation.force('collision', d3.forceCollide().radius(d => this.getNodeRadius(d) + (isMobile ? 8 : 3)));
+
         this.simulation.alpha(0.3).restart();
     }
     
