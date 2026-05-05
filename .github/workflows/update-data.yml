@@ -36,7 +36,7 @@ jobs:
     - name: Create data directory and set permissions
       run: |
         mkdir -p data
-        chmod +x scripts/fetch-data.js scripts/clean-data.js
+        chmod +x scripts/fetch-data.js scripts/clean-data.js scripts/validate-data.js
     
     - name: Fetch and process starred repositories
       env:
@@ -62,6 +62,10 @@ jobs:
             node scripts/clean-data.js
             echo "✅ Data cleanup completed"
           fi
+
+          echo "🧪 Validating generated dataset..."
+          node scripts/validate-data.js
+          echo "✅ Dataset validation passed"
         else
           echo "❌ Data file not created!"
           exit 1

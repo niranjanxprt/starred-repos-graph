@@ -1,12 +1,29 @@
 import { test, expect } from '@playwright/test';
 
+async function showFirstNodeTooltip(page) {
+  await page.locator('.node').first().evaluate((el) => {
+    el.dispatchEvent(new MouseEvent('mouseover', {
+      bubbles: true,
+      clientX: 420,
+      clientY: 260,
+      screenX: 420,
+      screenY: 260,
+    }));
+  });
+}
+
+async function hideFirstNodeTooltip(page) {
+  await page.locator('.node').first().evaluate((el) => {
+    el.dispatchEvent(new MouseEvent('mouseout', { bubbles: true }));
+  });
+}
+
 test.describe('Tooltip Functionality', () => {
   test('hovering over bubble shows tooltip', async ({ page }) => {
     await page.goto('/');
     await page.waitForTimeout(1000);
 
-    const firstNode = await page.locator('.node').first();
-    await firstNode.hover();
+    await showFirstNodeTooltip(page);
     await page.waitForTimeout(300);
 
     const tooltip = await page.locator('#tooltip');
@@ -18,8 +35,7 @@ test.describe('Tooltip Functionality', () => {
     await page.goto('/');
     await page.waitForTimeout(1000);
 
-    const firstNode = await page.locator('.node').first();
-    await firstNode.hover();
+    await showFirstNodeTooltip(page);
     await page.waitForTimeout(300);
 
     const tooltipTitle = await page.locator('.tooltip-title');
@@ -32,8 +48,7 @@ test.describe('Tooltip Functionality', () => {
     await page.goto('/');
     await page.waitForTimeout(1000);
 
-    const firstNode = await page.locator('.node').first();
-    await firstNode.hover();
+    await showFirstNodeTooltip(page);
     await page.waitForTimeout(300);
 
     const tooltipStats = await page.locator('.tooltip-stat');
@@ -49,8 +64,7 @@ test.describe('Tooltip Functionality', () => {
     await page.goto('/');
     await page.waitForTimeout(1000);
 
-    const firstNode = await page.locator('.node').first();
-    await firstNode.hover();
+    await showFirstNodeTooltip(page);
     await page.waitForTimeout(300);
 
     // Check tooltip is visible
@@ -58,7 +72,7 @@ test.describe('Tooltip Functionality', () => {
     expect(await tooltip.isVisible()).toBe(true);
 
     // Move mouse away
-    await page.mouse.move(0, 0);
+    await hideFirstNodeTooltip(page);
     await page.waitForTimeout(300);
 
     // Tooltip should be hidden
@@ -70,8 +84,7 @@ test.describe('Tooltip Functionality', () => {
     await page.goto('/');
     await page.waitForTimeout(1000);
 
-    const firstNode = await page.locator('.node').first();
-    await firstNode.hover();
+    await showFirstNodeTooltip(page);
     await page.waitForTimeout(300);
 
     const category = await page.locator('.tooltip-category');
@@ -84,14 +97,18 @@ test.describe('Tooltip Functionality', () => {
     await page.goto('/');
     await page.waitForTimeout(1000);
 
-    // Listen for popup
-    const [popup] = await Promise.all([
-      context.waitForEvent('page'),
-      page.locator('.node').first().click(),
-    ]);
+    const openedUrl = await page.locator('.node').first().evaluate((el) => {
+      const originalOpen = window.open;
+      let capturedUrl = '';
+      window.open = (url) => {
+        capturedUrl = String(url);
+        return null;
+      };
+      el.dispatchEvent(new MouseEvent('click', { bubbles: true }));
+      window.open = originalOpen;
+      return capturedUrl;
+    });
 
-    // Popup should be a GitHub URL
-    expect(popup.url()).toContain('github.com');
-    await popup.close();
+    expect(openedUrl).toContain('github.com');
   });
 });

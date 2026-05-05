@@ -3,7 +3,7 @@ import { test, expect } from '@playwright/test';
 test.describe('Smoke Tests', () => {
   test('page loads successfully', async ({ page }) => {
     await page.goto('/');
-    await expect(page).toHaveTitle(/GitHub Stars Graph/);
+    await expect(page).toHaveTitle(/GitHub Stars Explorer/);
   });
 
   test('SVG graph element exists', async ({ page }) => {
@@ -12,13 +12,14 @@ test.describe('Smoke Tests', () => {
     await expect(svg).toBeVisible();
   });
 
-  test('at least 100 bubble circles are rendered', async ({ page }) => {
+  test('small default sample bubble circles are rendered', async ({ page }) => {
     await page.goto('/');
     // Wait for simulation to settle
     await page.waitForTimeout(2000);
     const circles = await page.locator('.node');
     const count = await circles.count();
-    expect(count).toBeGreaterThanOrEqual(100);
+    expect(count).toBeGreaterThanOrEqual(30);
+    expect(count).toBeLessThanOrEqual(60);
   });
 
   test('stats display non-zero values', async ({ page }) => {

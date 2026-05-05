@@ -1,32 +1,38 @@
 import { test, expect } from '@playwright/test';
 
+async function openFilters(page) {
+  await page.locator('#toggle-filters-header').click();
+  await expect(page.locator('#controls-panel')).not.toHaveClass(/collapsed/);
+}
+
 test.describe('Filter Functionality', () => {
-  test('category filter reduces node count', async ({ page }) => {
+  test('category filter changes visible node count', async ({ page }) => {
     await page.goto('/');
     await page.waitForTimeout(1000);
+    await openFilters(page);
 
     // Get initial node count
     const initialCount = await page.locator('.node').count();
-    expect(initialCount).toBeGreaterThan(50);
+    expect(initialCount).toBeGreaterThan(20);
 
-    // Click on a category filter (e.g., "ai-ml")
-    const aiMlBtn = await page.locator('.filter-btn').filter({ hasText: /ai-ml|ml|ai/i }).first();
-    if (await aiMlBtn.isVisible()) {
-      await aiMlBtn.click();
+    const categoryBtn = await page.locator('#category-filters .filter-btn').filter({ hasText: /^LLM Apps/i }).first();
+    if (await categoryBtn.isVisible()) {
+      await categoryBtn.click();
       await page.waitForTimeout(500);
 
-      // Count nodes after filter
       const filteredCount = await page.locator('.node').count();
-      expect(filteredCount).toBeLessThan(initialCount);
+      expect(filteredCount).toBeGreaterThan(0);
+      expect(filteredCount).not.toBe(initialCount);
     }
   });
 
   test('stars filter works correctly', async ({ page }) => {
     await page.goto('/');
     await page.waitForTimeout(1000);
+    await openFilters(page);
 
     // Click on stars filter if available
-    const starsBtn = await page.locator('.filter-btn').filter({ hasText: /10k|stars/i }).first();
+    const starsBtn = await page.locator('#stars-filters .filter-btn').filter({ hasText: /10k/i }).first();
     if (await starsBtn.isVisible()) {
       await starsBtn.click();
       await page.waitForTimeout(500);
@@ -39,6 +45,7 @@ test.describe('Filter Functionality', () => {
   test('all category shows all repositories', async ({ page }) => {
     await page.goto('/');
     await page.waitForTimeout(1000);
+    await openFilters(page);
 
     // Apply a filter
     const anyFilter = await page.locator('.filter-btn').first();
@@ -49,7 +56,7 @@ test.describe('Filter Functionality', () => {
       const filteredCount = await page.locator('.node').count();
 
       // Click "All" to reset
-      const allBtn = await page.locator('.filter-btn').filter({ hasText: /all/i }).first();
+      const allBtn = await page.locator('#preset-filters .filter-btn').filter({ hasText: /^All$/i }).first();
       if (await allBtn.isVisible()) {
         await allBtn.click();
         await page.waitForTimeout(500);
@@ -63,6 +70,7 @@ test.describe('Filter Functionality', () => {
   test('filter button active state changes', async ({ page }) => {
     await page.goto('/');
     await page.waitForTimeout(1000);
+    await openFilters(page);
 
     const filterBtn = await page.locator('.filter-btn').first();
     const classBeforeClick = await filterBtn.getAttribute('class');

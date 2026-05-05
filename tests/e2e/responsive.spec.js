@@ -2,9 +2,9 @@ import { test, expect, devices } from '@playwright/test';
 
 test.describe('Responsive Design', () => {
   test('mobile: controls panel starts hidden', async ({ page }) => {
-    await page.goto('/', { waitUntil: 'networkidle' });
     // Simulate mobile viewport
     await page.setViewportSize({ width: 375, height: 667 });
+    await page.goto('/', { waitUntil: 'networkidle' });
     await page.waitForTimeout(1000);
 
     const controlsPanel = await page.locator('.controls-panel');
@@ -20,19 +20,18 @@ test.describe('Responsive Design', () => {
   });
 
   test('mobile: toggle opens/closes panel', async ({ page }) => {
-    await page.goto('/', { waitUntil: 'networkidle' });
     await page.setViewportSize({ width: 375, height: 667 });
+    await page.goto('/', { waitUntil: 'networkidle' });
     await page.waitForTimeout(1000);
 
-    const toggleBtn = await page.locator('.toggle-controls');
+    const toggleBtn = await page.locator('#toggle-filters-header');
     if (await toggleBtn.isVisible()) {
       // Click toggle to open
       await toggleBtn.click();
       await page.waitForTimeout(500);
 
       const controlsPanel = await page.locator('.controls-panel');
-      const hasMobileOpenClass = await controlsPanel.locator('.controls-panel.mobile-open').count();
-      expect(hasMobileOpenClass).toBeGreaterThan(0);
+      await expect(controlsPanel).toHaveClass(/mobile-open/);
 
       // Click toggle to close
       await toggleBtn.click();
@@ -40,7 +39,7 @@ test.describe('Responsive Design', () => {
     }
   });
 
-  test('desktop: sidebar visible', async ({ page }) => {
+  test('desktop: side panels start hidden and open from header', async ({ page }) => {
     await page.goto('/', { waitUntil: 'networkidle' });
     await page.setViewportSize({ width: 1920, height: 1080 });
     await page.waitForTimeout(1000);
@@ -48,9 +47,14 @@ test.describe('Responsive Design', () => {
     const controlsPanel = await page.locator('.controls-panel');
     const legendPanel = await page.locator('.legend-panel');
 
-    // On desktop, both should be visible
-    expect(await controlsPanel.isVisible()).toBe(true);
-    expect(await legendPanel.isVisible()).toBe(true);
+    await expect(controlsPanel).toHaveClass(/collapsed/);
+    await expect(legendPanel).toHaveClass(/collapsed/);
+
+    await page.locator('#toggle-filters-header').click();
+    await expect(controlsPanel).not.toHaveClass(/collapsed/);
+
+    await page.locator('#toggle-legend-header').click();
+    await expect(legendPanel).not.toHaveClass(/collapsed/);
   });
 
   test('tablet: proper layout', async ({ page }) => {
@@ -79,8 +83,8 @@ test.describe('Responsive Design', () => {
   });
 
   test('header is responsive on mobile', async ({ page }) => {
-    await page.goto('/', { waitUntil: 'networkidle' });
     await page.setViewportSize({ width: 375, height: 667 });
+    await page.goto('/', { waitUntil: 'networkidle' });
     await page.waitForTimeout(1000);
 
     const header = await page.locator('.app-header');
@@ -119,8 +123,8 @@ test.describe('Responsive Design', () => {
   });
 
   test('touch targets are large enough on mobile', async ({ page }) => {
-    await page.goto('/', { waitUntil: 'networkidle' });
     await page.setViewportSize({ width: 375, height: 667 });
+    await page.goto('/', { waitUntil: 'networkidle' });
     await page.waitForTimeout(1000);
 
     const filterBtns = await page.locator('.filter-btn');
@@ -133,5 +137,30 @@ test.describe('Responsive Design', () => {
       // Touch targets should be at least 44px
       expect(height).toBeGreaterThanOrEqual(44);
     }
+  });
+
+  test('iPhone viewport keeps sample graph below header', async ({ page }) => {
+    await page.setViewportSize({ width: 390, height: 844 });
+    await page.goto('/', { waitUntil: 'networkidle' });
+    await page.waitForTimeout(1200);
+
+    const nodeCount = await page.locator('.node').count();
+    expect(nodeCount).toBeGreaterThanOrEqual(24);
+    expect(nodeCount).toBeLessThanOrEqual(36);
+
+    const metrics = await page.evaluate(() => {
+      const header = document.querySelector('.app-header').getBoundingClientRect();
+      const nodes = [...document.querySelectorAll('.node')].map(node => node.getBoundingClientRect());
+      return {
+        headerBottom: header.bottom,
+        minNodeTop: Math.min(...nodes.map(rect => rect.top)),
+        viewportWidth: window.innerWidth,
+        overflowX: document.documentElement.scrollWidth > window.innerWidth
+      };
+    });
+
+    expect(metrics.viewportWidth).toBe(390);
+    expect(metrics.overflowX).toBe(false);
+    expect(metrics.minNodeTop).toBeGreaterThan(metrics.headerBottom - 4);
   });
 });

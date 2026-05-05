@@ -1,4 +1,4 @@
-// GitHub Stars Graph Visualization - Enhanced Implementation
+// Generic GitHub Stars Explorer - static GitHub Pages implementation
 class GitHubStarsGraph {
     constructor() {
         this.repositories = [];
@@ -10,6 +10,13 @@ class GitHubStarsGraph {
         this.height = window.innerHeight;
         this.dataLastUpdated = null; // ISO timestamp when data was last updated
         this.dataSource = null; // 'cached' (Actions JSON) | 'live' (API)
+        this.config = {
+            appName: 'GitHub Stars Explorer',
+            defaultUsername: 'niranjanxprt',
+            repositoryUrl: 'https://github.com/niranjanxprt/starred-repos-graph',
+            workflowUrl: 'https://github.com/niranjanxprt/starred-repos-graph/actions/workflows/update-data.yml',
+            staleHours: 24
+        };
         
         // Enhanced category definitions with weighted keyword scoring
         // Format: { keyword: weight } where higher weight = stronger indicator
@@ -112,7 +119,39 @@ class GitHubStarsGraph {
             'other': {}
         };
         
-        // True Obsidian-style palette: dark, muted, professional
+        this.categoryMeta = {
+            'ai-models': { label: 'AI Models', color: '#7c6db2' },
+            'ai-agents': { label: 'AI Agents', color: '#8a5fb0' },
+            'llm-apps': { label: 'LLM Apps', color: '#7161a8' },
+            'rag-search': { label: 'RAG/Search', color: '#5f73a6' },
+            'ai-learning': { label: 'AI Learning', color: '#8f7aaa' },
+            'frontend': { label: 'Frontend', color: '#6d9a85' },
+            'backend-api': { label: 'Backend/API', color: '#5f8f9b' },
+            'full-stack-frameworks': { label: 'Full-stack Frameworks', color: '#74927c' },
+            'developer-tools': { label: 'Developer Tools', color: '#7f8391' },
+            'productivity-apps': { label: 'Productivity Apps', color: '#8b7b8d' },
+            'self-hosted': { label: 'Self-hosted', color: '#7a8f79' },
+            'databases': { label: 'Databases', color: '#597c9d' },
+            'systems-low-level': { label: 'Systems/Low-level', color: '#897b6f' },
+            'career-interview': { label: 'Career/Interview', color: '#8c8870' },
+            'docs-reference': { label: 'Docs/Reference', color: '#879476' },
+            'cloud': { label: 'Cloud', color: '#9d7d5d' },
+            'devops': { label: 'DevOps', color: '#5d8d9d' },
+            'mobile': { label: 'Mobile', color: '#9d6d6d' },
+            'monitoring': { label: 'Monitoring', color: '#9d7d5d' },
+            'testing': { label: 'Testing', color: '#7d9d6d' },
+            'python': { label: 'Python', color: '#9d956d' },
+            'security': { label: 'Security', color: '#8d6d7d' },
+            'ui-ux': { label: 'UI/UX', color: '#9d7d8d' },
+            'blockchain': { label: 'Blockchain', color: '#8d7d6d' },
+            'game-dev': { label: 'Game Dev', color: '#9d8d7d' },
+            'mcp': { label: 'MCP', color: '#7d7d9d' },
+            'networking': { label: 'Networking', color: '#6d8d9d' },
+            'system-design': { label: 'System Design', color: '#7d9d8d' },
+            'other': { label: 'Other', color: '#7d7d8d' }
+        };
+
+        // Backward-compatible palette: old category ids plus the new display taxonomy.
         this.categoryColors = {
             'ai-ml': '#6d5d9a',        // Dark purple
             'cloud': '#9d7d5d',        // Dusty brown
@@ -135,12 +174,20 @@ class GitHubStarsGraph {
             'system-design': '#7d9d8d', // Blue-green
             'other': '#7d7d8d'         // Neutral gray
         };
+        Object.entries(this.categoryMeta).forEach(([category, meta]) => {
+            this.categoryColors[category] = meta.color;
+        });
 
         this.currentFilters = {
             search: '',
-            category: 'learning',
+            preset: 'sample',
+            category: 'all',
             language: 'all',
             stars: 'all'
+        };
+        this.viewOptions = {
+            showLabels: false,
+            showLinks: false
         };
 
         this.init();
@@ -151,15 +198,12 @@ class GitHubStarsGraph {
             this.setupEventListeners();
             await this.loadRepositories();
             this.setupGraph();
+            this.setupPresets();
             this.setupFilters();
             this.setupLegend();
-            // Apply default LEARNING filter
-            const learningBtn = document.querySelector('[data-category="learning"]');
-            if (learningBtn) {
-                this.filterByCategory('learning', learningBtn);
-            }
+            this.applyPreset('sample');
             this.hideLoading();
-            console.log('GitHub Stars Graph initialized successfully!');
+            console.log('GitHub Stars Explorer initialized successfully!');
         } catch (error) {
             console.error('Error initializing app:', error);
             this.showError(`Failed to initialize: ${error.message}`);
@@ -202,8 +246,14 @@ class GitHubStarsGraph {
         const refreshBtn = document.getElementById('refresh-now');
         if (refreshBtn) {
             refreshBtn.addEventListener('click', () => {
-                const workflowUrl = 'https://github.com/niranjanxprt/starred-repos-graph/actions/workflows/update-data.yml';
-                window.open(workflowUrl, '_blank');
+                window.open(this.config.workflowUrl, '_blank');
+            });
+        }
+
+        const exportBtn = document.getElementById('export-csv');
+        if (exportBtn) {
+            exportBtn.addEventListener('click', () => {
+                this.exportRepositoriesCsv();
             });
         }
 
@@ -215,8 +265,11 @@ class GitHubStarsGraph {
         const controlsPanel = document.getElementById('controls-panel');
         const legendPanel = document.getElementById('legend-panel');
         const backdrop = document.getElementById('panel-backdrop');
+        const toggleFiltersHeader = document.getElementById('toggle-filters-header');
+        const toggleLegendHeader = document.getElementById('toggle-legend-header');
 
         const openPanel = (panelToOpen, otherPanel, toggleBtn, otherToggleBtn) => {
+            panelToOpen.classList.remove('collapsed');
             panelToOpen.classList.add('mobile-open');
             otherPanel.classList.remove('mobile-open');
             if (backdrop) backdrop.classList.add('visible');
@@ -228,10 +281,13 @@ class GitHubStarsGraph {
                 otherToggleBtn.classList.remove('active-toggle');
                 otherToggleBtn.setAttribute('aria-expanded', 'false');
             }
-            const toggleFiltersHeader = document.getElementById('toggle-filters-header');
             if (toggleFiltersHeader && panelToOpen === controlsPanel) {
                 toggleFiltersHeader.classList.remove('collapsed');
                 toggleFiltersHeader.setAttribute('aria-expanded', 'true');
+            }
+            if (toggleLegendHeader && panelToOpen === legendPanel) {
+                toggleLegendHeader.classList.remove('collapsed');
+                toggleLegendHeader.setAttribute('aria-expanded', 'true');
             }
         };
 
@@ -247,8 +303,8 @@ class GitHubStarsGraph {
                 toggleLegend.classList.remove('active-toggle');
                 toggleLegend.setAttribute('aria-expanded', 'false');
             }
-            const toggleFiltersHeader = document.getElementById('toggle-filters-header');
             if (toggleFiltersHeader) toggleFiltersHeader.classList.add('collapsed');
+            if (toggleLegendHeader) toggleLegendHeader.classList.add('collapsed');
             this.hideTooltip();
         };
 
@@ -272,12 +328,35 @@ class GitHubStarsGraph {
             });
         }
 
-        if (closeControls) closeControls.addEventListener('click', closeAllPanels);
-        if (closeLegend) closeLegend.addEventListener('click', closeAllPanels);
+        if (closeControls) {
+            closeControls.addEventListener('click', () => {
+                if (window.innerWidth > 767) {
+                    controlsPanel.classList.add('collapsed');
+                    if (toggleFiltersHeader) {
+                        toggleFiltersHeader.classList.add('collapsed');
+                        toggleFiltersHeader.setAttribute('aria-expanded', 'false');
+                    }
+                } else {
+                    closeAllPanels();
+                }
+            });
+        }
+        if (closeLegend) {
+            closeLegend.addEventListener('click', () => {
+                if (window.innerWidth > 767) {
+                    legendPanel.classList.add('collapsed');
+                    if (toggleLegendHeader) {
+                        toggleLegendHeader.classList.add('collapsed');
+                        toggleLegendHeader.setAttribute('aria-expanded', 'false');
+                    }
+                } else {
+                    closeAllPanels();
+                }
+            });
+        }
         if (backdrop) backdrop.addEventListener('click', closeAllPanels);
 
         // Header Filters toggle - collapsible on all viewports
-        const toggleFiltersHeader = document.getElementById('toggle-filters-header');
         const filterToggleWrap = document.getElementById('filter-toggle-wrap');
         const showFiltersFab = document.getElementById('show-filters-fab');
         const hideFiltersBtn = document.getElementById('hide-filters-btn');
@@ -310,12 +389,8 @@ class GitHubStarsGraph {
         }
 
         if (toggleFiltersHeader && controlsPanel) {
-            if (window.innerWidth <= 767) {
-                toggleFiltersHeader.classList.add('collapsed');
-            } else {
-                toggleFiltersHeader.classList.remove('collapsed');
-                toggleFiltersHeader.setAttribute('aria-expanded', 'true');
-            }
+            toggleFiltersHeader.classList.add('collapsed');
+            toggleFiltersHeader.setAttribute('aria-expanded', 'false');
             toggleFiltersHeader.addEventListener('click', () => {
                 const isMobile = window.innerWidth <= 767;
                 if (isMobile) {
@@ -333,6 +408,75 @@ class GitHubStarsGraph {
             });
         }
 
+        if (toggleLegendHeader && legendPanel) {
+            toggleLegendHeader.classList.add('collapsed');
+            toggleLegendHeader.setAttribute('aria-expanded', 'false');
+            toggleLegendHeader.addEventListener('click', () => {
+                const isMobile = window.innerWidth <= 767;
+                if (isMobile) {
+                    if (legendPanel.classList.contains('mobile-open')) {
+                        closeAllPanels();
+                    } else {
+                        openPanel(legendPanel, controlsPanel, toggleLegend, toggleControls);
+                    }
+                } else {
+                    legendPanel.classList.toggle('collapsed');
+                    const collapsed = legendPanel.classList.contains('collapsed');
+                    toggleLegendHeader.classList.toggle('collapsed', collapsed);
+                    toggleLegendHeader.setAttribute('aria-expanded', !collapsed);
+                }
+            });
+        }
+
+        const labelsBtn = document.getElementById('toggle-labels');
+        if (labelsBtn) {
+            labelsBtn.addEventListener('click', () => {
+                this.viewOptions.showLabels = !this.viewOptions.showLabels;
+                labelsBtn.classList.toggle('active-toggle', this.viewOptions.showLabels);
+                labelsBtn.setAttribute('aria-pressed', String(this.viewOptions.showLabels));
+                this.updateVisualization();
+            });
+        }
+
+        const linesBtn = document.getElementById('toggle-lines');
+        if (linesBtn) {
+            linesBtn.addEventListener('click', () => {
+                this.viewOptions.showLinks = !this.viewOptions.showLinks;
+                linesBtn.classList.toggle('active-toggle', this.viewOptions.showLinks);
+                linesBtn.setAttribute('aria-pressed', String(this.viewOptions.showLinks));
+                this.updateVisualization();
+            });
+        }
+
+        const calmBtn = document.getElementById('calm-view');
+        if (calmBtn) {
+            calmBtn.addEventListener('click', () => {
+                controlsPanel.classList.add('collapsed');
+                controlsPanel.classList.remove('mobile-open');
+                legendPanel.classList.add('collapsed');
+                legendPanel.classList.remove('mobile-open');
+                if (backdrop) backdrop.classList.remove('visible');
+                if (toggleControls) {
+                    toggleControls.classList.remove('active-toggle');
+                    toggleControls.setAttribute('aria-expanded', 'false');
+                }
+                if (toggleLegend) {
+                    toggleLegend.classList.remove('active-toggle');
+                    toggleLegend.setAttribute('aria-expanded', 'false');
+                }
+                if (toggleFiltersHeader) {
+                    toggleFiltersHeader.classList.add('collapsed');
+                    toggleFiltersHeader.setAttribute('aria-expanded', 'false');
+                }
+                if (toggleLegendHeader) {
+                    toggleLegendHeader.classList.add('collapsed');
+                    toggleLegendHeader.setAttribute('aria-expanded', 'false');
+                }
+                this.resetFilters();
+                this.hideTooltip();
+            });
+        }
+
         // Swipe-down to close bottom sheet panels
         this.setupSwipeToClose(controlsPanel, closeAllPanels);
         this.setupSwipeToClose(legendPanel, closeAllPanels);
@@ -342,7 +486,7 @@ class GitHubStarsGraph {
             if (window.innerWidth <= 767) {
                 const isClickInsideControls = controlsPanel.contains(e.target);
                 const isClickInsideLegend = legendPanel.contains(e.target);
-                const isToggleButton = e.target.closest('.mobile-toggle, #toggle-filters-header, #show-filters-fab');
+                const isToggleButton = e.target.closest('.mobile-toggle, #toggle-filters-header, #toggle-legend-header, #show-filters-fab');
                 if (!isClickInsideControls && !isClickInsideLegend && !isToggleButton) {
                     closeAllPanels();
                 }
@@ -375,20 +519,23 @@ class GitHubStarsGraph {
         document.querySelectorAll('.filter-btn, .refresh-btn, .mobile-toggle, .filter-toggle-btn, .hide-filters-btn, .show-filters-fab').forEach(btn => {
             this.attachRipple(btn);
         });
+
+        this.updateLayoutMetrics();
     }
     
     async loadRepositories() {
-        const username = 'niranjanxprt';
+        const params = new URLSearchParams(window.location.search);
+        const username = params.get('user') || this.config.defaultUsername;
         
         try {
             this.updateProgress('Connecting to data source...');
             
             // Try to load from data file first (if GitHub Actions has run)
             try {
-                const response = await fetch('./data/repositories.json');
+                const response = await fetch(`./data/repositories.json?v=${Date.now()}`, { cache: 'no-store' });
                 if (response.ok) {
                     const data = await response.json();
-                    this.repositories = data.repositories || [];
+                    this.repositories = (data.repositories || []).map(repo => this.normalizeRepository(repo));
                     this.dataLastUpdated = data.lastUpdated || null;
                     this.dataSource = 'cached';
                     console.log(`Loaded ${this.repositories.length} repositories from data file`);
@@ -437,7 +584,7 @@ class GitHubStarsGraph {
                         updatedAt: repo.updated_at,
                         topics: repo.topics || [],
                         category: this.categorizeRepo(repo)
-                    }));
+                    })).map(repo => this.normalizeRepository(repo));
                     
                     this.repositories = this.repositories.concat(processedRepos);
                     
@@ -474,6 +621,94 @@ class GitHubStarsGraph {
             this.repositories = [];
             this.updateStats();
         }
+    }
+
+    normalizeRepository(repo) {
+        const secondaryCategories = Array.isArray(repo.secondaryCategories) && repo.secondaryCategories.length > 0
+            ? repo.secondaryCategories
+            : this.deriveSecondaryCategories(repo);
+        const displayCategory = repo.displayCategory || secondaryCategories[0] || this.getDisplayCategory(repo);
+
+        return {
+            ...repo,
+            category: repo.category || 'other',
+            secondaryCategories,
+            displayCategory,
+            categoryScore: Number.isFinite(repo.categoryScore) ? repo.categoryScore : this.estimateCategoryScore(repo),
+            _searchScore: 0
+        };
+    }
+
+    getRepoCategory(repo) {
+        return repo.displayCategory || repo.category || 'other';
+    }
+
+    getCategoryLabel(category) {
+        return this.categoryMeta[category]?.label || String(category || 'other').replace(/-/g, ' ').toUpperCase();
+    }
+
+    getDisplayCategory(repo) {
+        return this.deriveSecondaryCategories(repo)[0] || repo.category || 'other';
+    }
+
+    deriveSecondaryCategories(repo) {
+        const text = `${repo.name || ''} ${repo.fullName || ''} ${repo.description || ''} ${(repo.topics || []).join(' ')} ${repo.language || ''}`.toLowerCase();
+        const primary = repo.category || 'other';
+        const has = (...needles) => needles.some(needle => text.includes(needle));
+        const categories = [];
+        const add = category => {
+            if (category && !categories.includes(category)) categories.push(category);
+        };
+
+        if (has('agent', 'agentic', 'autogen', 'crew', 'swarm') && has('ai', 'llm', 'gpt', 'claude', 'openai')) add('ai-agents');
+        if (has('rag', 'embedding', 'vector', 'similarity search', 'semantic search', 'faiss', 'qdrant', 'chroma', 'weaviate')) add('rag-search');
+        if (primary === 'ai-ml' && has('course', 'tutorial', 'beginner', 'from-scratch', 'cookbook', 'guide', 'awesome', 'lesson', 'learning')) add('ai-learning');
+        if (primary === 'ai-ml' && has('chatbot', 'assistant', 'webui', 'open-webui', 'dify', 'langflow', 'comfyui', 'ollama', 'ui', 'app')) add('llm-apps');
+        if (primary === 'ai-ml') add('ai-models');
+
+        if (has('react', 'vue', 'angular', 'svelte', 'nextjs', 'next.js', 'tailwind', 'css', 'html', 'frontend', 'front-end')) add('frontend');
+        if (has('api', 'graphql', 'rest', 'openapi', 'swagger', 'grpc', 'fastapi', 'flask', 'django', 'express', 'nestjs', 'server')) add('backend-api');
+        if (has('framework', 'fullstack', 'full-stack', 'laravel', 'rails', 'next.js', 'nextjs', 'remix', 'django', 'supabase', 'appwrite', 'firebase')) add('full-stack-frameworks');
+
+        if (has('self-hosted', 'selfhosted', 'homelab', 'hosting', 'docker compose')) add('self-hosted');
+        if (has('postgres', 'postgresql', 'mysql', 'sqlite', 'mongodb', 'redis', 'database', 'dbms', 'elasticsearch')) add('databases');
+        if (has('cli', 'terminal', 'shell', 'vscode', 'neovim', 'developer-tool', 'developer tools', 'code-review', 'extension', 'plugin')) add('developer-tools');
+        if (has('productivity', 'obsidian', 'notes', 'note-taking', 'file-manager', 'resume', 'editor')) add('productivity-apps');
+        if (has('interview', 'career', 'hiring', 'roadmap', 'coding-interview', 'job')) add('career-interview');
+        if (has('awesome', 'documentation', 'docs', 'reference', 'book', 'cheat-sheet', 'cheatsheet', 'resources', 'list', 'collection')) add('docs-reference');
+        if (has('kernel', 'operating-system', 'compiler', 'runtime', 'zig', 'rust', 'c++', 'low-level', 'embedded', 'wasm')) add('systems-low-level');
+
+        const fallbackMap = {
+            'cloud': 'cloud',
+            'devops': 'devops',
+            'mobile': 'mobile',
+            'monitoring': 'monitoring',
+            'testing': 'testing',
+            'python': 'python',
+            'security': 'security',
+            'ui-ux': 'ui-ux',
+            'blockchain': 'blockchain',
+            'game-dev': 'game-dev',
+            'mcp': 'mcp',
+            'networking': 'networking',
+            'system-design': 'system-design',
+            'ai-ml': 'ai-models',
+            'data': 'databases',
+            'api': 'backend-api',
+            'tools': 'developer-tools',
+            'web-dev': 'frontend',
+            'learning': 'docs-reference'
+        };
+        add(fallbackMap[primary] || primary || 'other');
+
+        return categories.slice(0, 4);
+    }
+
+    estimateCategoryScore(repo) {
+        const category = repo.category || 'other';
+        if (category === 'other') return 0;
+        const topics = Array.isArray(repo.topics) ? repo.topics.length : 0;
+        return Math.min(100, 20 + topics * 4 + Math.log10((repo.stars || 0) + 1) * 6);
     }
     
     updateProgress(message) {
@@ -685,10 +920,10 @@ class GitHubStarsGraph {
             .force('center', d3.forceCenter(this.width / 2, this.height / 2).strength(0.08))
             .force('collision', d3.forceCollide().radius(collideRadius).strength(0.95))
             // Weaker category clustering - don't force too hard
-            .force('x', d3.forceX().x(d => this.getCategoryPosition(d.category).x).strength(0.05))
-            .force('y', d3.forceY().y(d => this.getCategoryPosition(d.category).y).strength(0.05))
-            .alphaDecay(0.015)
-            .velocityDecay(0.4);
+            .force('x', d3.forceX().x(d => this.getCategoryPosition(this.getRepoCategory(d)).x).strength(0.05))
+            .force('y', d3.forceY().y(d => this.getCategoryPosition(this.getRepoCategory(d)).y).strength(0.05))
+            .alphaDecay(0.04)
+            .velocityDecay(0.48);
         
         this.filteredRepositories = [...this.repositories];
         this.updateVisualization();
@@ -704,14 +939,29 @@ class GitHubStarsGraph {
         const positions = {
             // Corner positions (major categories)
             'ai-ml': { x: this.width * 0.15, y: this.height * 0.15 },     // Top-left
+            'ai-models': { x: this.width * 0.15, y: this.height * 0.15 },
+            'ai-agents': { x: this.width * 0.32, y: this.height * 0.2 },
+            'llm-apps': { x: this.width * 0.18, y: this.height * 0.38 },
+            'rag-search': { x: this.width * 0.36, y: this.height * 0.36 },
+            'ai-learning': { x: this.width * 0.48, y: this.height * 0.22 },
             'web-dev': { x: this.width * 0.85, y: this.height * 0.15 },   // Top-right
+            'frontend': { x: this.width * 0.85, y: this.height * 0.15 },
+            'backend-api': { x: this.width * 0.82, y: this.height * 0.34 },
+            'full-stack-frameworks': { x: this.width * 0.68, y: this.height * 0.2 },
             'cloud': { x: this.width * 0.15, y: this.height * 0.85 },     // Bottom-left
             'data': { x: this.width * 0.85, y: this.height * 0.85 },      // Bottom-right
+            'databases': { x: this.width * 0.85, y: this.height * 0.85 },
 
             // Edge centers (infrastructure & tools)
             'devops': { x: this.width * 0.5, y: this.height * 0.1 },      // Top-center
             'mobile': { x: this.width * 0.1, y: this.height * 0.5 },      // Left-center
             'tools': { x: this.width * 0.9, y: this.height * 0.5 },       // Right-center
+            'developer-tools': { x: this.width * 0.9, y: this.height * 0.5 },
+            'productivity-apps': { x: this.width * 0.74, y: this.height * 0.55 },
+            'self-hosted': { x: this.width * 0.3, y: this.height * 0.82 },
+            'systems-low-level': { x: this.width * 0.62, y: this.height * 0.82 },
+            'career-interview': { x: this.width * 0.5, y: this.height * 0.68 },
+            'docs-reference': { x: this.width * 0.46, y: this.height * 0.52 },
             'python': { x: this.width * 0.5, y: this.height * 0.9 },      // Bottom-center
 
             // Inner ring (specialized categories)
@@ -775,25 +1025,28 @@ class GitHubStarsGraph {
     }
 
     getNodeRadius(d) {
-        // Tiered radius formula for dramatic visual hierarchy
         const stars = d.stars || 1;
-        const base = Math.sqrt(stars) * 0.28 + 5;
-        if (stars >= 100000) return Math.min(55, base);
-        if (stars >= 10000)  return Math.min(40, base);
-        if (stars >= 1000)   return Math.min(28, base);
-        return Math.min(15, Math.max(5, base));
+        const isMobile = this.isMobileViewport();
+        const base = Math.log10(stars + 1) * (isMobile ? 4.2 : 6) + (isMobile ? 6 : 7);
+        if (stars >= 100000) return Math.min(isMobile ? 24 : 38, base);
+        if (stars >= 10000)  return Math.min(isMobile ? 20 : 30, base);
+        if (stars >= 1000)   return Math.min(isMobile ? 16 : 22, base);
+        return Math.min(isMobile ? 12 : 16, Math.max(isMobile ? 7 : 6, base));
     }
     
     setupFilters() {
         const categoryContainer = document.getElementById('category-filters');
         if (categoryContainer) {
             categoryContainer.innerHTML = '';
-            const categories = ['all', ...Object.keys(this.categories)];
+            const categoryCounts = this.getDisplayCategoryCounts();
+            const categories = ['all', ...Object.keys(this.categoryMeta)
+                .filter(category => categoryCounts[category])
+                .sort((a, b) => categoryCounts[b] - categoryCounts[a])];
 
             categories.forEach(category => {
                 const btn = document.createElement('button');
                 btn.className = 'filter-btn' + (category === 'all' ? ' active' : '');
-                btn.textContent = category.replace('-', ' ').toUpperCase();
+                btn.textContent = category === 'all' ? 'All' : this.getCategoryLabel(category);
                 btn.dataset.category = category;
                 btn.addEventListener('click', (e) => this.filterByCategory(category, e.currentTarget));
                 this.attachRipple(btn);
@@ -835,16 +1088,20 @@ class GitHubStarsGraph {
             });
         }
     }
+
+    setupPresets() {
+        document.querySelectorAll('#preset-filters .filter-btn').forEach(btn => {
+            btn.classList.toggle('active', btn.dataset.preset === this.currentFilters.preset);
+            btn.addEventListener('click', (e) => this.applyPreset(e.currentTarget.dataset.preset, e.currentTarget));
+            this.attachRipple(btn);
+        });
+    }
     
     setupLegend() {
         const legendContainer = document.getElementById('legend-items');
         if (legendContainer) {
-            const categoryCounts = {};
-            
-            // Count repositories per category
-            this.repositories.forEach(repo => {
-                categoryCounts[repo.category] = (categoryCounts[repo.category] || 0) + 1;
-            });
+            legendContainer.innerHTML = '';
+            const categoryCounts = this.getDisplayCategoryCounts();
             
             // Create legend items sorted by count
             Object.entries(categoryCounts)
@@ -858,7 +1115,7 @@ class GitHubStarsGraph {
                     color.style.backgroundColor = this.categoryColors[category] || '#6366F1';
                     
                     const label = document.createElement('span');
-                    label.textContent = `${category.replace('-', ' ').toUpperCase()} (${count})`;
+                    label.textContent = `${this.getCategoryLabel(category)} (${count})`;
                     
                     item.appendChild(color);
                     item.appendChild(label);
@@ -879,6 +1136,24 @@ class GitHubStarsGraph {
                     legendContainer.appendChild(item);
                 });
         }
+    }
+
+    getDisplayCategoryCounts() {
+        const categoryCounts = {};
+        this.repositories.forEach(repo => {
+            const category = this.getRepoCategory(repo);
+            categoryCounts[category] = (categoryCounts[category] || 0) + 1;
+        });
+        return categoryCounts;
+    }
+
+    applyPreset(preset = 'sample', button) {
+        this.currentFilters.preset = preset;
+        document.querySelectorAll('#preset-filters .filter-btn').forEach(btn => {
+            btn.classList.toggle('active', btn.dataset.preset === preset);
+        });
+        if (button) button.classList.add('active');
+        this.applyFilters();
     }
     
     filterByCategory(category, button) {
@@ -908,16 +1183,20 @@ class GitHubStarsGraph {
     }
     
     applyFilters() {
-        this.filteredRepositories = this.repositories.filter(repo => {
+        let results = this.repositories.filter(repo => {
             // Enhanced search filter - searches in name, description, topics, language, owner
             if (this.currentFilters.search) {
-                const topics = (repo.topics || []).join(' ').toLowerCase();
-                const searchText = `${repo.name} ${repo.description} ${repo.language} ${repo.fullName} ${repo.owner} ${topics}`.toLowerCase();
-                if (!searchText.includes(this.currentFilters.search)) return false;
+                const score = this.getSearchScore(repo, this.currentFilters.search);
+                repo._searchScore = score;
+                if (score <= 0) return false;
+            } else {
+                repo._searchScore = 0;
             }
             
+            if (!this.matchesPreset(repo)) return false;
+
             // Category filter
-            if (this.currentFilters.category !== 'all' && repo.category !== this.currentFilters.category) {
+            if (this.currentFilters.category !== 'all' && this.getRepoCategory(repo) !== this.currentFilters.category) {
                 return false;
             }
             
@@ -934,9 +1213,87 @@ class GitHubStarsGraph {
             
             return true;
         });
+
+        if (this.currentFilters.search) {
+            results = results.sort((a, b) => (b._searchScore - a._searchScore) || ((b.stars || 0) - (a.stars || 0)));
+        } else if (this.currentFilters.preset === 'sample') {
+            results = this.pickBalancedSample(results, this.isMobileViewport() ? 32 : 48);
+        } else if (this.currentFilters.preset === 'curated') {
+            results = results
+                .sort((a, b) => (b.stars || 0) - (a.stars || 0))
+                .slice(0, this.isMobileViewport() ? 90 : 140);
+        } else if (this.currentFilters.preset === 'popular') {
+            results = results.sort((a, b) => (b.stars || 0) - (a.stars || 0));
+        }
+
+        this.filteredRepositories = results;
         
         this.updateVisualization();
         this.updateStats();
+        this.updateResultList();
+    }
+
+    matchesPreset(repo) {
+        const category = this.getRepoCategory(repo);
+        const preset = this.currentFilters.preset;
+        if (preset === 'all') return true;
+        if (preset === 'popular') return (repo.stars || 0) >= 50000;
+        if (preset === 'learning') return ['ai-learning', 'career-interview', 'docs-reference', 'system-design'].includes(category);
+        if (preset === 'ai') return ['ai-models', 'ai-agents', 'llm-apps', 'rag-search', 'ai-learning', 'mcp'].includes(category);
+        if (preset === 'sample') return this.getRepoCategory(repo) !== 'other';
+        if (preset === 'curated') return this.getRepoCategory(repo) !== 'other';
+        return true;
+    }
+
+    pickBalancedSample(repositories, limit) {
+        const sorted = [...repositories].sort((a, b) => (b.stars || 0) - (a.stars || 0));
+        const byCategory = d3.group(sorted, d => this.getRepoCategory(d));
+        const selected = [];
+        const seen = new Set();
+
+        [...byCategory.entries()]
+            .sort(([, a], [, b]) => b.length - a.length)
+            .slice(0, this.isMobileViewport() ? 6 : 8)
+            .forEach(([, repos]) => {
+                repos.slice(0, this.isMobileViewport() ? 4 : 5).forEach(repo => {
+                    if (!seen.has(repo.id) && selected.length < limit) {
+                        seen.add(repo.id);
+                        selected.push(repo);
+                    }
+                });
+            });
+
+        for (const repo of sorted) {
+            if (selected.length >= limit) break;
+            if (!seen.has(repo.id)) {
+                seen.add(repo.id);
+                selected.push(repo);
+            }
+        }
+
+        return selected.sort((a, b) => (b.stars || 0) - (a.stars || 0));
+    }
+
+    getSearchScore(repo, query) {
+        const q = query.trim().toLowerCase();
+        if (!q) return 1;
+        let score = 0;
+        const checks = [
+            [repo.name, 20],
+            [repo.fullName, 18],
+            [repo.owner, 10],
+            [this.getCategoryLabel(this.getRepoCategory(repo)), 10],
+            [repo.language, 8],
+            [(repo.topics || []).join(' '), 8],
+            [repo.description, 5]
+        ];
+        checks.forEach(([value, weight]) => {
+            const text = String(value || '').toLowerCase();
+            if (text === q) score += weight * 3;
+            else if (text.startsWith(q)) score += weight * 2;
+            else if (text.includes(q)) score += weight;
+        });
+        return score;
     }
     
     updateVisualization() {
@@ -947,8 +1304,7 @@ class GitHubStarsGraph {
             return;
         }
         
-        // Create intelligent links between repositories
-        const links = this.createIntelligentLinks();
+        const links = this.viewOptions.showLinks ? this.createIntelligentLinks() : [];
         
         const g = this.svg.select('.main-group');
         
@@ -962,8 +1318,8 @@ class GitHubStarsGraph {
             .enter().append('line')
             .attr('class', 'link')
             .attr('stroke', '#ffffff')
-            .attr('stroke-opacity', 0.15)
-            .attr('stroke-width', 1.5);
+            .attr('stroke-opacity', this.currentFilters.preset === 'sample' ? 0.08 : 0.11)
+            .attr('stroke-width', this.currentFilters.preset === 'sample' ? 1 : 1.2);
         
         // Identify top 10 repos by stars
         const top10Repos = [...this.filteredRepositories]
@@ -984,7 +1340,7 @@ class GitHubStarsGraph {
                 return classes.join(' ');
             })
             .attr('r', d => this.getNodeRadius(d))
-            .attr('fill', d => this.categoryColors[d.category] || '#7d7d8d')
+            .attr('fill', d => this.categoryColors[this.getRepoCategory(d)] || '#7d7d8d')
             .attr('stroke', '#ffffff')
             .attr('stroke-width', d => {
                 const r = this.getNodeRadius(d);
@@ -1053,15 +1409,7 @@ class GitHubStarsGraph {
                 }
             }, { passive: true });
 
-        // Balanced label visibility: enough for context, not too much clutter
-        const maxLabels = this.isMobileViewport() ? 40 : 75;
-        const minRadiusForLabel = 18;  // Show labels on moderately-sized bubbles
-        const topByStars = [...this.filteredRepositories]
-            .sort((a, b) => (b.stars || 0) - (a.stars || 0))
-            .slice(0, maxLabels);
-        const bigBubbles = this.filteredRepositories.filter(d => this.getNodeRadius(d) >= minRadiusForLabel);
-        // Combine: take top repos, then add any big bubbles not already included
-        const labelData = [...new Map([...topByStars, ...bigBubbles].map(d => [d.id, d])).values()];
+        const labelData = this.viewOptions.showLabels ? this.getVisibleLabelData() : [];
         const label = g.append('g')
             .selectAll('text')
             .data(labelData)
@@ -1086,14 +1434,32 @@ class GitHubStarsGraph {
             .style('text-anchor', 'middle')
             .style('pointer-events', 'none')
             .style('text-shadow', '2px 2px 4px rgba(0,0,0,0.8)');
+
+        this.renderClusterLabels(g);
         
         // Update simulation
         this.simulation.nodes(this.filteredRepositories);
         this.simulation.force('link').links(links);
-        this.simulation.alpha(0.6).restart();
+        this.simulation.alpha(0.55).restart();
+        clearTimeout(this._settleTimer);
+        this._settleTimer = setTimeout(() => {
+            if (this.simulation) this.simulation.alphaTarget(0).stop();
+        }, 900);
         
         // Enhanced animation tick function
         this.simulation.on('tick', () => {
+            const edgePad = window.innerWidth >= 768 ? 0 : 18;
+            const minX = window.innerWidth >= 768 ? 360 : edgePad;
+            const maxX = window.innerWidth >= 768 ? this.width - 300 : this.width - edgePad;
+            const headerHeight = this.getHeaderHeight();
+            const minY = window.innerWidth >= 768 ? headerHeight + 24 : headerHeight + 18;
+            const maxY = this.height - edgePad;
+            this.filteredRepositories.forEach(d => {
+                const r = this.getNodeRadius(d);
+                d.x = Math.max(minX + r, Math.min(maxX - r, d.x || this.width / 2));
+                d.y = Math.max(minY + r, Math.min(maxY - r, d.y || this.height / 2));
+            });
+
             link
                 .attr('x1', d => d.source.x)
                 .attr('y1', d => d.source.y)
@@ -1109,26 +1475,67 @@ class GitHubStarsGraph {
                 .attr('y', d => d.y);
         });
     }
+
+    renderClusterLabels(g) {
+        const counts = {};
+        this.filteredRepositories.forEach(repo => {
+            const category = this.getRepoCategory(repo);
+            counts[category] = (counts[category] || 0) + 1;
+        });
+
+        const clusters = Object.entries(counts)
+            .sort(([, a], [, b]) => b - a)
+            .slice(0, this.currentFilters.preset === 'sample' ? (this.isMobileViewport() ? 3 : 5) : (this.isMobileViewport() ? 4 : 7))
+            .map(([category, count]) => ({
+                category,
+                count,
+                ...this.getCategoryPosition(category)
+            }));
+
+        const clusterGroup = g.append('g').attr('class', 'cluster-labels');
+        clusterGroup.selectAll('text')
+            .data(clusters)
+            .enter().append('text')
+            .attr('class', 'cluster-label')
+            .attr('x', d => d.x)
+            .attr('y', d => d.y)
+            .attr('fill', d => this.categoryColors[d.category] || '#cbd5e1')
+            .attr('text-anchor', 'middle')
+            .text(d => `${this.getCategoryLabel(d.category)} (${d.count})`);
+    }
+
+    getVisibleLabelData() {
+        const maxLabels = this.currentFilters.preset === 'sample'
+            ? (this.isMobileViewport() ? 6 : 10)
+            : (this.isMobileViewport() ? 6 : 14);
+        const minRadiusForLabel = this.currentFilters.preset === 'sample' ? 28 : 30;
+        const topByStars = [...this.filteredRepositories]
+            .sort((a, b) => (b.stars || 0) - (a.stars || 0))
+            .slice(0, maxLabels);
+        const bigBubbles = this.filteredRepositories.filter(d => this.getNodeRadius(d) >= minRadiusForLabel);
+        return [...new Map([...topByStars, ...bigBubbles].map(d => [d.id, d])).values()]
+            .slice(0, maxLabels);
+    }
     
     createIntelligentLinks() {
         const links = [];
         
         // Group repositories by category for better clustering
-        const categoryGroups = d3.group(this.filteredRepositories, d => d.category);
+        const categoryGroups = d3.group(this.filteredRepositories, d => this.getRepoCategory(d));
         
         // Create links within categories (for clustering)
         categoryGroups.forEach(repos => {
             // Sort by stars to connect popular repos
             repos.sort((a, b) => b.stars - a.stars);
-            
-            for (let i = 0; i < repos.length && i < 20; i++) {
-                for (let j = i + 1; j < Math.min(repos.length, i + 4); j++) {
-                    if (Math.random() > 0.6) { // Add some randomness to avoid over-connection
-                        links.push({
-                            source: repos[i].id,
-                            target: repos[j].id
-                        });
-                    }
+
+            const maxSourceNodes = this.currentFilters.preset === 'sample' ? 6 : 12;
+            const neighbors = this.currentFilters.preset === 'sample' ? 1 : 2;
+            for (let i = 0; i < repos.length && i < maxSourceNodes; i++) {
+                for (let j = i + 1; j < Math.min(repos.length, i + 1 + neighbors); j++) {
+                    links.push({
+                        source: repos[i].id,
+                        target: repos[j].id
+                    });
                 }
             }
         });
@@ -1137,17 +1544,13 @@ class GitHubStarsGraph {
         const popularRepos = this.filteredRepositories
             .filter(repo => repo.stars > 50000)
             .sort((a, b) => b.stars - a.stars)
-            .slice(0, 10);
+            .slice(0, this.currentFilters.preset === 'sample' ? 5 : 8);
         
-        for (let i = 0; i < popularRepos.length; i++) {
-            for (let j = i + 1; j < popularRepos.length; j++) {
-                if (Math.random() > 0.8) {
-                    links.push({
-                        source: popularRepos[i].id,
-                        target: popularRepos[j].id
-                    });
-                }
-            }
+        for (let i = 0; i < popularRepos.length - 1; i++) {
+            links.push({
+                source: popularRepos[i].id,
+                target: popularRepos[i + 1].id
+            });
         }
         
         return links;
@@ -1213,7 +1616,7 @@ class GitHubStarsGraph {
             .html(`
                 <div class=\"tooltip-title\">${d.name || d.fullName || 'Unknown'}</div>
                 <div class=\"tooltip-owner\">by ${d.owner || '—'}</div>
-                <div class=\"tooltip-category\">${d.category.replace('-', ' ').toUpperCase()}</div>
+                <div class=\"tooltip-category\">${this.getCategoryLabel(this.getRepoCategory(d))}</div>
                 <div class=\"tooltip-meta\">
                     <div class=\"tooltip-stat\">${svgStar} ${d.stars.toLocaleString()}</div>
                     <div class=\"tooltip-stat\">${svgFork} ${d.forks.toLocaleString()}</div>
@@ -1255,17 +1658,17 @@ class GitHubStarsGraph {
         const totalEl = document.getElementById('total-repos');
         const visibleEl = document.getElementById('visible-repos');
 
-        this.animateCounter(totalEl, this.repositories.length);
-        this.animateCounter(visibleEl, this.filteredRepositories.length);
+        this.animateCounter(totalEl, this.repositories.length, true);
+        this.animateCounter(visibleEl, this.filteredRepositories.length, true);
 
         const count = this.repositories.length;
-        document.title = `GitHub Stars Graph - ${count}+ Repositories`;
+        document.title = `${this.config.appName} - ${count.toLocaleString()} starred repositories`;
 
         const titleEl = document.querySelector('.title');
         if (titleEl) {
             const starSvg = titleEl.querySelector('.icon');
             const svgHtml = starSvg ? starSvg.outerHTML : '';
-            titleEl.innerHTML = `${svgHtml} GitHub Stars Graph <span class="title-count">${count}+</span>`;
+            titleEl.innerHTML = `${svgHtml} ${this.config.appName} <span class="title-count">${count.toLocaleString()} repos</span>`;
         }
 
         const updatedEl = document.getElementById('last-updated');
@@ -1279,16 +1682,108 @@ class GitHubStarsGraph {
         // data source note
         const noteEl = document.getElementById('data-source-note');
         if (noteEl) {
-            noteEl.textContent = this.dataSource === 'live' ? 'Live (API)' : 'Cached (Actions)';
+            noteEl.textContent = this.dataSource === 'live' ? 'Live API' : 'Actions cache';
         }
+
+        const syncEl = document.getElementById('sync-status');
+        const staleEl = document.getElementById('stale-warning');
+        const ageHours = (Date.now() - ts.getTime()) / (1000 * 60 * 60);
+        const isStale = ageHours > this.config.staleHours;
+        if (syncEl) {
+            syncEl.textContent = isStale ? 'Stale' : 'Fresh';
+            syncEl.classList.toggle('stale', isStale);
+        }
+        if (staleEl) {
+            staleEl.hidden = !isStale;
+            staleEl.textContent = `Data is ${Math.round(ageHours)}h old. View the update workflow for sync details.`;
+        }
+        this.updateLayoutMetrics();
     }
 
-    animateCounter(el, target) {
+    updateResultList() {
+        const container = document.getElementById('search-results');
+        const countEl = document.getElementById('result-count-label');
+        if (!container) return;
+
+        const topResults = [...this.filteredRepositories]
+            .sort((a, b) => (b._searchScore - a._searchScore) || ((b.stars || 0) - (a.stars || 0)))
+            .slice(0, 8);
+
+        if (countEl) {
+            countEl.textContent = `${this.filteredRepositories.length.toLocaleString()} matching`;
+        }
+
+        container.innerHTML = topResults.map(repo => `
+            <a class="result-item" href="${repo.url}" target="_blank" rel="noopener">
+                <span class="result-name">${repo.fullName || repo.name}</span>
+                <span class="result-meta">${this.getCategoryLabel(this.getRepoCategory(repo))} · ${(repo.stars || 0).toLocaleString()} stars</span>
+            </a>
+        `).join('');
+    }
+
+    exportRepositoriesCsv() {
+        if (!this.repositories.length) return;
+
+        const columns = [
+            'name',
+            'fullName',
+            'owner',
+            'url',
+            'description',
+            'primaryCategory',
+            'displayCategory',
+            'secondaryCategories',
+            'language',
+            'stars',
+            'forks',
+            'topics',
+            'lastUpdated'
+        ];
+
+        const rows = this.repositories.map(repo => ({
+            name: repo.name || '',
+            fullName: repo.fullName || '',
+            owner: repo.owner || '',
+            url: repo.url || '',
+            description: repo.description || '',
+            primaryCategory: repo.category || '',
+            displayCategory: this.getRepoCategory(repo),
+            secondaryCategories: (repo.secondaryCategories || []).join('|'),
+            language: repo.language || '',
+            stars: repo.stars || 0,
+            forks: repo.forks || 0,
+            topics: (repo.topics || []).join('|'),
+            lastUpdated: this.dataLastUpdated || ''
+        }));
+
+        const csv = [
+            columns.join(','),
+            ...rows.map(row => columns.map(column => this.escapeCsv(row[column])).join(','))
+        ].join('\n');
+
+        const blob = new Blob([csv], { type: 'text/csv;charset=utf-8' });
+        const url = URL.createObjectURL(blob);
+        const link = document.createElement('a');
+        const date = new Date(this.dataLastUpdated || Date.now()).toISOString().slice(0, 10);
+        link.href = url;
+        link.download = `github-stars-explorer-${date}.csv`;
+        document.body.appendChild(link);
+        link.click();
+        link.remove();
+        URL.revokeObjectURL(url);
+    }
+
+    escapeCsv(value) {
+        const text = String(value ?? '');
+        return /[",\n\r]/.test(text) ? `"${text.replace(/"/g, '""')}"` : text;
+    }
+
+    animateCounter(el, target, format = false) {
         if (!el) return;
-        const current = parseInt(el.textContent) || 0;
+        const current = parseInt(String(el.textContent).replace(/,/g, ''), 10) || 0;
         if (current === target) return;
 
-        el.textContent = target;
+        el.textContent = format ? target.toLocaleString() : target;
         el.classList.remove('pop');
         // Force reflow to restart animation
         void el.offsetWidth;
@@ -1332,10 +1827,13 @@ class GitHubStarsGraph {
         // Reset all filters
         this.currentFilters = {
             search: '',
+            preset: 'sample',
             category: 'all',
             language: 'all',
             stars: 'all'
         };
+        this.viewOptions.showLabels = false;
+        this.viewOptions.showLinks = false;
         
         // Reset UI elements
         const searchInput = document.getElementById('search');
@@ -1344,13 +1842,27 @@ class GitHubStarsGraph {
         document.querySelectorAll('.filter-btn').forEach(btn => {
             btn.classList.remove('active');
         });
+        document.querySelectorAll('#toggle-labels, #toggle-lines').forEach(btn => {
+            btn.classList.remove('active-toggle');
+            btn.setAttribute('aria-pressed', 'false');
+        });
         
         // Activate 'all' buttons
-        document.querySelectorAll('[data-category=\"all\"], [data-language=\"all\"], [data-stars=\"all\"]').forEach(btn => {
+        document.querySelectorAll('[data-preset="sample"], [data-category="all"], [data-language="all"], [data-stars="all"]').forEach(btn => {
             btn.classList.add('active');
         });
         
         this.applyFilters();
+    }
+
+    updateLayoutMetrics() {
+        const headerHeight = this.getHeaderHeight();
+        document.documentElement.style.setProperty('--header-height', `${headerHeight}px`);
+    }
+
+    getHeaderHeight() {
+        const header = document.querySelector('.app-header');
+        return header ? Math.ceil(header.getBoundingClientRect().height) : 96;
     }
     
     handleResize() {
@@ -1358,9 +1870,15 @@ class GitHubStarsGraph {
         
         this.width = window.innerWidth;
         this.height = window.innerHeight;
+        this.updateLayoutMetrics();
         
         this.svg.attr('width', this.width).attr('height', this.height);
         this.simulation.force('center', d3.forceCenter(this.width / 2, this.height / 2));
+
+        if (['sample', 'curated'].includes(this.currentFilters.preset)) {
+            this.applyFilters();
+            return;
+        }
 
         // Re-apply mobile-aware force params on resize
         const isMobile = this.isMobileViewport();

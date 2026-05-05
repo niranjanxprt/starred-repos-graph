@@ -112,6 +112,10 @@ const categories = {
 };
 
 function categorizeRepo(repo) {
+  return categorizeRepoDetailed(repo).category;
+}
+
+function categorizeRepoDetailed(repo) {
   // Extract and normalize data
   const name = (repo.name || '').toLowerCase();
   const description = (repo.description || '').toLowerCase();
@@ -266,7 +270,63 @@ function categorizeRepo(repo) {
     }
   }
 
-  return bestCategory;
+  return {
+    category: bestCategory,
+    categoryScore: bestScore,
+    secondaryCategories: deriveSecondaryCategories(repo, bestCategory)
+  };
+}
+
+function deriveSecondaryCategories(repo, primaryCategory) {
+  const text = `${repo.name || ''} ${repo.full_name || repo.fullName || ''} ${repo.description || ''} ${(repo.topics || []).join(' ')} ${repo.language || ''}`.toLowerCase();
+  const has = (...needles) => needles.some(needle => text.includes(needle));
+  const categories = [];
+  const add = category => {
+    if (category && !categories.includes(category)) categories.push(category);
+  };
+
+  if (has('agent', 'agentic', 'autogen', 'crew', 'swarm') && has('ai', 'llm', 'gpt', 'claude', 'openai')) add('ai-agents');
+  if (has('rag', 'embedding', 'vector', 'similarity search', 'semantic search', 'faiss', 'qdrant', 'chroma', 'weaviate')) add('rag-search');
+  if (primaryCategory === 'ai-ml' && has('course', 'tutorial', 'beginner', 'from-scratch', 'cookbook', 'guide', 'awesome', 'lesson', 'learning')) add('ai-learning');
+  if (primaryCategory === 'ai-ml' && has('chatbot', 'assistant', 'webui', 'open-webui', 'dify', 'langflow', 'comfyui', 'ollama', 'ui', 'app')) add('llm-apps');
+  if (primaryCategory === 'ai-ml') add('ai-models');
+
+  if (has('react', 'vue', 'angular', 'svelte', 'nextjs', 'next.js', 'tailwind', 'css', 'html', 'frontend', 'front-end')) add('frontend');
+  if (has('api', 'graphql', 'rest', 'openapi', 'swagger', 'grpc', 'fastapi', 'flask', 'django', 'express', 'nestjs', 'server')) add('backend-api');
+  if (has('framework', 'fullstack', 'full-stack', 'laravel', 'rails', 'next.js', 'nextjs', 'remix', 'django', 'supabase', 'appwrite', 'firebase')) add('full-stack-frameworks');
+
+  if (has('self-hosted', 'selfhosted', 'homelab', 'hosting', 'docker compose')) add('self-hosted');
+  if (has('postgres', 'postgresql', 'mysql', 'sqlite', 'mongodb', 'redis', 'database', 'dbms', 'elasticsearch')) add('databases');
+  if (has('cli', 'terminal', 'shell', 'vscode', 'neovim', 'developer-tool', 'developer tools', 'code-review', 'extension', 'plugin')) add('developer-tools');
+  if (has('productivity', 'obsidian', 'notes', 'note-taking', 'file-manager', 'resume', 'editor')) add('productivity-apps');
+  if (has('interview', 'career', 'hiring', 'roadmap', 'coding-interview', 'job')) add('career-interview');
+  if (has('awesome', 'documentation', 'docs', 'reference', 'book', 'cheat-sheet', 'cheatsheet', 'resources', 'list', 'collection')) add('docs-reference');
+  if (has('kernel', 'operating-system', 'compiler', 'runtime', 'zig', 'rust', 'c++', 'low-level', 'embedded', 'wasm')) add('systems-low-level');
+
+  const fallbackMap = {
+    cloud: 'cloud',
+    devops: 'devops',
+    mobile: 'mobile',
+    monitoring: 'monitoring',
+    testing: 'testing',
+    python: 'python',
+    security: 'security',
+    'ui-ux': 'ui-ux',
+    blockchain: 'blockchain',
+    'game-dev': 'game-dev',
+    mcp: 'mcp',
+    networking: 'networking',
+    'system-design': 'system-design',
+    'ai-ml': 'ai-models',
+    data: 'databases',
+    api: 'backend-api',
+    tools: 'developer-tools',
+    'web-dev': 'frontend',
+    learning: 'docs-reference'
+  };
+  add(fallbackMap[primaryCategory] || primaryCategory || 'other');
+
+  return categories.slice(0, 4);
 }
 
 async function fetchPage(page) {
@@ -321,20 +381,26 @@ async function fetchAllRepositories() {
         break;
       }
       
-      const processed = repos.map(repo => ({
-        id: repo.id,
-        name: repo.name,
-        owner: repo.owner.login,
-        fullName: repo.full_name,
-        description: (repo.description || '').replace(/["\n\r]/g, ' ').trim(),
-        url: repo.html_url,
-        language: repo.language || 'Unknown',
-        stars: repo.stargazers_count,
-        forks: repo.forks_count,
-        category: categorizeRepo(repo),
-        updatedAt: repo.updated_at,
-        topics: repo.topics || []
-      }));
+      const processed = repos.map(repo => {
+        const categoryDetails = categorizeRepoDetailed(repo);
+        return {
+          id: repo.id,
+          name: repo.name,
+          owner: repo.owner.login,
+          fullName: repo.full_name,
+          description: (repo.description || '').replace(/["\n\r]/g, ' ').trim(),
+          url: repo.html_url,
+          language: repo.language || 'Unknown',
+          stars: repo.stargazers_count,
+          forks: repo.forks_count,
+          category: categoryDetails.category,
+          categoryScore: categoryDetails.categoryScore,
+          secondaryCategories: categoryDetails.secondaryCategories,
+          displayCategory: categoryDetails.secondaryCategories[0] || categoryDetails.category,
+          updatedAt: repo.updated_at,
+          topics: repo.topics || []
+        };
+      });
       
       allRepos = allRepos.concat(processed);
       console.error(`Total repositories collected: ${allRepos.length}`);
@@ -363,10 +429,14 @@ async function main() {
     
     // Calculate category statistics
     const categoryStats = {};
+    const secondaryCategoryStats = {};
     const languageStats = {};
     
     repos.forEach(repo => {
       categoryStats[repo.category] = (categoryStats[repo.category] || 0) + 1;
+      (repo.secondaryCategories || []).forEach(category => {
+        secondaryCategoryStats[category] = (secondaryCategoryStats[category] || 0) + 1;
+      });
       languageStats[repo.language] = (languageStats[repo.language] || 0) + 1;
     });
     
@@ -375,11 +445,12 @@ async function main() {
       lastUpdated: new Date().toISOString(),
       totalCount: repos.length,
       categoryStats,
+      secondaryCategoryStats,
       languageStats,
       metadata: {
         fetchedAt: new Date().toISOString(),
         username: USERNAME,
-        version: '2.1'
+        version: '2.2'
       }
     };
     
@@ -397,4 +468,4 @@ if (require.main === module) {
   main();
 }
 
-module.exports = { fetchAllRepositories, categorizeRepo };
+module.exports = { fetchAllRepositories, categorizeRepo, categorizeRepoDetailed, deriveSecondaryCategories };

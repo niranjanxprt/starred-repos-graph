@@ -3,10 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>GitHub Stars Graph</title>
+    <title>GitHub Stars Explorer</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@600;700&display=swap" rel="stylesheet">
+    <link rel="icon" href='data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path fill="%23ffd700" d="m12 2 3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>'>
     <script src="https://d3js.org/d3.v7.min.js"></script>
     <style>
         * {
@@ -19,6 +20,7 @@
             --bg-primary: #0a0f1f;
             --bg-secondary: #141b2d;
             --bg-tertiary: #1a2332;
+            --header-height: 96px;
             --text-primary: #f8f9fa;
             --text-secondary: #d1d5db;
             --accent-cyan: #06b6d4;
@@ -51,14 +53,16 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
+            gap: 16px;
+            flex-wrap: wrap;
             border-bottom: 1px solid rgba(107, 114, 128, 0.1);
             box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
         }
 
         .title {
-            font-size: clamp(16px, 2.5vw, 24px);
+            font-size: 24px;
             font-weight: 700;
-            letter-spacing: -0.5px;
+            letter-spacing: 0;
             color: var(--text-primary);
             white-space: nowrap;
             display: flex;
@@ -74,12 +78,15 @@
             font-family: 'JetBrains Mono', monospace;
             font-size: 0.7em;
             opacity: 0.85;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 999px;
+            padding: 3px 8px;
         }
 
         .stats {
             display: flex;
-            gap: clamp(15px, 3vw, 32px);
-            font-size: clamp(11px, 1.4vw, 13px);
+            gap: 28px;
+            font-size: 13px;
             font-weight: 500;
             color: var(--text-secondary);
         }
@@ -93,10 +100,38 @@
 
         .stat-number {
             font-family: 'JetBrains Mono', monospace;
-            font-size: clamp(14px, 1.8vw, 18px);
+            font-size: 18px;
             font-weight: 700;
             color: var(--accent-cyan);
             margin-bottom: 4px;
+        }
+
+        .sync-status {
+            color: var(--accent-emerald);
+        }
+
+        .sync-status.stale {
+            color: var(--accent-gold);
+        }
+
+        .stale-warning {
+            position: fixed;
+            top: 102px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 1000;
+            max-width: min(90vw, 680px);
+            padding: 10px 14px;
+            border: 1px solid rgba(245, 158, 11, 0.45);
+            border-radius: 8px;
+            background: rgba(82, 54, 12, 0.9);
+            color: #fde68a;
+            font-size: 12px;
+            box-shadow: var(--shadow-md);
+        }
+
+        .stale-warning[hidden] {
+            display: none;
         }
 
         .controls-panel {
@@ -109,6 +144,8 @@
             border-radius: 15px;
             z-index: 999;
             max-width: 320px;
+            max-height: calc(100vh - 110px);
+            overflow-y: auto;
             border: 1px solid rgba(255, 255, 255, 0.1);
         }
 
@@ -185,6 +222,64 @@
         .filter-btn.active {
             background: linear-gradient(45deg, #4ECDC4, #44A08D);
             box-shadow: 0 4px 15px rgba(78, 205, 196, 0.3);
+        }
+
+        .preset-grid {
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            max-height: none;
+        }
+
+        .results-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 8px;
+            margin-bottom: 8px;
+        }
+
+        .result-count-label {
+            font-size: 11px;
+            color: #94a3b8;
+            white-space: nowrap;
+        }
+
+        .result-list {
+            display: grid;
+            gap: 6px;
+            max-height: 230px;
+            overflow-y: auto;
+        }
+
+        .result-item {
+            display: grid;
+            gap: 3px;
+            padding: 8px 10px;
+            border-radius: 8px;
+            color: inherit;
+            text-decoration: none;
+            background: rgba(255, 255, 255, 0.08);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+        }
+
+        .result-item:hover {
+            background: rgba(255, 255, 255, 0.14);
+        }
+
+        .result-name {
+            font-size: 12px;
+            font-weight: 700;
+            color: #f8fafc;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+
+        .result-meta {
+            font-size: 11px;
+            color: #94a3b8;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
         }
 
         .legend-panel {
@@ -394,8 +489,7 @@
         }
 
         .node-top10 {
-            animation: bubblePulse 3s ease-in-out infinite;
-            will-change: transform, filter;
+            filter: drop-shadow(0 6px 18px rgba(255, 255, 255, 0.16));
         }
 
         @media (prefers-reduced-motion: reduce) {
@@ -421,6 +515,19 @@
             pointer-events: none;
             fill: white;
             text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.8);
+        }
+
+        .cluster-label {
+            font-size: 13px;
+            font-weight: 800;
+            letter-spacing: 0.04em;
+            text-transform: uppercase;
+            opacity: 0.42;
+            pointer-events: none;
+            paint-order: stroke;
+            stroke: rgba(10, 15, 31, 0.92);
+            stroke-width: 5px;
+            stroke-linejoin: round;
         }
 
         /* Mobile menu toggle buttons */
@@ -498,7 +605,7 @@
         @media (max-width: 767px) {
             .stats {
                 display: grid;
-                grid-template-columns: 1fr 1fr 1fr;
+                grid-template-columns: repeat(4, minmax(0, 1fr));
                 gap: 6px 12px;
                 width: 100%;
                 text-align: center;
@@ -562,10 +669,12 @@
                 padding: 0 20px 30px;
                 transition: bottom 0.35s cubic-bezier(0.4, 0, 0.2, 1);
                 -webkit-overflow-scrolling: touch;
+                visibility: hidden;
             }
 
             .controls-panel.mobile-open {
                 bottom: 0;
+                visibility: visible;
             }
 
             /* Legend: collapsible bottom sheet */
@@ -584,10 +693,12 @@
                 overflow-y: auto;
                 transition: bottom 0.35s cubic-bezier(0.4, 0, 0.2, 1);
                 padding: 0 20px 30px;
+                visibility: hidden;
             }
 
             .legend-panel.mobile-open {
                 bottom: 0;
+                visibility: visible;
             }
 
             /* Show both toggles - tap to expand filters or legend */
@@ -600,6 +711,18 @@
                 font-size: 20px;
                 border-radius: 14px;
                 gap: 2px;
+            }
+
+            .toggle-controls {
+                top: calc(var(--header-height, 150px) + 12px);
+                bottom: auto;
+                left: 16px;
+            }
+
+            .toggle-legend {
+                top: calc(var(--header-height, 150px) + 76px);
+                bottom: auto;
+                left: 16px;
             }
 
             .toggle-label {
@@ -622,6 +745,7 @@
                 width: 100vw;
                 height: 100vh;
                 position: fixed;
+                inset: 0;
             }
 
             .tooltip {
@@ -666,6 +790,112 @@
             .legend-item {
                 font-size: 11px;
                 padding: 8px 10px;
+            }
+        }
+
+        @media (max-width: 430px) {
+            .app-header {
+                padding: 10px 12px;
+                gap: 8px;
+            }
+
+            .title {
+                width: 100%;
+                justify-content: center;
+                font-size: 17px;
+                white-space: normal;
+                text-align: center;
+                line-height: 1.15;
+            }
+
+            .title-count {
+                padding: 2px 6px;
+                font-size: 0.64em;
+            }
+
+            .stats {
+                display: grid;
+                grid-template-columns: repeat(4, minmax(0, 1fr));
+                gap: 6px;
+            }
+
+            .stat-number {
+                font-size: 13px;
+                margin-bottom: 2px;
+            }
+
+            .stat-item {
+                min-width: 0;
+                font-size: 9px;
+            }
+
+            .stat-note {
+                display: none;
+            }
+
+            .header-actions {
+                display: grid;
+                grid-template-columns: repeat(3, minmax(0, 1fr));
+                gap: 8px;
+                width: 100%;
+                overflow: visible;
+            }
+
+            .header-actions::-webkit-scrollbar {
+                display: none;
+            }
+
+            .header-actions > .filter-toggle-wrap,
+            .header-actions > #toggle-legend-header,
+            .header-actions > #calm-view {
+                display: flex;
+                min-width: 0;
+            }
+
+            .filter-toggle-wrap {
+                width: 100%;
+            }
+
+            #toggle-filters-header,
+            #toggle-legend-header,
+            #calm-view {
+                width: 100%;
+                justify-content: center;
+            }
+
+            #hide-filters-btn,
+            #toggle-labels,
+            #toggle-lines,
+            #refresh-now,
+            #export-csv {
+                display: none;
+            }
+
+            .refresh-btn,
+            .filter-toggle-btn {
+                font-size: 12px;
+                padding: 10px 8px;
+                border-radius: 12px;
+            }
+
+            .controls-panel,
+            .legend-panel {
+                max-height: min(68vh, 520px);
+                padding-left: 14px;
+                padding-right: 14px;
+            }
+
+            .result-list {
+                max-height: 150px;
+            }
+
+            .cluster-label {
+                font-size: 9px;
+                opacity: 0.28;
+            }
+
+            .mobile-toggle {
+                display: none !important;
             }
         }
 
@@ -852,6 +1082,8 @@
             display: flex;
             align-items: center;
             gap: 10px;
+            justify-content: flex-end;
+            flex-wrap: wrap;
         }
         .refresh-btn {
             padding: 8px 12px;
@@ -892,6 +1124,16 @@
         .filter-toggle-btn.collapsed {
             background: rgba(78, 205, 196, 0.25);
             border-color: rgba(78, 205, 196, 0.5);
+        }
+
+        .filter-toggle-btn.active-toggle {
+            background: rgba(78, 205, 196, 0.24);
+            border-color: rgba(78, 205, 196, 0.48);
+            color: #eafffb;
+        }
+
+        .filter-toggle-btn.muted-toggle {
+            color: rgba(255, 255, 255, 0.72);
         }
 
         .filter-toggle-wrap {
@@ -964,12 +1206,24 @@
             }
 
             .controls-panel.collapsed {
-                transform: translateX(-100%);
+                transform: translateX(calc(-100% - 32px));
                 pointer-events: none;
+                opacity: 0;
             }
 
-            .controls-panel {
-                transition: transform 0.3s ease;
+            .legend-panel.collapsed {
+                transform: translateX(calc(100% + 32px));
+                pointer-events: none;
+                opacity: 0;
+            }
+
+            .controls-panel,
+            .legend-panel {
+                transition: transform 0.28s ease, opacity 0.2s ease;
+            }
+
+            .panel-close {
+                display: flex;
             }
         }
 
@@ -1159,7 +1413,7 @@
 </head>
 <body>
     <div class="app-header">
-        <h1 class="title"><svg class="icon" width="22" height="22" viewBox="0 0 24 24" fill="#ffd700" stroke="#ffd700" stroke-width="1" aria-hidden="true"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg> GitHub Stars Graph</h1>
+        <h1 class="title"><svg class="icon" width="22" height="22" viewBox="0 0 24 24" fill="#ffd700" stroke="#ffd700" stroke-width="1" aria-hidden="true"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg> GitHub Stars Explorer</h1>
         <div class="stats">
             <div class="stat-item">
                 <div class="stat-number" id="total-repos" aria-live="polite">0</div>
@@ -1171,8 +1425,12 @@
             </div>
             <div class="stat-item">
                 <div style="font-size: 12px;" id="last-updated">Loading...</div>
-                <div>Updated</div>
+                <div>Last Synced</div>
                 <div class="stat-note" id="data-source-note">...</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-number sync-status" id="sync-status" aria-live="polite">...</div>
+                <div>Status</div>
             </div>
         </div>
         <div class="header-actions">
@@ -1180,22 +1438,48 @@
                 <button id="toggle-filters-header" class="filter-toggle-btn" title="Toggle filters" aria-label="Toggle filters" aria-expanded="false"><svg class="icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><line x1="21" x2="14" y1="4" y2="4"/><line x1="10" x2="3" y1="4" y2="4"/><line x1="21" x2="12" y1="12" y2="12"/><line x1="8" x2="3" y1="12" y2="12"/><line x1="21" x2="16" y1="20" y2="20"/><line x1="12" x2="3" y1="20" y2="20"/><line x1="14" y1="2" x2="14" y2="6"/><line x1="8" y1="10" x2="8" y2="14"/><line x1="16" y1="18" x2="16" y2="22"/></svg> Filters</button>
                 <button id="hide-filters-btn" class="hide-filters-btn" title="Hide Filters button" aria-label="Hide Filters button"><svg class="icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24"/><line x1="1" y1="1" x2="23" y2="23"/></svg></button>
             </div>
-            <button id="refresh-now" class="refresh-btn" title="Opens GitHub Actions → Update Stars and Deploy to Pages → Run workflow. This fetches latest stars and redeploys Pages automatically."><svg class="icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 12a9 9 0 0 1 9-9 9.75 9.75 0 0 1 6.74 2.74L21 8"/><path d="M21 3v5h-5"/><path d="M21 12a9 9 0 0 1-9 9 9.75 9.75 0 0 1-6.74-2.74L3 16"/><path d="M3 21v-5h5"/></svg> Refresh Data</button>
+            <button id="toggle-legend-header" class="filter-toggle-btn collapsed" title="Toggle category legend" aria-label="Toggle legend" aria-expanded="false"><svg class="icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="13.5" cy="6.5" r=".5" fill="currentColor"/><circle cx="17.5" cy="10.5" r=".5" fill="currentColor"/><circle cx="8.5" cy="7.5" r=".5" fill="currentColor"/><circle cx="6.5" cy="12.5" r=".5" fill="currentColor"/><path d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10c.9 0 1.6-.7 1.6-1.7 0-.4-.2-.8-.4-1.1-.3-.3-.4-.7-.4-1.1 0-.9.7-1.7 1.7-1.7h2c3.1 0 5.6-2.5 5.6-5.6C22 6 17.5 2 12 2z"/></svg> Legend</button>
+            <button id="calm-view" class="filter-toggle-btn active-toggle" title="Return to a calm small sample view" aria-label="Calm view"><svg class="icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M2 12s4-7 10-7 10 7 10 7-4 7-10 7S2 12 2 12Z"/><circle cx="12" cy="12" r="3"/></svg> Calm</button>
+            <button id="toggle-labels" class="filter-toggle-btn muted-toggle" title="Show or hide repository name labels" aria-label="Toggle labels" aria-pressed="false"><svg class="icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M4 7V4h16v3"/><path d="M9 20h6"/><path d="M12 4v16"/></svg> Labels</button>
+            <button id="toggle-lines" class="filter-toggle-btn muted-toggle" title="Show or hide relationship lines" aria-label="Toggle lines" aria-pressed="false"><svg class="icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M6 6h.01"/><path d="M18 18h.01"/><path d="M18 6h.01"/><path d="M6 18h.01"/><path d="m7 7 10 10"/><path d="m17 7-10 10"/></svg> Lines</button>
+            <button id="refresh-now" class="refresh-btn" title="Open the GitHub Actions update workflow for this static dataset."><svg class="icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 12a9 9 0 0 1 9-9 9.75 9.75 0 0 1 6.74 2.74L21 8"/><path d="M21 3v5h-5"/><path d="M21 12a9 9 0 0 1-9 9 9.75 9.75 0 0 1-6.74-2.74L3 16"/><path d="M3 21v-5h5"/></svg> Sync Status</button>
+            <button id="export-csv" class="refresh-btn" title="Export the current repository dataset as CSV."><svg class="icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><path d="M7 10l5 5 5-5"/><path d="M12 15V3"/></svg> Export CSV</button>
         </div>
     </div>
 
+    <div class="stale-warning" id="stale-warning" hidden></div>
+
     <div class="panel-backdrop" id="panel-backdrop"></div>
 
-    <div class="controls-panel" id="controls-panel" role="region" aria-label="Filters">
+    <div class="controls-panel collapsed" id="controls-panel" role="region" aria-label="Filters">
         <div class="panel-drag-handle" id="controls-drag-handle"></div>
         <div class="swipe-hint">Swipe down to close</div>
         <button class="panel-close" id="close-controls" aria-label="Close filters"><svg class="icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg></button>
+        <div class="control-section">
+            <label class="control-label"><svg class="icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 3v18h18"/><path d="m19 9-5 5-4-4-3 3"/></svg> Explore Preset</label>
+            <div class="filter-grid preset-grid" id="preset-filters" role="group" aria-label="Explore presets">
+                <button class="filter-btn active" data-preset="sample">Sample</button>
+                <button class="filter-btn" data-preset="all">All</button>
+                <button class="filter-btn" data-preset="curated">Curated</button>
+                <button class="filter-btn" data-preset="popular">Popular</button>
+                <button class="filter-btn" data-preset="learning">Learning</button>
+                <button class="filter-btn" data-preset="ai">AI</button>
+            </div>
+        </div>
         <div class="control-section">
             <label class="control-label"><svg class="icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg> Search Repositories</label>
             <div class="search-wrapper" role="search">
                 <input type="text" id="search" class="search-input" placeholder="Search name, topics, language…" aria-label="Search repositories">
                 <button class="search-clear-btn" id="search-clear" aria-label="Clear search"><svg class="icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg></button>
             </div>
+        </div>
+
+        <div class="control-section">
+            <div class="results-header">
+                <label class="control-label" style="margin-bottom:0;"><svg class="icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 6h13"/><path d="M8 12h13"/><path d="M8 18h13"/><path d="M3 6h.01"/><path d="M3 12h.01"/><path d="M3 18h.01"/></svg> Top Matches</label>
+                <span class="result-count-label" id="result-count-label">0 matching</span>
+            </div>
+            <div class="result-list" id="search-results" aria-live="polite"></div>
         </div>
         
         <div class="control-section">
@@ -1220,7 +1504,7 @@
         </div>
     </div>
 
-    <div class="legend-panel" id="legend-panel" role="region" aria-label="Legend">
+    <div class="legend-panel collapsed" id="legend-panel" role="region" aria-label="Legend">
         <div class="panel-drag-handle" id="legend-drag-handle"></div>
         <div class="swipe-hint">Swipe down to close</div>
         <button class="panel-close" id="close-legend" aria-label="Close legend"><svg class="icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg></button>
@@ -1242,13 +1526,13 @@
 
     <div class="loading" id="loading">
         <div class="spinner"></div>
-        <p>Loading your GitHub starred repositories...</p>
+        <p>Loading GitHub starred repositories...</p>
         <div class="progress-text" id="progress-text">Initializing...</div>
     </div>
 
     <svg id="graph"></svg>
     <div class="tooltip" id="tooltip"></div>
 
-    <script src="app.js"></script>
+    <script src="app.js?v=20260506-calm2"></script>
 </body>
 </html>

@@ -1,12 +1,20 @@
 import { test, expect } from '@playwright/test';
 
+async function openFilters(page) {
+  await page.locator('#toggle-filters-header').click();
+  await expect(page.locator('#controls-panel')).not.toHaveClass(/collapsed/);
+}
+
 test.describe('Search Functionality', () => {
   test('search input reduces node count', async ({ page }) => {
     await page.goto('/');
     await page.waitForTimeout(1000);
+    await openFilters(page);
 
+    await page.locator('[data-preset="all"]').click();
+    await page.waitForTimeout(500);
     const initialCount = await page.locator('.node').count();
-    expect(initialCount).toBeGreaterThan(10);
+    expect(initialCount).toBeGreaterThan(1000);
 
     // Type in search box
     const searchInput = await page.locator('.search-input');
@@ -23,6 +31,7 @@ test.describe('Search Functionality', () => {
   test('search with no results shows empty state', async ({ page }) => {
     await page.goto('/');
     await page.waitForTimeout(1000);
+    await openFilters(page);
 
     const searchInput = await page.locator('.search-input');
     if (await searchInput.isVisible()) {
@@ -41,13 +50,16 @@ test.describe('Search Functionality', () => {
   test('clear search resets all repositories', async ({ page }) => {
     await page.goto('/');
     await page.waitForTimeout(1000);
+    await openFilters(page);
 
+    await page.locator('[data-preset="all"]').click();
+    await page.waitForTimeout(500);
     const initialCount = await page.locator('.node').count();
 
     // Search for something
     const searchInput = await page.locator('.search-input');
     if (await searchInput.isVisible()) {
-      await searchInput.fill('python');
+      await searchInput.fill('tensorflow');
       await page.waitForTimeout(500);
 
       const searchedCount = await page.locator('.node').count();
@@ -65,6 +77,10 @@ test.describe('Search Functionality', () => {
   test('escape key clears search', async ({ page }) => {
     await page.goto('/');
     await page.waitForTimeout(1000);
+    await openFilters(page);
+
+    await page.locator('[data-preset="all"]').click();
+    await page.waitForTimeout(500);
 
     const searchInput = await page.locator('.search-input');
     if (await searchInput.isVisible()) {
@@ -83,13 +99,16 @@ test.describe('Search Functionality', () => {
       expect(afterEscapeValue).toBe('');
 
       const resetCount = await page.locator('.node').count();
-      expect(resetCount).toBe(initialCount);
+      expect(resetCount).toBeLessThan(initialCount);
+      expect(resetCount).toBeGreaterThan(20);
+      await expect(page.locator('[data-preset="sample"]')).toHaveClass(/active/);
     }
   });
 
   test('search is case-insensitive', async ({ page }) => {
     await page.goto('/');
     await page.waitForTimeout(1000);
+    await openFilters(page);
 
     const searchInput = await page.locator('.search-input');
     if (await searchInput.isVisible()) {
