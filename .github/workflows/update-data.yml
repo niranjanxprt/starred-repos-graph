@@ -1,9 +1,10 @@
 name: Update Stars and Deploy to Pages
+run-name: ${{ github.event_name }} stars update on ${{ github.ref_name }}
 
 on:
   schedule:
-    # Run every 6 hours
-    - cron: '0 */6 * * *'
+    # Run every 6 hours, away from the top-of-hour Actions traffic spike.
+    - cron: '23 */6 * * *'
   workflow_dispatch: # Allow manual triggering
   push:
     branches: [ main ]
@@ -16,22 +17,30 @@ permissions:
   id-token: write
 
 concurrency:
-  group: 'pages'
-  cancel-in-progress: true
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: false
 
 jobs:
   update-data:
     runs-on: ubuntu-latest
+    timeout-minutes: 10
     steps:
     - name: Checkout repository
-      uses: actions/checkout@v4
+      uses: actions/checkout@v6
       with:
         token: ${{ secrets.GITHUB_TOKEN }}
     
     - name: Setup Node.js
-      uses: actions/setup-node@v4
+      uses: actions/setup-node@v6
       with:
-        node-version: '20'
+        node-version: '24'
+
+    - name: Show workflow diagnostics
+      run: |
+        echo "event=${{ github.event_name }}"
+        echo "ref=${{ github.ref }}"
+        echo "sha=${{ github.sha }}"
+        echo "node=$(node --version)"
     
     - name: Create data directory and set permissions
       run: |
@@ -70,6 +79,13 @@ jobs:
           echo "❌ Data file not created!"
           exit 1
         fi
+
+    - name: Show generated data summary
+      run: |
+        REPO_COUNT=$(node -e "const data = require('./data/repositories.json'); console.log(data.totalCount || data.repositories?.length || 0);")
+        LAST_UPDATED=$(node -e "const data = require('./data/repositories.json'); console.log(data.lastUpdated || data.metadata?.lastUpdated || 'unknown');")
+        echo "repo_count=$REPO_COUNT"
+        echo "last_updated=$LAST_UPDATED"
     
     - name: Commit and push data changes
       run: |
@@ -87,19 +103,21 @@ jobs:
           echo "✅ Data changes committed and pushed"
         fi
 
+    - name: Build Pages artifact directory
+      run: |
+        rm -rf _site
+        mkdir -p _site/data
+        cp index.html app.js _site/
+        cp data/repositories.json _site/data/
+
     - name: Setup Pages
-      uses: actions/configure-pages@v4
+      uses: actions/configure-pages@v6
       
     - name: Upload Pages artifact
-      uses: actions/upload-pages-artifact@v3
+      uses: actions/upload-pages-artifact@v5
       with:
-        path: '.'
-        exclude: |
-          .git/
-          .github/
-          scripts/
-          README.md
-          *.md
+        path: '_site'
+        retention-days: 1
         
   deploy:
     needs: update-data
@@ -117,4 +135,4 @@ jobs:
     steps:
     - name: Deploy to GitHub Pages
       id: deployment
-      uses: actions/deploy-pages@v4
+      uses: actions/deploy-pages@v5
